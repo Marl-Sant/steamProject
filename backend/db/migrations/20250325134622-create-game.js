@@ -8,44 +8,34 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Users', {
+    await queryInterface.createTable('Games', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
-        type: Sequelize.INTEGER,
+        type: Sequelize.INTEGER
       },
-      firstName: {
+      title: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      lastName: {
+      price: {
+        type: Sequelize.FLOAT,
+        allowNull: false
+      },
+      description: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      city:{
+      genre: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      state: {
+      developer: {
         type: Sequelize.STRING,
         allowNull: false
       },
-      profilePic: {
-        type: Sequelize.STRING
-      },
-      username: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      bio: {
-        type: Sequelize.TEXT,
-      },
-      email: {
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      hashedPassword: {
+      publisher: {
         type: Sequelize.STRING,
         allowNull: false
       },
@@ -58,11 +48,11 @@ module.exports = {
         allowNull: false,
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
+      }
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Users";
+    options.tableName = "Games";
     return queryInterface.dropTable(options);
-  },
+  }
 };

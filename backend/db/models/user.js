@@ -38,6 +38,20 @@ module.exports = (sequelize, DataTypes) => {
           len: [2, 30]
         }
       },
+      city: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: false
+      },
+      profilePic:{
+        type: DataTypes.STRING
+      },
+      bio: {
+        type: DataTypes.TEXT
+      },
       email: {
         type: DataTypes.STRING,
         allowNull: false,
