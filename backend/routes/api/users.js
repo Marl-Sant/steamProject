@@ -67,7 +67,7 @@ router.post(
     }
   );
 
-router.put("/", async (req, res) => {
+router.put("/", requireAuth, async (req, res) => {
   const userId = req.user.id
 
   const {username, firstName, lastName, city, state, bio, profilePic} = req.body
@@ -88,6 +88,22 @@ router.put("/", async (req, res) => {
   return res.json({
     user: user
   });
+})
+
+router.delete("/", requireAuth, async (req, res) => {
+  const userId = req.user.id
+
+  const user = await User.findOne({
+    where: {
+      id: userId
+    }
+  })
+
+  await user.destroy()
+
+  return res.json({
+    message: "Account successfully deleted"
+  })
 })
 
 module.exports = router;
