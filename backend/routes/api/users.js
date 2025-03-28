@@ -67,9 +67,27 @@ router.post(
     }
   );
 
-router.put("/:userId", async (req, res) => {
+router.put("/", async (req, res) => {
+  const userId = req.user.id
+
   const {username, firstName, lastName, city, state, bio, profilePic} = req.body
-  
+  const user = await User.findOne({
+    where: {
+      id: userId
+    }
+  })
+
+  user.username = username
+  user.firstName = firstName
+  user.lastName = lastName
+  user.city = city
+  user.state = state
+  user.bio = bio
+  user.profilePic = profilePic
+
+  return res.json({
+    user: user
+  });
 })
 
 module.exports = router;
