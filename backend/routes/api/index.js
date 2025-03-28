@@ -16,8 +16,4 @@ router.use('/users', usersRouter);
 
 router.use('/games', gamesRouter)
 
-router.post('/test', (req, res) => {
-  res.json({ requestBody: req.body });
-});
-
 module.exports = router;

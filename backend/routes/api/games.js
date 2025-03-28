@@ -14,14 +14,12 @@ router.get('/:gameId', async (req, res) => {
   if (game) {
     return res.json(game);
   } else {
-    return res.json({ message: 'Game not found' });
+    return res.status(404).json({ message: 'Game not found' });
   }
 });
 
 router.get('/', async (req, res) => {
-  const games = await Game.findAll();
-
-  return res.json(games);
+  return res.json(await Game.findAll());
 });
 
 module.exports = router;
