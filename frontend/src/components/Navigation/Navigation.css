@@ -13,6 +13,9 @@
 .logo{
     font-size: 2.05rem;
     color: rgb(201, 196, 196);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .login{
