@@ -1,0 +1,54 @@
+.nav-container{
+    background-color: #131c27;
+    padding: .4rem 35rem;
+    display: grid;
+    grid-template-areas:
+    "logo-and-links login"
+    "logo-and-links ."
+    ;
+    height: 5.7rem;
+    align-items: center;
+}
+
+.logo{
+    font-size: 2.05rem;
+    color: rgb(201, 196, 196);
+}
+
+.login{
+    display: flex;
+    grid-area: login;
+    height:fit-content;
+    justify-content: center;
+    align-items:flex-start;
+}
+
+.logo-and-links{
+    grid-area: logo-and-links;
+    display: flex;
+    justify-content: space-around;
+    align-self: center;
+}
+
+.links{
+    display: inline-flex;
+    justify-content: space-between;
+    align-items: center;
+    color: rgb(201, 196, 196);
+}
+
+.links > a{
+    text-decoration: none;
+    color: rgb(201, 196, 196);
+    padding: 0 .5rem
+}
+
+.login-link > a{
+    text-decoration: none;
+    color: rgb(201, 196, 196);
+    padding: 0 .5rem
+}
+
+.user-details{
+    color: rgb(201, 196, 196);
+}

@@ -1,5 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import { MdDiamond } from "react-icons/md";
 import ProfileButton from './ProfileButton';
 import './Navigation.css';
 
@@ -7,27 +8,36 @@ function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
 
   const sessionLinks = sessionUser ? (
-    <li>
       <ProfileButton user={sessionUser} />
-    </li>
   ) : (
-    <>
-      <li>
-        <NavLink to="/login">Log In</NavLink>
-      </li>
-      <li>
-        <NavLink to="/signup">Sign Up</NavLink>
-      </li>
-    </>
+    <div class="login-link">
+        <NavLink to="/login">login</NavLink>
+    </div>
   );
 
   return (
-    <ul>
-      <li>
-        <NavLink to="/">Home</NavLink>
-      </li>
+    <div className='nav-container'>
+    <div className="login">
       {isLoaded && sessionLinks}
-    </ul>
+    </div>
+    <div className='logo-and-links'>
+      <span className='logo'>
+      <MdDiamond />GLEAM
+      </span>
+      <span className='links'>
+        <NavLink to='/'>STORE</NavLink>
+        <NavLink to='/community'>COMMUNITY</NavLink>
+        {sessionUser ? (
+          <>
+        <NavLink to={`/users/${sessionUser.id}`}>{sessionUser.username.toUpperCase()}</NavLink>
+        <NavLink to="/support">SUPPORT</NavLink>
+        </>
+      ) : (
+      <NavLink to="/about">ABOUT</NavLink>
+      )}
+      </span>
+      </div>
+    </div>
   );
 }
 
