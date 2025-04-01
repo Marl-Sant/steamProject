@@ -26,29 +26,35 @@ function LoginFormPage() {
 
   return (
     <>
-      <h1>Log In</h1>
+      <h1>Sign In</h1>
+      <div className='sign-in-window'>
       <form onSubmit={handleSubmit}>
         <label>
-          Username or Email
+          SIGN IN WITH ACCOUNT NAME
+          <div>
           <input
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
             required
-          />
+            />
+          </div>
         </label>
         <label>
-          Password
+          PASSWORD
+          <div>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             required
-          />
+            />
+          </div>
         </label>
         {errors.credential && <p>{errors.credential}</p>}
         <button type="submit">Log In</button>
       </form>
+            </div>
     </>
   );
 }

@@ -7,7 +7,6 @@
     "logo-and-links ."
     ;
     height: 5.7rem;
-    align-items: center;
 }
 
 .logo{
@@ -49,7 +48,8 @@
 .login-link > a{
     text-decoration: none;
     color: rgb(201, 196, 196);
-    padding: 0 .5rem
+    padding: 0 .5rem;
+    font-size: small;
 }
 
 .user-details{
