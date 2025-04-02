@@ -1,6 +1,84 @@
 .sign-in-window{
+    display: grid;
+    padding: 3%;
+    border-radius: 3px;
+    background-color: #101419;
+    color: rgb(223, 216, 207);
+    font-size: small;
+    grid-template-columns: 1.5fr .5fr;
+    height: 25%;
+}
+
+.sign-in-header{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
+    margin: 10% 0 0 0;
+}
+
+.user-creds{
+    display: flex;
+    flex-direction: column;
+}
+
+.divider{
+    border-right: 1px solid rgb(223, 216, 207);
+    padding-right: 5%;
+}
+
+.sign-in-input{
+    width: 95%;
+    padding: 2%;
+    margin: 2% 0;
+    background-color: #1f2730;
+    color: rgb(223, 216, 207);
+    border: 0px;
+    border-radius: 3px;
+}
+
+.sign-in-input:focus {
+    outline: none;
+}
+
+.remember-me{
+    display: flex;
+    margin: 3% 0;
+    justify-items: center;
+    align-self: center;
+}
+
+h1{
+    font-weight: bold;
+    color: rgb(223, 216, 207);
+}
+
+.sign-in-body{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    flex: 1;
+    padding: 0 32%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: 
+    linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+    url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/Header_1.jpg');
+}
+
+.form-login{
+    border: none;
+    height: 2.5rem;
+    background-color: rgb(29, 72, 137);
+    padding: 0px auto;
+    width: 15rem;
+    align-self: center;
+    color: rgb(223, 216, 207);
+}
+
+.form-login:hover{
+    background-color: rgb(40, 95, 177);
+}
+
+.demo-user-sign-in{
+    margin: 0 5%;
 }

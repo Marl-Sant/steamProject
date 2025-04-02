@@ -30,11 +30,12 @@ function Navigation({ isLoaded }){
         {sessionUser ? (
           <>
         <NavLink to={`/users/${sessionUser.id}`}>{sessionUser.username.toUpperCase()}</NavLink>
-        <NavLink to="/support">SUPPORT</NavLink>
+        <NavLink to="/chat">CHAT</NavLink>
         </>
       ) : (
       <NavLink to="/about">ABOUT</NavLink>
       )}
+      <NavLink to="/support">SUPPORT</NavLink>
       </span>
       </div>
     </div>

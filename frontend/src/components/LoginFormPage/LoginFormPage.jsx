@@ -4,17 +4,39 @@ import './LoginFormPage.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 
+const setCookie = (name, value, days) => {
+  const date = new Date()
+  date.setTime(date.getTime() + (days*24*60*60*1000));
+  const expires = 'expires=' + date.toUTCString()
+  document.cookie = `${name}=${value};${expires}`
+}
+
+const getCookie = (name) => {
+  const cookies = document.cookie.split('; ')
+  for (let c of cookies){
+    const [key, val] = c.split("=")
+    if (key === name) return val
+  }
+  return "";
+}
+
 function LoginFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
-  const [credential, setCredential] = useState("");
+  const rememberName = getCookie('username')
+  const [credential, setCredential] = useState(rememberName || "");
+  const [remember, setRemember] = useState(false)
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
 
   if (sessionUser) return <Navigate to="/" replace={true} />;
 
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    if(remember){
+      setCookie('username', credential, 7)
+    }
     setErrors({});
     return dispatch(sessionActions.login({ credential, password })).catch(
       async (res) => {
@@ -25,14 +47,18 @@ function LoginFormPage() {
   };
 
   return (
-    <>
+    <div className='sign-in-body'>
+      <div className='sign-in-header'>
       <h1>Sign In</h1>
+      </div>
       <div className='sign-in-window'>
-      <form onSubmit={handleSubmit}>
+      <form className='divider' onSubmit={handleSubmit}>
+        <div className='user-creds'>
         <label>
           SIGN IN WITH ACCOUNT NAME
           <div>
           <input
+            className='sign-in-input'
             type="text"
             value={credential}
             onChange={(e) => setCredential(e.target.value)}
@@ -44,6 +70,7 @@ function LoginFormPage() {
           PASSWORD
           <div>
           <input
+          className='sign-in-input'
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -52,10 +79,20 @@ function LoginFormPage() {
           </div>
         </label>
         {errors.credential && <p>{errors.credential}</p>}
-        <button type="submit">Log In</button>
+        <div>
+        <label className='remember-me'>
+        <input type='checkbox' value={remember} onClick={() => setRemember(!remember)}></input>
+        Remember Me
+        </label>
+        </div>
+        <button type="submit" className='form-login'>Log In</button>
+        </div>
       </form>
-            </div>
-    </>
+        <div className='demo-user-sign-in'>
+          DEMO USER SIGN IN
+        </div>
+        </div>
+    </div>
   );
 }
 
