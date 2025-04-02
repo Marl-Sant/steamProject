@@ -53,15 +53,15 @@ h1{
 .sign-in-body{
     display: flex;
     flex-direction: column;
-    height: 100%;
+    height: 70%;
     flex: 1;
     padding: 0 32%;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     background-image: 
-    linear-gradient(to left, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
-    linear-gradient(to right, rgba(0, 0, 0, 1), rgba(0, 0, 0, 0)),
+    linear-gradient(to left, rgba(26, 26, 26, 1), rgba(0, 0, 0, 0)),
+    linear-gradient(to right, rgba(26, 26, 26, 1), rgba(0, 0, 0, 0)),
     url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/Header_1.jpg');
 }
 
@@ -94,7 +94,51 @@ h1{
 .demo-user-sign-in{
     display: flex;
     flex-direction: column;
-    /* margin-left: 10%;
-    margin-right: -10%; */
     align-items: center;
+}
+
+.sign-in-footer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    background-color: #131c27;
+    height: 20%;
+    padding-left: 35%;
+    padding-right: 35%;
+}
+
+.new-user{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(223, 216, 207);
+}
+
+.new-user-button{
+    border: none;
+    height: 1.5rem;
+    background-color: rgb(29, 72, 137);
+    margin: 3% 0px 5%;
+    width: auto;
+    align-self: center;
+    color: rgb(223, 216, 207);
+    border-radius: 3px;
+    height: 2.5rem;
+}
+
+.new-user-button > a{
+    text-decoration: none;
+    color: rgb(223, 216, 207);
+}
+
+.learn-more{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: rgb(223, 216, 207);
+}
+
+.learn-more > a{
+    color: rgb(223, 216, 207);
 }

@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import './LoginFormPage.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { Navigate, NavLink } from 'react-router-dom';
 
 const setCookie = (name, value, days) => {
   const date = new Date()
@@ -47,6 +47,7 @@ function LoginFormPage() {
   };
 
   return (
+    <>
     <div className='sign-in-body'>
       <div className='sign-in-header'>
       <h1>Sign In</h1>
@@ -71,11 +72,11 @@ function LoginFormPage() {
           <div>
           <input
           className='sign-in-input'
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            />
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+          />
           </div>
         </label>
         {errors.credential && <p>{errors.credential}</p>}
@@ -93,18 +94,26 @@ function LoginFormPage() {
           <button className='demo-login' onClick={() => {
             setCredential("demo@user.io")
             setPassword("password")
-            }}>Demo-lition</button>
+          }}>Demo-lition</button>
           <button className='demo-login' onClick={() => {
             setCredential("user1@user.io")
             setPassword("password2")
-            }}>FakeUser1</button>
+          }}>FakeUser1</button>
           <button className='demo-login' onClick={() => {
             setCredential("user2@user.io")
             setPassword("password3")
-            }}>FakeUser2</button>
+          }}>FakeUser2</button>
         </div>
         </div>
     </div>
+    <footer className='sign-in-footer'>
+          <div className='new-user'>
+          New to Gleam?
+          <button className="new-user-button"><NavLink to="/signup">Create an Account</NavLink></button>
+          </div>
+          <div className='learn-more'>It's free and easy. Discover thousands of games to play with millions of new friends. <NavLink to='/about'>Learn more about Gleam and it's developers.</NavLink></div>
+    </footer>
+          </>
   );
 }
 
