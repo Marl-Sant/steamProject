@@ -89,7 +89,19 @@ function LoginFormPage() {
         </div>
       </form>
         <div className='demo-user-sign-in'>
-          DEMO USER SIGN IN
+          DEMO USERS SIGN IN
+          <button className='demo-login' onClick={() => {
+            setCredential("demo@user.io")
+            setPassword("password")
+            }}>Demo-lition</button>
+          <button className='demo-login' onClick={() => {
+            setCredential("user1@user.io")
+            setPassword("password2")
+            }}>FakeUser1</button>
+          <button className='demo-login' onClick={() => {
+            setCredential("user2@user.io")
+            setPassword("password3")
+            }}>FakeUser2</button>
         </div>
         </div>
     </div>
