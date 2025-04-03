@@ -8,9 +8,11 @@ function SignupFormPage() {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
+  const [confirmedEmail, setConfirmedEmail] = useState("")
   const [username, setUsername] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [country, setCountry] = useState("")
+  // const [firstName, setFirstName] = useState("");
+  // const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -25,9 +27,8 @@ function SignupFormPage() {
         sessionActions.signup({
           email,
           username,
-          firstName,
-          lastName,
-          password
+          password,
+          country
         })
       ).catch(async (res) => {
         const data = await res.json();
@@ -42,11 +43,11 @@ function SignupFormPage() {
   };
 
   return (
-    <>
-      <h1>Sign Up</h1>
-      <form onSubmit={handleSubmit}>
+    <div className='sign-up-body'>
+      <h1 id='sign-up-header'>CREATE YOUR ACCOUNT</h1>
+      <form onSubmit={handleSubmit} className='sign-up-form'>
         <label>
-          Email
+          Email Address
           <input
             type="text"
             value={email}
@@ -55,8 +56,28 @@ function SignupFormPage() {
           />
         </label>
         {errors.email && <p>{errors.email}</p>}
+
         <label>
-          Username
+          Confirm your Address
+          <input
+            type="text"
+            value={confirmedEmail}
+            onChange={(e) => setConfirmedEmail(e.target.value)}
+            required
+          />
+        </label>
+
+        <label>Country of Residence</label>
+        <select id="country" value={country} onChange={(e) => setCountry(e.target.value)}>
+          <option value="United States">United States</option>
+          <option value="Canada">Canada</option>
+          <option value="United Kingdom">United Kingdom</option>
+          <option value="Australia">Australia</option>
+          <option value="Brazil">Brazil</option>
+        </select>
+
+        <label>
+          Steam Account Name
           <input
             type="text"
             value={username}
@@ -65,26 +86,7 @@ function SignupFormPage() {
           />
         </label>
         {errors.username && <p>{errors.username}</p>}
-        <label>
-          First Name
-          <input
-            type="text"
-            value={firstName}
-            onChange={(e) => setFirstName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
-        <label>
-          Last Name
-          <input
-            type="text"
-            value={lastName}
-            onChange={(e) => setLastName(e.target.value)}
-            required
-          />
-        </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+
         <label>
           Password
           <input
@@ -105,9 +107,9 @@ function SignupFormPage() {
           />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <button type="submit">Sign Up</button>
+        <button type="submit" id='sign-up-button'>Done</button>
       </form>
-    </>
+    </div>
   );
 }
 

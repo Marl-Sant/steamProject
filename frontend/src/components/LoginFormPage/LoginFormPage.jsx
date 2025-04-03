@@ -50,7 +50,7 @@ function LoginFormPage() {
     <>
     <div className='sign-in-body'>
       <div className='sign-in-header'>
-      <h1>Sign In</h1>
+      <h1 id="sign-in-title">Sign In</h1>
       </div>
       <div className='sign-in-window'>
       <form className='divider' onSubmit={handleSubmit}>
@@ -111,7 +111,7 @@ function LoginFormPage() {
           New to Gleam?
           <button className="new-user-button"><NavLink to="/signup">Create an Account</NavLink></button>
           </div>
-          <div className='learn-more'>It's free and easy. Discover thousands of games to play with millions of new friends. <NavLink to='/about'>Learn more about Gleam and it's developers.</NavLink></div>
+          <div className='learn-more'>It&apos;s free and easy. Discover thousands of games to play with millions of new friends. <NavLink to='/about'>Learn more about Gleam and it&apos;s developers.</NavLink></div>
     </footer>
           </>
   );

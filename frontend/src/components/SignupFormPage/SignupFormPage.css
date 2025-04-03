@@ -1,0 +1,72 @@
+.sign-up-body{
+    display: flex;
+    color: rgb(223, 216, 207);
+    flex-direction: column;
+    height: 90%;
+    flex: 1;
+    padding: 0 32%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-image: 
+    linear-gradient(to left, rgba(26, 26, 26, 1), rgba(0, 0, 0, 0)),
+    linear-gradient(to top, rgba(26, 26, 26, 1), rgba(0, 0, 0, 0)),
+    linear-gradient(to bottom, rgba(26, 26, 26, 1), rgba(0, 0, 0, 0)),
+    url('https://steamcdn-a.akamaihd.net/steamcommunity/public/images/steamworks_docs/english/Header_1.jpg');
+}
+
+.sign-up-form{
+    display: flex;
+    flex-direction: column;
+    background-color: #101419;
+    padding: 5% 0% 5% 5%;
+    border-radius: 3px;
+    font-size: small;
+    width: 70%;
+}
+
+.sign-up-form label{
+    display: flex;
+    flex-direction: column;
+    width: 65%;
+    margin: .5rem 0;
+}
+
+.sign-up-form label input {
+    width: 95%;
+    padding: 2%;
+    margin: 2% 0;
+    background-color: #1f2730;
+    color: rgb(223, 216, 207);
+    border: 0px;
+    border-radius: 3px;
+}
+
+#country{
+    width: 64.5%;
+    padding: 2%;
+    margin: 2% 0;
+    background-color: #1f2730;
+    color: rgb(223, 216, 207);
+    border: 0px;
+    border-radius: 3px;
+}
+
+#sign-up-header{
+    font-weight: normal;
+}
+
+#sign-up-button{
+    border: none;
+    height: 1.5rem;
+    background-color: rgb(29, 72, 137);
+    margin: 3% 0px 5%;
+    color: rgb(223, 216, 207);
+    border-radius: 3px;
+    height: 2.5rem;
+    width: 20%;
+}
+
+#sign-up-button:hover{
+    background-color: rgb(40, 95, 177);
+}
