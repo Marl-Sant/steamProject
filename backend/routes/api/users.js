@@ -19,14 +19,14 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .isEmail()
       .withMessage('Please provide a valid email.'),
-    check('firstName')
-      .exists({checkFalsy: true})
-      .isLength({ min: 2 })
-      .withMessage('Please provide a first name with at least 2 characters.'),
-    check('lastName')
-      .exists({checkFalsy: true})
-      .isLength({ min: 2 })
-      .withMessage('Please provide a last name with at least 2 characters.'),
+    // check('username')
+    //   .exists({checkFalsy: true})
+    //   .isLength({ min: 2 })
+    //   .withMessage('Please provide a first name with at least 2 characters.'),
+    // check('lastName')
+    //   .exists({checkFalsy: true})
+    //   .isLength({ min: 2 })
+    //   .withMessage('Please provide a last name with at least 2 characters.'),
     check('username')
       .exists({ checkFalsy: true })
       .isLength({ min: 4 })
@@ -45,17 +45,15 @@ const validateSignup = [
 // Sign up
 router.post(
     '/',
-    validateSignup,
+    // validateSignup,
     async (req, res) => {
-      const { email, password, username, firstName, lastName, city, state, bio, profilePic } = req.body;
+      const { email, password, username, country } = req.body;
       const hashedPassword = bcrypt.hashSync(password);
-      const user = await User.create({ email, username, firstName, lastName, city, state, bio, profilePic, hashedPassword });
+      const user = await User.create({ email, username, country, hashedPassword });
   
       const safeUser = {
         id: user.id,
         email: user.email,
-        firstName: user.firstName,
-        lastName: user.lastName,
         username: user.username,
       };
   
@@ -70,7 +68,7 @@ router.post(
 router.put("/", requireAuth, async (req, res) => {
   const userId = req.user.id
 
-  const {username, firstName, lastName, city, state, bio, profilePic} = req.body
+  const {username, firstName, lastName, country, bio, profilePic} = req.body
   const user = await User.findOne({
     where: {
       id: userId
@@ -80,8 +78,7 @@ router.put("/", requireAuth, async (req, res) => {
   user.username = username
   user.firstName = firstName
   user.lastName = lastName
-  user.city = city
-  user.state = state
+  user.country = country
   user.bio = bio
   user.profilePic = profilePic
 

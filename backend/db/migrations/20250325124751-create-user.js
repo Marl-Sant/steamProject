@@ -16,18 +16,12 @@ module.exports = {
         type: Sequelize.INTEGER,
       },
       firstName: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
       lastName: {
-        type: Sequelize.STRING,
-        allowNull: false
+        type: Sequelize.STRING
       },
-      city:{
-        type: Sequelize.STRING,
-        allowNull: false
-      },
-      state: {
+      country:{
         type: Sequelize.STRING,
         allowNull: false
       },

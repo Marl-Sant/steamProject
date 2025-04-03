@@ -25,8 +25,8 @@ function SignupFormPage() {
       setErrors({});
       return dispatch(
         sessionActions.signup({
-          email,
           username,
+          email,
           password,
           country
         })

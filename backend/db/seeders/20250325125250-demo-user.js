@@ -16,8 +16,7 @@ module.exports = {
         username: 'Demo-lition',
         firstName: 'Debby',
         lastName: 'Demo',
-        city: 'Miami',
-        state: 'Florida',
+        country: "United States",
         hashedPassword: bcrypt.hashSync('password')
       },
       {
@@ -25,8 +24,7 @@ module.exports = {
         username: 'FakeUser1',
         firstName: 'Freddy',
         lastName: 'Fakename',
-        city: 'Las Vegas',
-        state: 'Nevada',
+        country: 'Brazil',
         hashedPassword: bcrypt.hashSync('password2')
       },
       {
@@ -34,8 +32,7 @@ module.exports = {
         username: 'FakeUser2',
         firstName: 'Fatima',
         lastName: 'Fakerton',
-        city: 'Boston',
-        state: 'Massachusetts',
+        country: 'United Kingdoms',
         hashedPassword: bcrypt.hashSync('password3')
       }
     ], { validate: true });
