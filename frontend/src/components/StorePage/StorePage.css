@@ -1,0 +1,72 @@
+.featured-games-menu{
+    display: flex;
+    margin: 0 5%;
+    padding: 0 1.5rem;
+    justify-content: center;
+    align-items: center;
+    min-height: 40rem;
+}
+
+.gameSlide{
+    display: grid;
+    grid-template-columns: .5fr 1fr;
+    width: 100%;
+}
+
+.gameShadow{
+    box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, .25);
+    background-color: #0a111a;
+}
+
+#container{
+    display: grid;
+    grid-template-columns: .5fr 5fr .5fr;
+    height: 30rem;
+    gap: 3rem;
+    align-items: center;
+}
+
+.slide-button{
+    border: 1px solid purple;
+    height: 35%;
+}
+
+.store-page{
+    height: 100%;
+    background: linear-gradient(
+        to bottom right,
+        #1b2838,
+        #2a475e
+      );
+      color: #c7d5e0; /* Optional text color */
+}
+
+.game-image-container{
+    height: 100%;
+    width: 100%;
+}
+
+.game-info-container{
+    padding-left: 1.5rem;
+}
+
+.game-image{
+    height: 30rem;
+    width: 30rem;
+    object-fit: contain;
+}
+
+.subImage{
+    min-height: 7rem;
+    max-height: 7rem;
+    min-width: 15rem;
+    max-width: 15rem;
+}
+
+.subContainer{
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    width: fit-content;
+    gap: 1rem;
+}

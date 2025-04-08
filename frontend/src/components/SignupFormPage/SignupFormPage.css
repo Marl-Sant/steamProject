@@ -4,7 +4,9 @@
     flex-direction: column;
     height: 90%;
     flex: 1;
-    padding: 0 32%;
+    /* padding: 0 32%; */
+    /* justify-content: center; */
+    align-items: center;
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
@@ -19,21 +21,19 @@
     display: flex;
     flex-direction: column;
     background-color: #101419;
-    padding: 5% 0% 5% 5%;
+    padding: 1.5rem;
     border-radius: 3px;
     font-size: small;
-    width: 70%;
+    width: 25rem;
 }
 
 .sign-up-form label{
     display: flex;
     flex-direction: column;
-    width: 65%;
     margin: .5rem 0;
 }
 
 .sign-up-form label input {
-    width: 95%;
     padding: 2%;
     margin: 2% 0;
     background-color: #1f2730;
@@ -43,7 +43,6 @@
 }
 
 #country{
-    width: 64.5%;
     padding: 2%;
     margin: 2% 0;
     background-color: #1f2730;
@@ -64,7 +63,8 @@
     color: rgb(223, 216, 207);
     border-radius: 3px;
     height: 2.5rem;
-    width: 20%;
+    width: 30%;
+    margin: auto;
 }
 
 #sign-up-button:hover{

@@ -11,8 +11,6 @@ function SignupFormPage() {
   const [confirmedEmail, setConfirmedEmail] = useState("")
   const [username, setUsername] = useState("");
   const [country, setCountry] = useState("")
-  // const [firstName, setFirstName] = useState("");
-  // const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
@@ -43,8 +41,9 @@ function SignupFormPage() {
   };
 
   return (
+    <>
     <div className='sign-up-body'>
-      <h1 id='sign-up-header'>CREATE YOUR ACCOUNT</h1>
+    <h1 id='sign-up-header'>CREATE YOUR ACCOUNT</h1>
       <form onSubmit={handleSubmit} className='sign-up-form'>
         <label>
           Email Address
@@ -52,8 +51,7 @@ function SignupFormPage() {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            required
-          />
+            />
         </label>
         {errors.email && <p>{errors.email}</p>}
 
@@ -63,8 +61,7 @@ function SignupFormPage() {
             type="text"
             value={confirmedEmail}
             onChange={(e) => setConfirmedEmail(e.target.value)}
-            required
-          />
+            />
         </label>
 
         <label>Country of Residence</label>
@@ -82,8 +79,7 @@ function SignupFormPage() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
-            required
-          />
+            />
         </label>
         {errors.username && <p>{errors.username}</p>}
 
@@ -93,8 +89,8 @@ function SignupFormPage() {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            required
-          />
+            // required
+            />
         </label>
         {errors.password && <p>{errors.password}</p>}
         <label>
@@ -103,13 +99,14 @@ function SignupFormPage() {
             type="password"
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
+            // required
+            />
         </label>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
         <button type="submit" id='sign-up-button'>Done</button>
       </form>
     </div>
+    </>
   );
 }
 

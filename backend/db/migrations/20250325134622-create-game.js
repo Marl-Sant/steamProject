@@ -39,6 +39,12 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      mainImage:{
+        type: Sequelize.STRING
+      },
+      subImages: {
+        type: Sequelize.JSON
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

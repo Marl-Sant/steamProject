@@ -19,7 +19,9 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     genre: DataTypes.STRING,
     developer: DataTypes.STRING,
-    publisher: DataTypes.STRING
+    publisher: DataTypes.STRING,
+    mainImage: DataTypes.STRING,
+    subImages: DataTypes.JSON
   }, {
     sequelize,
     modelName: 'Game',
