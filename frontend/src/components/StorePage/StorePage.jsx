@@ -2,11 +2,17 @@ import {useEffect, useMemo} from 'react';
 import {useKeenSlider} from 'keen-slider/react'
 import { useDispatch, useSelector } from 'react-redux';
 import 'keen-slider/keen-slider.min.css'
-// import { Navigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import './StorePage.css'
 import * as gameActions from '../../store/game'
 
 const CarouselComponent = (props) => {
+    
+    const navigate = useNavigate()
+
+    const handleClick = (game) =>{
+        navigate(`/game/${game.id}`)
+    }
 
     const isReady = props.props.allGames?.length > 0
 
@@ -18,16 +24,21 @@ const CarouselComponent = (props) => {
         slides:{
             perView: 1,
         }
-    }, {
+    }
+    , 
+    {
         enabled: isReady
-    })
+    }
+)
 
     return (
         <div id='container'>
         <span className='slide-button'  onClick={() => slider.current.prev()}>ARROW</span>
-        <span className='keen-slider gameShadow' ref={sliderRef} key={sliderKey}>
+        <span className='keen-slider gameShadow' ref={sliderRef} 
+        key={sliderKey}
+        >
             {props.props.allGames?.map(game => (
-                <div key={`${game.id}`} className='keen-slider__slide gameSlide'>
+                <div key={`${game.id}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game)}}>
                     <div className='game-image-container'><img src={game.mainImage} className='game-image' /></div>
                     <div className='game-info-container'>
                         <h1>
