@@ -10,7 +10,7 @@ function Navigation({ isLoaded }){
   const sessionLinks = sessionUser ? (
       <ProfileButton user={sessionUser} />
   ) : (
-    <div class="login-link">
+    <div className="login-link">
         <NavLink to="/login">login</NavLink>
     </div>
   );

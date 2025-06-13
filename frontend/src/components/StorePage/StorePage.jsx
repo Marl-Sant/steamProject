@@ -1,4 +1,4 @@
-import {useEffect, useMemo} from 'react';
+ import {useEffect, useMemo} from 'react';
 import {useKeenSlider} from 'keen-slider/react'
 import { useDispatch, useSelector } from 'react-redux';
 import 'keen-slider/keen-slider.min.css'
