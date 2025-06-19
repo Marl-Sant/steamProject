@@ -14,18 +14,18 @@ module.exports = {
     await Review.bulkCreate([
       {
         review: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        liked: true,
-        username: "Dro"
+        userId: 1,
+        gameId: 1
       },
       {
         review: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        liked: false,
-        username: "Marlon"
+        userId: 2,
+        gameId: 2
       },
       {
         review: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
-        liked: true,
-        username: "Simon"
+        userId: 3,
+        gameId: 3
       }
     ]) 
   },

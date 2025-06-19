@@ -1,11 +1,15 @@
 'use strict';
 
 const { Model, Validator } = require('sequelize');
+const review = require('./review');
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
+      User.hasMany(models.Review, {
+        foreignKey: "userId"
+      });
     }
   }
 

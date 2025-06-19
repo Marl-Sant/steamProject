@@ -11,13 +11,16 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Game.hasMany(models.Review, {
+        foreignKey: "gameId"
+      });
     }
   }
   Game.init({
     title: DataTypes.STRING,
     price: DataTypes.FLOAT,
     description: DataTypes.STRING,
-    genre: DataTypes.STRING,
+    genre: DataTypes.STRING,                                  
     developer: DataTypes.STRING,
     publisher: DataTypes.STRING,
     mainImage: DataTypes.STRING,

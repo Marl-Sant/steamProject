@@ -4,14 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import 'keen-slider/keen-slider.min.css'
 import { useNavigate } from 'react-router-dom';
 import './StorePage.css'
-import * as gameActions from '../../store/game'
+import * as gamesAction from '../../store/games'
 
 const CarouselComponent = (props) => {
     
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const handleClick = (game) =>{
-        navigate(`/game/${game.id}`)
+        navigate(`/games/${game.id}`)
     }
 
     const isReady = props.props.allGames?.length > 0
@@ -65,7 +65,7 @@ function StorePage(){
     const storeGames = useSelector((state) => state.games)
 
     useEffect(() => {
-        dispatch(gameActions.populateGames())
+        dispatch(gamesAction.populateGames())
     }, [dispatch])
 
     return (

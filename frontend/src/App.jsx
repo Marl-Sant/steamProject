@@ -6,6 +6,7 @@ import SignupFormPage from './components/SignupFormPage/SignupFormPage.jsx';
 import StorePage from './components/StorePage/StorePage.jsx';
 import Navigation from './components/Navigation/Navigation.jsx';
 import * as sessionActions from './store/session';
+import GameDetailPage from './components/GameDetailPage/GameDetailPage.jsx';
 
 function Layout() {
   const dispatch = useDispatch();
@@ -40,6 +41,10 @@ const router = createBrowserRouter([
       {
         path: "signup",
         element: <SignupFormPage />
+      },
+      {
+        path: "games/:gameId",
+        element: <GameDetailPage />
       },
     ],
   }
