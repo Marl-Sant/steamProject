@@ -13,7 +13,7 @@ module.exports = {
     await GameImage.bulkCreate([
       // Final Fantasy XI images
       {
-        gameId: 1, // assuming Final Fantasy XI has id 1
+        gameId: 1,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/IngameimageFinalFantasyXI.jpg/250px-IngameimageFinalFantasyXI.jpg',
         displayPic: true,
       },
@@ -25,7 +25,7 @@ module.exports = {
 
       // Halo images
       {
-        gameId: 2, // assuming Halo has id 2
+        gameId: 2,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/23/Halo_-_Combat_Evolved_%28screencap%29.jpg/220px-Halo_-_Combat_Evolved_%28screencap%29.jpg',
         displayPic: true,
       },
@@ -37,7 +37,7 @@ module.exports = {
 
       // The Sims images
       {
-        gameId: 3, // assuming The Sims has id 3
+        gameId: 3,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/SimsSS.jpg/250px-SimsSS.jpg',
         displayPic: true,
       },
