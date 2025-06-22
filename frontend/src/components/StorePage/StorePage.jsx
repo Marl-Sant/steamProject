@@ -41,7 +41,7 @@ const CarouselComponent = (props) => {
         >
             {props.allGamesProp?.allGames?.map(game => (
                 <div key={`${game.id}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game)}}>
-                    <div className='game-image-container'><img src={game.mainImage} className='game-image' /></div>
+                    <div className='game-image-container'><img src={game.GameImages.find(gameImage => gameImage.displayPic === true).url} className='game-image' /></div>
                     <div className='game-info-container'>
                         <h1>
                         {game.title}
@@ -49,8 +49,8 @@ const CarouselComponent = (props) => {
                         <p>{game.description}</p>
                         <h3>${game.price}</h3>
                         <span className='subContainer'>
-                        {game.gameImages?.map(image => (
-                            <img src={image} className='subImage' key={image}></img>
+                        {game.GameImages?.map(image => (
+                            <img src={image.url} className='subImage' key={image}></img>
                         ))}
                         </span>
                         </div>

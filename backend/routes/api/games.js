@@ -2,6 +2,7 @@ const express = require('express');
 
 const { Game } = require('../../db/models');
 const { Review } = require('../../db/models');
+const { GameImage } = require('../../db/models');
 
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
@@ -32,7 +33,7 @@ router.get('/', async (req, res) => {
     await Game.findAll({
       include: [
         {
-          model: gameImages,
+          model: GameImage,
         },
       ],
     })
