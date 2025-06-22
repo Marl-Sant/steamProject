@@ -12,9 +12,11 @@ router.get('/:gameId', async (req, res) => {
     where: {
       id: req.params.gameId,
     },
-    // include: [{
-    //   model: Review
-    // }]
+    include: [
+      {
+        model: gameImages,
+      },
+    ],
   });
 
   if (game) {
@@ -26,7 +28,15 @@ router.get('/:gameId', async (req, res) => {
 
 //Get all games
 router.get('/', async (req, res) => {
-  return res.json(await Game.findAll());
+  return res.json(
+    await Game.findAll({
+      include: [
+        {
+          model: gameImages,
+        },
+      ],
+    })
+  );
 });
 
 //Get all reviews on game

@@ -10,13 +10,15 @@ const CarouselComponent = (props) => {
     
     const navigate = useNavigate();
 
+    console.log(props)
+
     const handleClick = (game) =>{
         navigate(`/games/${game.id}`)
     }
 
-    const isReady = props.props.allGames?.length > 0
+    const isReady = props.allGamesProp?.allGames?.length > 0
 
-    const sliderKey = useMemo(() => (isReady ? `slider-${props.props.allGames.length}`: null), [props.props.allGames, isReady])
+    const sliderKey = useMemo(() => (isReady ? `slider-${props.allGamesProp?.allGames.length}`: null), [props.allGamesProp.allGames, isReady])
 
     const [sliderRef, slider] = useKeenSlider({
         loop: true,
@@ -37,7 +39,7 @@ const CarouselComponent = (props) => {
         <span className='keen-slider gameShadow' ref={sliderRef} 
         key={sliderKey}
         >
-            {props.props.allGames?.map(game => (
+            {props.allGamesProp?.allGames?.map(game => (
                 <div key={`${game.id}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game)}}>
                     <div className='game-image-container'><img src={game.mainImage} className='game-image' /></div>
                     <div className='game-info-container'>
@@ -47,7 +49,7 @@ const CarouselComponent = (props) => {
                         <p>{game.description}</p>
                         <h3>${game.price}</h3>
                         <span className='subContainer'>
-                        {game.subImages?.map(image => (
+                        {game.gameImages?.map(image => (
                             <img src={image} className='subImage' key={image}></img>
                         ))}
                         </span>
@@ -63,6 +65,7 @@ const CarouselComponent = (props) => {
 function StorePage(){
     const dispatch = useDispatch();
     const storeGames = useSelector((state) => state.games)
+    const storeGamesImages = useSelector((state) => state.gameImages)
 
     useEffect(() => {
         dispatch(gamesAction.populateGames())
@@ -71,7 +74,7 @@ function StorePage(){
     return (
         <div className='store-page'>
         <div className='featured-games-menu'>
-            <CarouselComponent props={storeGames} />
+            <CarouselComponent allGamesProp={storeGames}/>
         </div>
         </div>
     )

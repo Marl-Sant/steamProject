@@ -16,15 +16,11 @@ module.exports = {
         gameId: 1, // assuming Final Fantasy XI has id 1
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/6/6b/IngameimageFinalFantasyXI.jpg/250px-IngameimageFinalFantasyXI.jpg',
         displayPic: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         gameId: 1,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/5/5c/ChocoboridersFFXI.jpg/250px-ChocoboridersFFXI.jpg',
         displayPic: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
 
       // Halo images
@@ -32,15 +28,11 @@ module.exports = {
         gameId: 2, // assuming Halo has id 2
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/2/23/Halo_-_Combat_Evolved_%28screencap%29.jpg/220px-Halo_-_Combat_Evolved_%28screencap%29.jpg',
         displayPic: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         gameId: 2,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/e/e2/First_official_halo_screenshot.jpg/220px-First_official_halo_screenshot.jpg',
         displayPic: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
 
       // The Sims images
@@ -48,22 +40,16 @@ module.exports = {
         gameId: 3, // assuming The Sims has id 3
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/91/SimsSS.jpg/250px-SimsSS.jpg',
         displayPic: true,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         gameId: 3,
         url: 'https://upload.wikimedia.org/wikipedia/en/thumb/9/96/Sims_NH.JPG/200px-Sims_NH.JPG',
         displayPic: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         gameId: 3,
         url: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHCFm2XY--m1egc3Q2yno89wzJaw9VMX-uXw&s',
         displayPic: false,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
     ]);
   },
