@@ -15,7 +15,7 @@ router.get('/:gameId', async (req, res) => {
     },
     include: [
       {
-        model: gameImages,
+        model: GameImage,
       },
     ],
   });
