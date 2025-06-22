@@ -6,6 +6,7 @@ const { Review } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
 
+//Get game by gameId
 router.get('/:gameId', async (req, res) => {
   const game = await Game.findOne({
     where: {
@@ -23,6 +24,12 @@ router.get('/:gameId', async (req, res) => {
   }
 });
 
+//Get all games
+router.get('/', async (req, res) => {
+  return res.json(await Game.findAll());
+});
+
+//Get all reviews on game
 router.get('/:gameId/reviews', async (req, res) => {
   const review = await Review.findAll({
     where: {
@@ -33,10 +40,13 @@ router.get('/:gameId/reviews', async (req, res) => {
   if (review) {
     return res.json(review);
   } else {
-    return res.status(404).json({ message: 'Reviews not found' });
+    return res
+      .status(404)
+      .json({ message: 'Reviews not found' });
   }
 });
 
+//Get a specific review
 router.get('/:gameId/reviews/:reviewId', async (req, res) => {
   const review = await Review.findOne({
     where: {
@@ -47,62 +57,118 @@ router.get('/:gameId/reviews/:reviewId', async (req, res) => {
   if (review) {
     return res.json(review);
   } else {
-    return res.status(404).json({ message: 'Review aaaaaaaaaaaaanot found' });
+    return res
+      .status(404)
+      .json({ message: 'Review aaaaaaaaaaaaanot found' });
   }
 });
 
-router.post('/:gameId/reviews', requireAuth, async (req, res) => {
-  const { review } = req.body;
+//Create a new Review on game
+router.post(
+  '/:gameId/reviews',
+  requireAuth,
+  async (req, res) => {
+    const { review } = req.body;
 
-  const newReview = await Review.create({
-    userId: req.user.id,
-    gameId: Number(req.params.gameId),
-    review: review
-  });
+    if (!review.length || review.length < 10) {
+      return res.json({
+        message:
+          'User must leave a review that is at least 10 characters long.',
+      });
+    }
 
-  if (newReview) {
-    return res.json(newReview);
-  } else {
-    return res.status(401).json({ message: 'You must be logged in to create a review.' });
-  }
-});
-
-router.put('/:gameId/reviews/:reviewId', requireAuth, async (req, res) => {
-  const { review } = req.body;
-
-  const updatedReview = await Review.findByPk(
-    req.params.reviewId
-  );
-
-  updatedReview.review = review;
-  updatedReview.save();
-
-  if (updatedReview) {
-    return res.json(updatedReview);
-  } else {
-    return res.status(401).json({ message: 'You must be logged in to create a review.' });
-  }
-});
-
-router.delete('/:gameId/reviews/:reviewId', requireAuth, async (req, res) => {
-  const review = await Review.findByPk(
-    req.params.reviewId
-  );
-
-  if (review) {
-    review.destroy();
-
-    return res.json({
-      message: "Review has been deleted"
+    const reviewLimit = await Review.findOne({
+      where: {
+        userId: req.user.id,
+        gameId: req.params.gameId,
+      },
     });
-  } else {
-    return res.status(401).json({ message: 'You must be logged in to create a review.' });
+
+    if (reviewLimit) {
+      return res.json({
+        message: 'User can only leave one review per game.',
+      });
+    } else {
+      const newReview = await Review.create({
+        userId: req.user.id,
+        gameId: Number(req.params.gameId),
+        review: review,
+      });
+      console.log(newReview);
+
+      if (newReview.ok) {
+        return res.json(newReview);
+      } else {
+        return res.status(401).json({
+          message: 'You must be logged in to create a review.',
+        });
+      }
+    }
   }
-});
+);
 
+//Edit review on game
+router.put(
+  '/:gameId/reviews/:reviewId',
+  requireAuth,
+  async (req, res) => {
+    const { review } = req.body;
 
-router.get('/', async (req, res) => {
-  return res.json(await Game.findAll());
-});
+    if (!review.length || review.length < 10) {
+      return res.json({
+        message:
+          'User must leave a review that is at least 10 characters long.',
+      });
+    }
+
+    const updatedReview = await Review.findByPk(
+      req.params.reviewId
+    );
+
+    if (updatedReview.userId !== req.user.id) {
+      return res.status(401).json({
+        message: 'User must be the owner of the review to edit.',
+      });
+    }
+
+    updatedReview.review = review;
+    updatedReview.save();
+
+    if (updatedReview) {
+      return res.json(updatedReview);
+    } else {
+      return res.status(404).json({
+        message: 'Review could not be found',
+      });
+    }
+  }
+);
+
+//Delete Review on game
+router.delete(
+  '/:gameId/reviews/:reviewId',
+  requireAuth,
+  async (req, res) => {
+    const review = await Review.findByPk(req.params.reviewId);
+
+    if (review.userId !== req.user.id) {
+      return res.status(401).json({
+        message: 'User must be the owner of the review to edit.',
+      });
+    }
+
+    if (review) {
+      review.destroy();
+
+      return res.json({
+        message: 'Review has been deleted',
+      });
+    } else {
+      return res.status(404).json({
+        message: 'Review could not be found',
+      });
+    }
+  }
+);
 
 module.exports = router;
