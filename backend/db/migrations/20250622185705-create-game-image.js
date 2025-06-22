@@ -16,7 +16,8 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       gameId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
       },
       url: {
         type: Sequelize.STRING
@@ -38,6 +39,6 @@ module.exports = {
   },
   async down(queryInterface, Sequelize) {
     options.tableName = "gameImages";
-    await queryInterface.dropTable(options);
+    return queryInterface.dropTable(options);
   }
 };
