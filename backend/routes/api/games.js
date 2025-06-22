@@ -47,7 +47,7 @@ router.get('/:gameId/reviews/:reviewId', async (req, res) => {
   if (review) {
     return res.json(review);
   } else {
-    return res.status(404).json({ message: 'Review aaaaaaaaaaaaanot found' });
+    return res.status(404).json({ message: 'Review not found' });
   }
 });
 

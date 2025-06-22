@@ -8,36 +8,36 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Reviews', {
+    await queryInterface.createTable('GameImages', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      review: {
-        type: Sequelize.STRING
-      },
-      userId: {
-        type: Sequelize.INTEGER
-      },
       gameId: {
         type: Sequelize.INTEGER
+      },
+      url: {
+        type: Sequelize.STRING
+      },
+      displayPic: {
+        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       },
       updatedAt: {
         allowNull: false,
         type: Sequelize.DATE,
-        defaultValue: Sequelize.literal("CURRENT_TIMESTAMP")
-      },
+        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+      }
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName= "reviews"
+    options.tableName = "gameImages";
     await queryInterface.dropTable(options);
   }
 };
