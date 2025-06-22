@@ -16,10 +16,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+          references: {
+            model: 'Users',
+            key: 'id',
+          },
       },
       gameId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+          references: {
+            model: 'Games',
+            key: 'id',
+          },
       },
       mostRecent: {
         type: Sequelize.BOOLEAN

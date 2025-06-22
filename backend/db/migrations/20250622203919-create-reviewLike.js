@@ -16,10 +16,20 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       ownerId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+          references: {
+            model: 'Users',
+            key: 'id',
+          },
       },
       reviewId: {
-        type: Sequelize.INTEGER
+        type: Sequelize.INTEGER,
+        allowNull: false,
+          references: {
+            model: 'Reviews',
+            key: 'id',
+          },
       },
       liked: {
         type: Sequelize.BOOLEAN
