@@ -21,9 +21,29 @@ module.exports = (sequelize, DataTypes) => {
         as: "ReceivedFriendRequests"
       });
 
-      User.hasMany(models.Like, {
-        foreignKey: "ownderId"
-      })
+      User.hasMany(models.ReviewLike, {
+        foreignKey: "ownerId"
+      });
+
+      User.hasMany(models.Post, {
+        foreignKey: 'ownerId'
+      });
+
+      User.hasMany(models.PostComment, {
+        foreignKey: 'ownerId'
+      });
+
+      User.hasMany(models.CommunityLike, {
+        foreignKey: 'ownerId'
+      });
+
+      User.hasMany(models.PostCommentLike, {
+        foreignKey: 'ownerId'
+      });
+
+      User.hasMany(models.PostLike, {
+        foreignKey: 'ownerId'
+      });
     }
   }
 

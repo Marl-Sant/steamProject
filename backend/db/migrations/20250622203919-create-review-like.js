@@ -8,7 +8,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Ownerships', {
+    await queryInterface.createTable('ReviewLikes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -23,15 +23,15 @@ module.exports = {
             key: 'id',
           },
       },
-      gameId: {
+      reviewId: {
         type: Sequelize.INTEGER,
         allowNull: false,
           references: {
-            model: 'Games',
+            model: 'Reviews',
             key: 'id',
           },
       },
-      mostRecent: {
+      liked: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -47,7 +47,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Ownerships"
+    options.tableName = "ReviewLikes"
     return queryInterface.dropTable(options);
   }
 };

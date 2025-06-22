@@ -1,6 +1,5 @@
 'use strict';
 /** @type {import('sequelize-cli').Migration} */
-
 let options = {};
 if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA; // define your schema in options object
@@ -8,7 +7,7 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Ownerships', {
+    await queryInterface.createTable('PostCommentLikes', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -20,18 +19,18 @@ module.exports = {
         allowNull: false,
           references: {
             model: 'Users',
-            key: 'id',
+            key: 'id'
           },
       },
-      gameId: {
+      postCommentId: {
         type: Sequelize.INTEGER,
         allowNull: false,
           references: {
-            model: 'Games',
-            key: 'id',
+            model: 'PostComments',
+            key: 'id'
           },
       },
-      mostRecent: {
+      liked: {
         type: Sequelize.BOOLEAN
       },
       createdAt: {
@@ -47,7 +46,7 @@ module.exports = {
     }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "Ownerships"
-    return queryInterface.dropTable(options);
+    options.tableName = 'PostCommentLikes'
+    await queryInterface.dropTable(options);
   }
 };

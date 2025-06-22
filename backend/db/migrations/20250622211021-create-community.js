@@ -8,31 +8,20 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('ReviewLikes', {
+    await queryInterface.createTable('Communities', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ownerId: {
+      gameId: {
         type: Sequelize.INTEGER,
         allowNull: false,
           references: {
-            model: 'Users',
-            key: 'id',
+            model: 'Games',
+            key: 'id'
           },
-      },
-      reviewId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-          references: {
-            model: 'Reviews',
-            key: 'id',
-          },
-      },
-      liked: {
-        type: Sequelize.BOOLEAN
       },
       createdAt: {
         allowNull: false,
@@ -44,10 +33,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       }
-    });
+    }, options);
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "ReviewLikes"
+    options.tableName = 'Communities';
     return queryInterface.dropTable(options);
   }
 };

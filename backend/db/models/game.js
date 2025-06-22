@@ -18,6 +18,12 @@ module.exports = (sequelize, DataTypes) => {
       Game.hasMany(models.GameImage, {
         foreignKey: "gameId"
       });
+
+      Game.hasOne(models.Community, {
+        foreignKey: 'gameId'
+      });
+
+      
     }
   }
   Game.init({
