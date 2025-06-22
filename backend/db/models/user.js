@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Friend, {
         foreignKey: "recieverId",
         as: "ReceivedFriendRequests"
+      });
+
+      User.hasMany(models.Like, {
+        foreignKey: "ownderId"
       })
     }
   }

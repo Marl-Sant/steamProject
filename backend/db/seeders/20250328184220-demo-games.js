@@ -61,7 +61,9 @@ module.exports = {
     options.tableName = "Games";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      title: { [Op.in]: ['Final Fantasy XI', 'Halo', 'The Sims']}
+      title: { 
+        [Op.in]: ['Final Fantasy XI', 'Halo', 'The Sims']
+      }
     }, {})
   },
 };

@@ -8,14 +8,14 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('Ownderships', {
+    await queryInterface.createTable('Ownerships', {
       id: {
         allowNull: false,
         autoIncrement: true,
         primaryKey: true,
         type: Sequelize.INTEGER
       },
-      ownderId: {
+      ownerId: {
         type: Sequelize.INTEGER
       },
       gameId: {
@@ -34,9 +34,10 @@ module.exports = {
         type: Sequelize.DATE,
         defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
       }
-    }, options);
+    });
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('Ownderships');
+    options.tableName = "Ownerships"
+    return queryInterface.dropTable(options);
   }
 };

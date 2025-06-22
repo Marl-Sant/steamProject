@@ -17,7 +17,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Game.hasMany(models.GameImage, {
         foreignKey: "gameId"
-      })
+      });
     }
   }
   Game.init({
