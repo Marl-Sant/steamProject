@@ -8,17 +8,17 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       User.hasMany(models.Review, {
-        foreignKey: "userId"
+        foreignKey: 'userId',
       });
 
       User.hasMany(models.Friend, {
-        foreignKey: "senderId",
-        as: "SentFriendRequests"
+        foreignKey: 'senderId',
+        as: 'SentFriendRequests',
       });
 
       User.hasMany(models.Friend, {
-        foreignKey: "recieverId",
-        as: "ReceivedFriendRequests"
+        foreignKey: 'recieverId',
+        as: 'ReceivedFriendRequests',
       });
 
       User.hasMany(models.ReviewLike, {
@@ -62,27 +62,27 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      firstName:{
+      firstName: {
         type: DataTypes.STRING,
         validate: {
-          len: [2, 30]
-        }
+          len: [2, 30],
+        },
       },
-      lastName:{
+      lastName: {
         type: DataTypes.STRING,
         validate: {
-          len: [2, 30]
-        }
+          len: [2, 30],
+        },
       },
       country: {
         type: DataTypes.STRING,
-        allowNull: false
+        allowNull: false,
       },
-      profilePic:{
-        type: DataTypes.STRING
+      profilePic: {
+        type: DataTypes.STRING,
       },
       bio: {
-        type: DataTypes.TEXT
+        type: DataTypes.TEXT,
       },
       email: {
         type: DataTypes.STRING,
@@ -106,7 +106,12 @@ module.exports = (sequelize, DataTypes) => {
       modelName: 'User',
       defaultScope: {
         attributes: {
-          exclude: ['hashedPassword', 'email', 'createdAt', 'updatedAt'],
+          exclude: [
+            'hashedPassword',
+            'email',
+            'createdAt',
+            'updatedAt',
+          ],
         },
       },
     }
