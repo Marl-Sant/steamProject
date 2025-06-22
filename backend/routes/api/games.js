@@ -2,6 +2,7 @@ const express = require('express');
 
 const { Game } = require('../../db/models');
 const { Review } = require('../../db/models');
+const { GameImage } = require('../../db/models');
 
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
@@ -12,9 +13,11 @@ router.get('/:gameId', async (req, res) => {
     where: {
       id: req.params.gameId,
     },
-    // include: [{
-    //   model: Review
-    // }]
+    include: [
+      {
+        model: gameImages,
+      },
+    ],
   });
 
   if (game) {
@@ -26,7 +29,15 @@ router.get('/:gameId', async (req, res) => {
 
 //Get all games
 router.get('/', async (req, res) => {
-  return res.json(await Game.findAll());
+  return res.json(
+    await Game.findAll({
+      include: [
+        {
+          model: GameImage,
+        },
+      ],
+    })
+  );
 });
 
 //Get all reviews on game

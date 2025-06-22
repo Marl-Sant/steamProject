@@ -8,37 +8,45 @@ if (process.env.NODE_ENV === 'production') {
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('GameImages', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
+    await queryInterface.createTable(
+      'GameImages',
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        gameId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
+          references: {
+            model: 'Games',
+            key: 'id',
+          },
+        },
+        url: {
+          type: Sequelize.STRING,
+        },
+        displayPic: {
+          type: Sequelize.BOOLEAN,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
+        },
       },
-      gameId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
-      },
-      url: {
-        type: Sequelize.STRING
-      },
-      displayPic: {
-        type: Sequelize.BOOLEAN
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      }
-    }, options);
+      options
+    );
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = "gameImages";
+    options.tableName = 'GameImages';
     return queryInterface.dropTable(options);
-  }
+  },
 };
