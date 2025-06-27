@@ -1,0 +1,70 @@
+.text-area-container{
+    display: grid;
+    grid-template-rows: 1fr auto;
+    width: 940px;
+    background-color: #4c6070;
+    padding: .5rem;
+}
+
+#text-title{
+    font-weight: normal;
+}
+
+.rules-and-guidelines{
+    color: rgb(201, 196, 196);
+    font-size: small;
+}
+
+#user-text-area{
+    display: grid;
+    grid-template-columns: 1fr 10fr;
+    grid-template-rows: 1fr;
+}
+
+#user-review-profile-pic{
+    max-height: 8rem;
+    max-width: 8rem;
+    border: .1rem solid rgb(112, 111, 111) ;
+}
+
+#profile-pic-container{
+    margin: 0 2rem;
+}
+
+#text-area{
+    display: grid;
+    grid-template-rows: 3fr 1fr;
+    padding: 0 2rem 0 0;
+}
+
+#text{
+    height: 100%;
+    width: 100%;
+    background-color: #192936e7;
+    border: 1.5px solid black;
+}
+
+#button-row{
+    display: flex;
+    justify-content: space-between;
+}
+
+.review-button{
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 8px 20px;
+  background-color: #4881c7;
+  color: #c7d5e0;
+  cursor: pointer;
+  border: none;
+  margin-right: .3rem;
+}
+
+#text-title{
+    color: #5da0f1;
+}
+
+#recommend-text{
+    color: rgb(201, 196, 196);
+    font-size: small;
+}
