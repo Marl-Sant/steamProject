@@ -1,0 +1,81 @@
+.game-page-background {
+    height: 100%;
+    background: linear-gradient(
+        to bottom right,
+        #1b2838,
+        #2a475e
+      );
+    color: #c7d5e0; /* Optional text color */
+}
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 940px;
+  margin: 0 auto;
+  height: 600px;
+  background: linear-gradient(
+    300deg,                      /* from bottom-right to top-left */
+    rgba(0, 0, 0, 0.1) 0%,       /* darkest at bottom-right */
+    rgba(0, 0, 0, 0) 100%        /* fully transparent at top-left */
+  );
+}
+
+.game-title {
+  font-size: 35px;
+
+}
+
+.game-image {
+  display: flex;
+  margin-top: 10px;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.primary-game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 16px;
+  max-height: 400px;
+}
+
+.secondary-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: auto;
+}
+
+.mini-image-container {
+  width: 624px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+}
+
+.primary-game-image {
+  width: 624px;
+  height: 350px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.secondary-game-image {
+  width: 300px;
+  height: 120px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.mini-images {
+  height: 127px;
+  cursor: pointer;
+}
+
+.game-description {
+  margin-top: 10px;
+}
