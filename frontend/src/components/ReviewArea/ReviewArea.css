@@ -1,10 +1,10 @@
-.text-area-container{
-    display: grid;
-    grid-template-rows: 1fr auto;
+.text-area-container {
     width: 940px;
+    margin: 0 auto; /* center horizontally like .game-container */
     background-color: #4c6070;
-    padding: .5rem;
-}
+    padding: 1rem;
+    box-sizing: border-box;
+  }
 
 #text-title{
     font-weight: normal;

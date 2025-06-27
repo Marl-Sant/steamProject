@@ -56,19 +56,12 @@ function GameDetailPage() {
                 {game?.description}
               </div>
             </div>
-          </div>
-          
+          </div>     
       </div>
-      {reviews?.map(review => (
-        <div
-          key={review.id}
-        >
-          {review?.review}
-          {review?.userId}
-          {review?.gameId}
-        </div>
-      ))}
-      <ReviewArea />
+
+      <div className='review-container'>
+        <ReviewArea />     
+      </div>
     </div>
   );
 }

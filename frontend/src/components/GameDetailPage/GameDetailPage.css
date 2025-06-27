@@ -5,7 +5,7 @@
         #1b2838,
         #2a475e
       );
-    color: #c7d5e0; /* Optional text color */
+    color: #c7d5e0;
 }
 
 .game-container {
@@ -17,9 +17,9 @@
   margin: 0 auto;
   height: 600px;
   background: linear-gradient(
-    300deg,                      /* from bottom-right to top-left */
-    rgba(0, 0, 0, 0.1) 0%,       /* darkest at bottom-right */
-    rgba(0, 0, 0, 0) 100%        /* fully transparent at top-left */
+    300deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0) 100%
   );
 }
 
@@ -55,6 +55,7 @@
   width: 624px;
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   gap: 8px;
   margin-top: 16px;
 }
@@ -78,4 +79,19 @@
 
 .game-description {
   margin-top: 10px;
+}
+
+.review-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  width: 940px;
+  margin: 0 auto;
+  height: 350px;
+  background: linear-gradient(
+    300deg,
+    rgba(0, 0, 0, 0.1) 0%,
+    rgba(0, 0, 0, 0) 100%
+  );
 }
