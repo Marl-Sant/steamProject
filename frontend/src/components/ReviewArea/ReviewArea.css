@@ -42,6 +42,8 @@
     width: 100%;
     background-color: #192936e7;
     border: 1.5px solid black;
+    color: rgb(201, 196, 196);
+    resize: none
 }
 
 #button-row{

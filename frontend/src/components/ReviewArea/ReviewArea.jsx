@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import * as reviewActions from '../../store/reviews'
 import './ReviewArea.css'
 
 function ReviewArea() {
@@ -7,6 +8,15 @@ function ReviewArea() {
     const [text, setText] = useState('')
     const user = useSelector((state) => state.session.user)
     const game = useSelector((state) => state.games?.currentGame)
+    
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        return dispatch(reviewActions.addReviewState({
+            gameId: game.id,
+            review: text,
+            userId: user.id
+        }))
+    }
 
     return (
         <div className='text-area-container'>
@@ -22,7 +32,7 @@ function ReviewArea() {
                     <img src={`${user.profilePic}`} id="user-review-profile-pic" />
                 </div>
                 <div id='text-area'>
-                    <textarea id='text'></textarea>
+                    <textarea id='text' onChange={(e) => setText(e.target.value)}></textarea>
                     <p id="recommend-text">Do you recommend this game?</p>
                         <div id='button-row'>
                             <div id='liked-group'>
@@ -30,7 +40,7 @@ function ReviewArea() {
                                 <button className='review-button'>No</button>
                             </div>
                             <div id='review-button-container'>
-                                <button className='review-button'>Post review</button>
+                                <button className='review-button' onClick={handleSubmit}>Post review</button>
                             </div>
                         </div>
                     </div>

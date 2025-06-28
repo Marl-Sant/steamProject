@@ -78,6 +78,7 @@ router.post(
   requireAuth,
   async (req, res) => {
     const { review } = req.body;
+    console.log(req.user);
 
     if (!review.length || review.length < 10) {
       return res.json({
@@ -105,7 +106,7 @@ router.post(
       });
       console.log(newReview);
 
-      if (newReview.ok) {
+      if (newReview) {
         return res.json(newReview);
       } else {
         return res.status(401).json({
