@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as gamesAction from '../../store/games';
 import * as reviewsAction from '../../store/reviews';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,6 +10,8 @@ function GameDetailPage() {
   const { gameId } = useParams();
   const dispatch = useDispatch();
   const thumbnailContainerRef = useRef(null);
+
+  const [ displayMainPicture, setDisplayMainPicture ] = useState(null);
 
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
@@ -40,7 +42,7 @@ function GameDetailPage() {
         <div className='game-image'>
           <div className='primary-game-container'>
             <img 
-              src={game?.GameImages.find(img => img.displayPic === false)?.url}
+              src={displayMainPicture ||  game?.GameImages.find(img => img.displayPic === false)?.url}
               alt={`${game?.title} display`}
               className='primary-game-image'
             />
@@ -53,6 +55,7 @@ function GameDetailPage() {
                     alt={`Thumbnail ${index}`}
                     className='mini-images' 
                     key={index}
+                    onClick={() => setDisplayMainPicture(img.url)}
                   />
                 ))}
               </div>
