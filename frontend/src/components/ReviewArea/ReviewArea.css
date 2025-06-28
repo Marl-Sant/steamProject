@@ -4,6 +4,7 @@
     background-color: #4c6070;
     padding: 1rem;
     box-sizing: border-box;
+    display: grid;
   }
 
 #text-title{
