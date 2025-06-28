@@ -1,5 +1,5 @@
 .game-page-background {
-    height: 100%;
+    min-height: 100vh;
     background: linear-gradient(
         to bottom right,
         #1b2838,
@@ -25,7 +25,6 @@
 
 .game-title {
   font-size: 35px;
-
 }
 
 .game-image {
@@ -52,12 +51,13 @@
 }
 
 .mini-image-container {
-  width: 624px;
   display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
+  scroll-behavior: smooth;
+  width: 100%;
   gap: 8px;
-  margin-top: 16px;
+  max-width: 624px;
+  overflow: auto;
+  overflow-x: hidden;
 }
 
 .primary-game-image {
@@ -73,7 +73,10 @@
 }
 
 .mini-images {
-  height: 127px;
+  flex: 0 0 auto;
+  width: 120px;
+  height: 70px;
+  object-fit: cover;
   cursor: pointer;
 }
 
@@ -94,4 +97,28 @@
     rgba(0, 0, 0, 0.1) 0%,
     rgba(0, 0, 0, 0) 100%
   );
+}
+
+.thumbnail-carousel-wrapper {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 624px;
+  margin-top: 16px;
+}
+
+.side-scroll-arrow {
+  background-color: rgba(0, 0, 0, 0.6);
+  border: none;
+  color: white;
+  font-size: 20px;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
+.carousel-scroller {
+  display: flex;
+  width: 100%;
+  margin-top: 8px; 
+  justify-content: space-between;
 }
