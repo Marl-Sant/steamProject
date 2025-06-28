@@ -19,12 +19,12 @@ const setCurrentReview = (review) => {
   };
 };
 
-// const addReview = (review) => {
-//   return {
-//     type: ADD_REVIEW,
-//     payload: review
-//   }
-// }
+const addReview = (review) => {
+  return {
+    type: ADD_REVIEW,
+    payload: review,
+  };
+};
 // Step 3: Thunk action creator
 export const setReviewsState = (gameId) => async (dispatch) => {
   const response = await fetch(`/api/games/${gameId}/reviews`);
@@ -62,9 +62,7 @@ export const addReviewState =
 
     if (response.ok) {
       const data = await response.json();
-      console.log(data);
-      dispatch(setReviewsState(gameId));
-      return data;
+      return dispatch(addReview(data));
     } else {
       return JSON.stringify({
         message: 'Something went wrong.',
@@ -80,6 +78,13 @@ const reviewsReducer = (state = initialState, action) => {
       return { ...state, allReviews: action.payload };
     case SET_CURRENT_REVIEW:
       return { ...state, currentReview: action.payload };
+    case ADD_REVIEW:
+      return {
+        ...state,
+        allReviews: [
+          ...state.allReviews, action.payload
+        ],
+      };
     default:
       return state;
   }

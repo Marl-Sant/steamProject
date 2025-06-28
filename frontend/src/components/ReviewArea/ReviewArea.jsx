@@ -9,9 +9,12 @@ function ReviewArea() {
     const user = useSelector((state) => state.session.user)
     const game = useSelector((state) => state.games?.currentGame)
     
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        return dispatch(reviewActions.addReviewState({
+    useEffect(() => {
+        dispatch(reviewActions.setReviewsState(game?.id))
+    }, [dispatch, game?.id])
+
+    const handleSubmit = async () => {
+        return await dispatch(reviewActions.addReviewState({
             gameId: game.id,
             review: text,
             userId: user.id
@@ -22,7 +25,7 @@ function ReviewArea() {
         <div className='text-area-container'>
             <div>
                 <h4 id='text-title'>    
-                Write a review for GAMETITLE
+                Write a review for {`${game?.title}`}
                 </h4>
                 <p className='rules-and-guidelines'>Please describe what you liked or disliked about this game and whether you recommend it to others.</p>
                 <p className='rules-and-guidelines'>Please remember to be polite and follow the Rules and Guidelines.</p>
