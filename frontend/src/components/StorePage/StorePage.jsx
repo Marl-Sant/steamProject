@@ -50,7 +50,7 @@ const CarouselComponent = (props) => {
                         <h3>${game.price}</h3>
                         <span className='subContainer'>
                         {game.GameImages?.map(image => (
-                            <img src={image.url} className='subImage' key={image}></img>
+                            <img src={image.url} className='subImage' key={image.id}></img>
                         ))}
                         </span>
                         </div>

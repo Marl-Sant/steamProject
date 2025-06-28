@@ -6,6 +6,7 @@ function ReviewArea() {
     const dispatch = useDispatch();
     const [text, setText] = useState('')
     const user = useSelector((state) => state.session.user)
+    const game = useSelector((state) => state.games?.currentGame)
 
     return (
         <div className='text-area-container'>
