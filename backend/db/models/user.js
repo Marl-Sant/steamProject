@@ -1,48 +1,55 @@
-'use strict';
+"use strict";
 
-const { Model, Validator } = require('sequelize');
-const review = require('./review');
+const { Model, Validator } = require("sequelize");
+const review = require("./review");
 
 module.exports = (sequelize, DataTypes) => {
   class User extends Model {
     static associate(models) {
       // define association here
       User.hasMany(models.Review, {
-        foreignKey: 'userId',
+        foreignKey: "userId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.Friend, {
-        foreignKey: 'senderId',
-        as: 'SentFriendRequests',
+        foreignKey: "senderId",
+        as: "SentFriendRequests",
       });
 
       User.hasMany(models.Friend, {
-        foreignKey: 'recieverId',
-        as: 'ReceivedFriendRequests',
+        foreignKey: "recieverId",
+        as: "ReceivedFriendRequests",
       });
 
       User.hasMany(models.ReviewLike, {
-        foreignKey: "ownerId"
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.Post, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.PostComment, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.CommunityLike, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.PostCommentLike, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
 
       User.hasMany(models.PostLike, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
       });
     }
   }
@@ -57,7 +64,7 @@ module.exports = (sequelize, DataTypes) => {
           len: [4, 30],
           isNotEmail(value) {
             if (Validator.isEmail(value)) {
-              throw new Error('Cannot be an email.');
+              throw new Error("Cannot be an email.");
             }
           },
         },
@@ -103,15 +110,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: 'User',
+      modelName: "User",
       defaultScope: {
         attributes: {
-          exclude: [
-            'hashedPassword',
-            'email',
-            'createdAt',
-            'updatedAt',
-          ],
+          exclude: ["hashedPassword", "email", "createdAt", "updatedAt"],
         },
       },
     }

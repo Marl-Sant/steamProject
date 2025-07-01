@@ -19,6 +19,7 @@ module.exports = (sequelize, DataTypes) => {
 
       Review.hasMany(models.ReviewLike, {
         foreignKey: "reviewId",
+        onDelete: "CASCADE",
       });
     }
   }
@@ -42,7 +43,7 @@ module.exports = (sequelize, DataTypes) => {
       isRecommended: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
-      }
+      },
     },
     {
       sequelize,
