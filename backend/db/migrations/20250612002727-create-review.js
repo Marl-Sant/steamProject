@@ -27,6 +27,10 @@ module.exports = {
         type: Sequelize.INTEGER,
         allowNull: false,
       },
+        isRecommended: {
+          type: Sequelize.BOOLEAN,
+          allowNull: false,    
+      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,

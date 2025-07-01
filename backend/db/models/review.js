@@ -39,6 +39,10 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.INTEGER,
         allowNull: false,
       },
+      isRecommended: {
+        type: DataTypes.BOOLEAN,
+        allowNull: false,
+      }
     },
     {
       sequelize,

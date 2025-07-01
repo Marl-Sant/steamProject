@@ -40,7 +40,7 @@ module.exports = {
           country: 'United Kingdoms',
           hashedPassword: bcrypt.hashSync('password3'),
           profilePic:
-            'https://image.iheart.com/images/artists/39/67/90/683f1c3f4f0777c0b4c24d18.jpg?ops=fit(240%2C240)',
+            'https://www.indiewire.com/wp-content/uploads/2017/08/it.jpg',
         },
       ],
       { validate: true }
