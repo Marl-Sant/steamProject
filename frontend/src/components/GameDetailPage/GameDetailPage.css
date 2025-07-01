@@ -84,24 +84,40 @@
 .game-description {
   margin-top: 10px;
   font-size: 15px;
+  color: white;
 }
 
 .game-genre {
   margin-top: 10px;
   font-size: 13px;
   color: grey;
+  display: flex;
 }
 
 .game-developer {
   margin-top: 10px;
   font-size: 13px;
   color: grey;
+  display: flex;
 }
 
 .game-publisher {
   margin-top: 10px;
   font-size: 13px;
   color: grey;
+  display: flex;
+}
+
+.review-sentiment {
+  margin-top: 10px;
+  font-size: 13px;
+  color: grey;
+  display: flex;
+}
+
+.game-description-value{
+  color: #90D5FF;
+  margin-left: 0.25rem;
 }
 
 .create-review-container {

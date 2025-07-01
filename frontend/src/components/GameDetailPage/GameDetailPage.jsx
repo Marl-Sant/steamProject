@@ -24,6 +24,7 @@ function GameDetailPage() {
 
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
+  
   let allReviewsArray
   if (reviews){
     allReviewsArray = Object.entries(reviews);
@@ -36,6 +37,29 @@ function GameDetailPage() {
       container.scrollLeft += direction === 'right' ? scrollAmount : -scrollAmount;
     }
   };
+
+  let recommendedCount = 0;
+  let notRecommendedCount = 0;
+
+  if (allReviewsArray) {
+    allReviewsArray.forEach(([_, review]) => {
+      if (review.isRecommended === true) recommendedCount++;
+      else if (review.isRecommended === false) notRecommendedCount++;
+    });
+  }
+
+  let sentiment = 'No Reviews';
+  const total = recommendedCount + notRecommendedCount;
+
+  if (total === 1) {
+    sentiment = recommendedCount === 1 ? 'Mostly Positive' : 'Mostly Negative';
+  } else if (total > 1) {
+    const ratio = recommendedCount / total;
+  
+    if (ratio > 0.65) sentiment = `${Math.floor(ratio * 100)}% Mostly Positive`;
+    else if (ratio < 0.35) sentiment = `${Math.floor(ratio * 100)}% Mostly Negative`;
+    else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
+  }
 
   return (
     <div className='game-page-background'>
@@ -80,19 +104,23 @@ function GameDetailPage() {
               className='secondary-game-image'
             />
             <div className='game-description'>
-              {game?.description}
+                {game?.description}
             </div>
 
             <div className='game-genre'>
-              <span>Genre: {game?.genre}</span>
+              Genre: <div className='game-description-value'>{game?.genre}</div>
             </div>
 
             <div className='game-developer'>
-              Developer: {game?.developer}
+              Developer: <div className='game-description-value'>{game?.developer}</div>
             </div>
 
             <div className='game-publisher'>
-              Publisher: {game?.publisher}
+              Publisher: <div className='game-description-value'>{game?.publisher}</div>
+            </div>
+
+            <div className='review-sentiment'>
+              All Reviews: <div className='game-description-value'>{sentiment}</div>
             </div>
 
           </div>

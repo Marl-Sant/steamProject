@@ -39,7 +39,9 @@ function ReviewArea() {
             </div>
             <div id='user-text-area'>
                 <div id='profile-pic-container'>
-                    <img src={`${user?.profilePic}`} id="user-review-profile-pic" />
+                    <img src={`${user?.profilePic}`} id="user-review-profile-pic" 
+                    className='user-profile-pic'
+                    />
                 </div>
                 <div id='text-area'>
                     <textarea id='text' onChange={(e) => setText(e.target.value)}></textarea>
