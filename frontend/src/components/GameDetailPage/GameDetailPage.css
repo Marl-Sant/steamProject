@@ -146,22 +146,44 @@
 
 .reviews-container {
   width: 940px;
-    margin: 0 auto; /* center horizontally like .game-container */
-    margin-top: 2rem;
-    background-color: #4c6070;
-    padding: 1rem;
-    box-sizing: border-box;
-    display: grid;
+  margin: 0 auto;
+  margin-top: 2rem;
+  background-color: #4c6070;
+  padding: 1rem;
+  box-sizing: border-box;
+  display: grid;
 }
 
 .review-item {
-  background-color: #6a8396;  /* slightly lighter/different from container */
-  border: 1px solid #324352;  /* subtle border */
+  background-color: #6a8396;
+  border: 1px solid #324352;
   padding: 1rem;
   margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  display: flex;
+  gap: 1rem;
 }
 
 .review-profile-pic {
-  
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+}
+
+.review-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.review-author {
+  margin-bottom: 10px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.review-recommendation {
+  font-size: 1rem;
+  color: #fff;
+  font-weight: bold;
+  margin-top: auto;
 }

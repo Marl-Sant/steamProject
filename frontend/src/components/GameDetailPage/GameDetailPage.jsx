@@ -27,7 +27,7 @@ function GameDetailPage() {
   let allReviewsArray
   if (reviews){
     allReviewsArray = Object.entries(reviews);
-  };
+  }
 
   const scrollThumbnails = (direction) => {
     const container = thumbnailContainerRef.current;
@@ -112,8 +112,13 @@ function GameDetailPage() {
             alt={`${review[1].User?.username}'s profile`}
             className="review-profile-pic"
           />
-          <div className="review-author">{review[1].User?.username}</div>
-          <div className="review-comment">{review[1].review}</div>
+            <div className="review-text">
+              <div className="review-author">{review[1].User?.username}</div>
+              <div className="review-comment">{review[1].review}</div>
+              <div className='review-recommendation'>
+                {review[1].isRecommended ? '👍 Recommended' : '👎 Not Recommended'}
+              </div>
+            </div>
           </div>
       ))
      ) : (
