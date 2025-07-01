@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class CommunityLike extends Model {
     /**
@@ -12,21 +10,24 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       CommunityLike.belongsTo(models.User, {
-        foreignKey: 'ownerId'
+        foreignKey: "ownerId",
       });
 
       CommunityLike.belongsTo(models.Community, {
-        foreignKey: 'communityId'
+        foreignKey: "communityId",
       });
     }
   }
-  CommunityLike.init({
-    ownerId: DataTypes.INTEGER,
-    communityId: DataTypes.INTEGER,
-    liked: DataTypes.BOOLEAN
-  }, {
-    sequelize,
-    modelName: 'CommunityLike',
-  });
+  CommunityLike.init(
+    {
+      ownerId: DataTypes.INTEGER,
+      communityId: DataTypes.INTEGER,
+      liked: DataTypes.BOOLEAN,
+    },
+    {
+      sequelize,
+      modelName: "CommunityLike",
+    }
+  );
   return CommunityLike;
 };

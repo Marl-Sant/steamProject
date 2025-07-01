@@ -1,53 +1,59 @@
-'use strict';
+"use strict";
 /** @type {import('sequelize-cli').Migration} */
 
 let options = {};
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA; // define your schema in options object
 }
 
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('PostComments', {
-      id: {
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true,
-        type: Sequelize.INTEGER
-      },
-      ownerId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+    await queryInterface.createTable(
+      "PostComments",
+      {
+        id: {
+          allowNull: false,
+          autoIncrement: true,
+          primaryKey: true,
+          type: Sequelize.INTEGER,
+        },
+        ownerId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
           reference: {
-            model: 'Users',
-            key: 'id'
+            model: "Users",
+            key: "id",
           },
-      },
-      postId: {
-        type: Sequelize.INTEGER,
-        allowNull: false,
+          onDelete: "CASCADE",
+        },
+        postId: {
+          type: Sequelize.INTEGER,
+          allowNull: false,
           reference: {
-            model: 'Posts',
-            key: 'id'
-          }
+            model: "Posts",
+            key: "id",
+          },
+          onDelete: "CASCADE",
+        },
+        comment: {
+          type: Sequelize.STRING,
+        },
+        createdAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
+        updatedAt: {
+          allowNull: false,
+          type: Sequelize.DATE,
+          defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
+        },
       },
-      comment: {
-        type: Sequelize.STRING
-      },
-      createdAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      },
-      updatedAt: {
-        allowNull: false,
-        type: Sequelize.DATE,
-        defaultValue: Sequelize.literal('CURRENT_TIMESTAMP'),
-      }
-    }, options);
+      options
+    );
   },
   async down(queryInterface, Sequelize) {
-    options.tableName = 'PostComments'
+    options.tableName = "PostComments";
     await queryInterface.dropTable(options);
-  }
+  },
 };
