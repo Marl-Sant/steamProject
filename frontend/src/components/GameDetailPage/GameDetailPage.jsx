@@ -28,7 +28,6 @@ function GameDetailPage() {
   if (reviews){
     allReviewsArray = Object.entries(reviews);
   };
-  console.log(allReviewsArray)
 
   const scrollThumbnails = (direction) => {
     const container = thumbnailContainerRef.current;
@@ -108,10 +107,14 @@ function GameDetailPage() {
      {allReviewsArray && allReviewsArray.length > 0 ? (
       allReviewsArray.map((review) => (
         <div key={review[1].id} className='review-item'>
+          <img 
+            src={review[1].User?.profilePic}
+            alt={`${review[1].User?.username}'s profile`}
+            className="review-profile-pic"
+          />
           <div className="review-author">{review[1].User?.username}</div>
           <div className="review-comment">{review[1].review}</div>
-          <div className="review-date">{new Date(review[1].createdAt).toLocaleDateString()}</div>
-        </div>
+          </div>
       ))
      ) : (
       <p>No Reviews</p>

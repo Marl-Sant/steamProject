@@ -145,17 +145,19 @@
 }
 
 .reviews-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: flex-start;
   width: 940px;
-  margin: 0 auto;
-  margin-top: 2%;
-  height: 350px;
-  background: linear-gradient(
-    300deg,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0) 100%
-  );
+    margin: 0 auto; /* center horizontally like .game-container */
+    margin-top: 2rem;
+    background-color: #4c6070;
+    padding: 1rem;
+    box-sizing: border-box;
+    display: grid;
+}
+
+.review-item {
+  background-color: #6a8396;  /* slightly lighter/different from container */
+  border: 1px solid #324352;  /* subtle border */
+  padding: 1rem;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }

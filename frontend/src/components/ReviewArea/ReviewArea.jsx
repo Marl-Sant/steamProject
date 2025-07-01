@@ -21,6 +21,8 @@ function ReviewArea() {
         }))
     }
 
+    console.log("Profile Pic URL:", user?.profilePic);
+    
     return (
         <div className='text-area-container'>
             <div>
@@ -32,7 +34,7 @@ function ReviewArea() {
             </div>
             <div id='user-text-area'>
                 <div id='profile-pic-container'>
-                    <img src={`${user.profilePic}`} id="user-review-profile-pic" />
+                    <img src={`${user?.profilePic}`} id="user-review-profile-pic" />
                 </div>
                 <div id='text-area'>
                     <textarea id='text' onChange={(e) => setText(e.target.value)}></textarea>
