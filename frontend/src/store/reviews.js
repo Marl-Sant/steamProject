@@ -44,7 +44,7 @@ export const setCurrentReviewState =
 
 export const addReviewState =
   (reviewArg) => async (dispatch) => {
-    const { gameId, review, userId } = reviewArg;
+    const { gameId, review, userId, isRecommended  } = reviewArg;
     const response = await csrfFetch(
       `/api/games/${gameId}/reviews`,
       {
@@ -56,6 +56,7 @@ export const addReviewState =
           review: review,
           userId: userId,
           gameId: gameId,
+          isRecommended: isRecommended,
         }),
       }
     );

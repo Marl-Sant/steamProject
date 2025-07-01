@@ -6,6 +6,7 @@ import './ReviewArea.css'
 function ReviewArea() {
     const dispatch = useDispatch();
     const [text, setText] = useState('')
+    const [isRecommended, setIsRecommended] = useState(null);
     const user = useSelector((state) => state.session.user)
     const game = useSelector((state) => state.games?.currentGame)
     
@@ -17,9 +18,13 @@ function ReviewArea() {
         return await dispatch(reviewActions.addReviewState({
             gameId: game.id,
             review: text,
-            userId: user.id
+            userId: user.id,
+            isRecommended: isRecommended
         }))
-    }
+    };
+
+    const handleRecommendClick = () => setIsRecommended(true);
+    const handleNotRecommendClick = () => setIsRecommended(false);
 
     console.log("Profile Pic URL:", user?.profilePic);
     
@@ -41,8 +46,14 @@ function ReviewArea() {
                     <p id="recommend-text">Do you recommend this game?</p>
                         <div id='button-row'>
                             <div id='liked-group'>
-                                <button className='review-button'>Yes</button>
-                                <button className='review-button'>No</button>
+                                <button 
+                                    className='review-button'
+                                    onClick={handleRecommendClick}    
+                                >Yes</button>
+                                <button 
+                                    className='review-button'
+                                    onClick={handleNotRecommendClick}
+                                >No</button>
                             </div>
                             <div id='review-button-container'>
                                 <button className='review-button' onClick={handleSubmit}>Post review</button>
