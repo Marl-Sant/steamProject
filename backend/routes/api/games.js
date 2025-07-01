@@ -226,6 +226,66 @@ router.post(
   }
 );
 
-router.put("/:gameId/community/:communityId/posts/:postId");
+router.put(
+  "/:gameId/community/:communityId/posts/:postId",
+  requireAuth,
+  async (req, res) => {
+    const existingPost = await Post.findByPk(req.params.postId);
+
+    if (!existingPost) {
+      return res.status(404).json({
+        message: "Unable to find post",
+      });
+    }
+
+    if (req.user.id !== existingPost.ownerId) {
+      return res.status(401).json({
+        message: "User must be post owner in order to edit",
+      });
+    }
+
+    const { post } = req.body;
+
+    if (!post.length || post.length < 10) {
+      return res.json({
+        message: "Post must have at least 10 characters",
+      });
+    }
+
+    existingPost.post = post;
+
+    existingPost.save();
+
+    return res.json({
+      message: "Post has been successfully edited",
+      editedPost: existingPost,
+    });
+  }
+);
+
+router.delete(
+  "/:gameId/community/:communityId/posts/:postId",
+  async (req, res) => {
+    const deletePost = await Post.findByPk(req.params.postId);
+
+    if (!deletePost) {
+      return res.status(404).json({
+        message: "Post cannot be found",
+      });
+    }
+
+    if (deletePost.ownerId !== req.user.id) {
+      return res
+        .status(401)
+        .json({ message: "User must be owner of the post to delete it" });
+    }
+
+    deletePost.destroy();
+
+    return res.json({
+      message: "Post has been successfully deleted",
+    });
+  }
+);
 
 module.exports = router;
