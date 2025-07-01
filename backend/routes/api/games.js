@@ -50,7 +50,6 @@ router.get('/:gameId/reviews', async (req, res) => {
     include: [
       {
         model: User,
-        attributes: ['username']
       }
     ]
   });

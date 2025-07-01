@@ -108,7 +108,7 @@ function GameDetailPage() {
       allReviewsArray.map((review) => (
         <div key={review[1].id} className='review-item'>
           <img 
-            src={review[1].User?.profilePic}
+            src={`${review[1].User?.profilePic}`}
             alt={`${review[1].User?.username}'s profile`}
             className="review-profile-pic"
           />
