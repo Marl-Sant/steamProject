@@ -75,23 +75,23 @@ const initialState = { allReviews: null, currentReview: null };
 const reviewsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_REVIEWS:
-      let newState = {}
-      action.payload.forEach(review => {
-        newState[review.id] = review
-      })
+      let newState = {};
+      action.payload.forEach((review) => {
+        newState[review.id] = review;
+      });
       return { ...state, allReviews: newState };
     case SET_CURRENT_REVIEW:
       return { ...state, currentReview: action.payload };
     case ADD_REVIEW:
-      console.log(state)
       let newReviewState = {
         ...state,
         allReviews: {
-          ...state.allReviews
-      },
+          ...state.allReviews,
+        },
       };
-      newReviewState[action.payload.id] = action.payload
-      return newReviewState
+      newReviewState.allReviews[action.payload.id] =
+        action.payload;
+      return newReviewState;
     default:
       return state;
   }
