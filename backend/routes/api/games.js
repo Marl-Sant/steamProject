@@ -81,7 +81,7 @@ router.get("/:gameId/reviews/:reviewId", async (req, res) => {
 
 //Create a new Review on game
 router.post("/:gameId/reviews", requireAuth, async (req, res) => {
-  const { review, isRecommended  } = req.body;
+  const { review, isRecommended } = req.body;
 
   if (!review.length || review.length < 10) {
     return res.json({
@@ -105,7 +105,7 @@ router.post("/:gameId/reviews", requireAuth, async (req, res) => {
       userId: req.user.id,
       gameId: Number(req.params.gameId),
       review: review,
-      isRecommended: isRecommended
+      isRecommended: isRecommended,
     });
 
     if (newReview) {
