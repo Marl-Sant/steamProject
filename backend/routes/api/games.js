@@ -3,6 +3,7 @@ const express = require('express');
 const { Game } = require('../../db/models');
 const { Review } = require('../../db/models');
 const { GameImage } = require('../../db/models');
+const { User } = require('../../db/models')
 
 const { requireAuth } = require('../../utils/auth');
 const router = express.Router();
@@ -46,6 +47,12 @@ router.get('/:gameId/reviews', async (req, res) => {
     where: {
       gameId: req.params.gameId,
     },
+    include: [
+      {
+        model: User,
+        attributes: ['username']
+      }
+    ]
   });
 
   if (review) {

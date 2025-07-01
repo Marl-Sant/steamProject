@@ -83,12 +83,15 @@ const reviewsReducer = (state = initialState, action) => {
     case SET_CURRENT_REVIEW:
       return { ...state, currentReview: action.payload };
     case ADD_REVIEW:
-      return {
+      console.log(state)
+      let newReviewState = {
         ...state,
-        allReviews: [
-          ...state.allReviews, action.payload
-        ],
+        allReviews: {
+          ...state.allReviews
+      },
       };
+      newReviewState[action.payload.id] = action.payload
+      return newReviewState
     default:
       return state;
   }

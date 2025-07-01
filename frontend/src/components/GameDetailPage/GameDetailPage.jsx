@@ -10,6 +10,7 @@ function GameDetailPage() {
   const { gameId } = useParams();
   const dispatch = useDispatch();
   const thumbnailContainerRef = useRef(null);
+  
 
   const [ displayMainPicture, setDisplayMainPicture ] = useState(null);
 
@@ -20,8 +21,14 @@ function GameDetailPage() {
   }, [dispatch, gameId]);
 
 
+
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
+  let allReviewsArray
+  if (reviews){
+    allReviewsArray = Object.entries(reviews);
+  };
+  console.log(allReviewsArray)
 
   const scrollThumbnails = (direction) => {
     const container = thumbnailContainerRef.current;
@@ -49,7 +56,7 @@ function GameDetailPage() {
 
             <div className='thumbnail-carousel-wrapper'>
               <div className='mini-image-container' ref={thumbnailContainerRef}>
-                {game?.GameImages?.map((img, index) => (
+                {game?.GameImages?.filter(img => img.displayPic == false).map((img, index) => (
                   <img 
                     src={img.url} 
                     alt={`Thumbnail ${index}`}
@@ -76,14 +83,41 @@ function GameDetailPage() {
             <div className='game-description'>
               {game?.description}
             </div>
+
+            <div className='game-genre'>
+              <span>Genre: {game?.genre}</span>
+            </div>
+
+            <div className='game-developer'>
+              Developer: {game?.developer}
+            </div>
+
+            <div className='game-publisher'>
+              Publisher: {game?.publisher}
+            </div>
+
           </div>
         </div>     
       </div>
 
-      <div className='review-container'>
-        <ReviewArea />     
-      </div>
+    <div className='create-review-container'>
+      <ReviewArea />     
     </div>
+
+    <div className='reviews-container'> 
+     {allReviewsArray && allReviewsArray.length > 0 ? (
+      allReviewsArray.map((review) => (
+        <div key={review[1].id} className='review-item'>
+          <div className="review-author">{review[1].User?.username}</div>
+          <div className="review-comment">{review[1].review}</div>
+          <div className="review-date">{new Date(review[1].createdAt).toLocaleDateString()}</div>
+        </div>
+      ))
+     ) : (
+      <p>No Reviews</p>
+     )}
+    </div>
+  </div>
   );
 }
 

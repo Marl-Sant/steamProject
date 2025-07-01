@@ -33,6 +33,7 @@
 .slide-button{
     border: 1px solid purple;
     height: 35%;
+    cursor: pointer;
 }
 
 .store-page{
