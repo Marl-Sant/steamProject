@@ -16,18 +16,21 @@ module.exports = {
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         userId: 1,
         gameId: 1,
+        isRecommended: true,
       },
       {
         review:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         userId: 2,
         gameId: 2,
+        isRecommended: false,
       },
       {
         review:
           "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         userId: 3,
         gameId: 3,
+        isRecommended: true,
       },
     ]);
   },
