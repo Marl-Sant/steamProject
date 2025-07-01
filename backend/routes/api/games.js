@@ -108,8 +108,13 @@ router.post("/:gameId/reviews", requireAuth, async (req, res) => {
       isRecommended: isRecommended
     });
 
-    if (newReview) {
-      return res.json(newReview);
+    const populatedReview = await Review.findOne({
+      where: { id: newReview.id },
+      include: [{ model: User }],
+    });
+
+    if (populatedReview) {
+      return res.json(populatedReview);
     } else {
       return res.status(401).json({
         message: "You must be logged in to create a review.",
