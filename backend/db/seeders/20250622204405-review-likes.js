@@ -14,9 +14,9 @@ module.exports = {
 
     const seededReviewLikes = allReviews.map((review, i) => {
       let reviewLike = {};
-      reviewLike[ownerId] = i + 1;
-      reviewLike[reviewId] = review.id;
-      reviewLike[liked] = i % 2;
+      reviewLike["ownerId"] = i + 1;
+      reviewLike["reviewId"] = review.id;
+      reviewLike["liked"] = true;
       return reviewLike;
     });
     await ReviewLike.bulkCreate(
