@@ -24,7 +24,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Friend.init({
     senderId: DataTypes.INTEGER,
-    recieverId: DataTypes.INTEGER
+    receiverId: DataTypes.INTEGER
   }, {
     sequelize,
     modelName: 'Friend',
