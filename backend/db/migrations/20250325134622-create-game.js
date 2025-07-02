@@ -27,19 +27,19 @@ module.exports = {
         },
         shortDescription: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         detailedDescription: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         headerImage: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.BLOB,
         },
         capsuleImage: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.BLOB,
         },
         website: {
           allowNull: false,
@@ -51,7 +51,7 @@ module.exports = {
         },
         legal: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.TEXT,
         },
         genres: {
           allowNull: false,
@@ -79,7 +79,7 @@ module.exports = {
         },
         background: {
           allowNull: false,
-          type: Sequelize.STRING,
+          type: Sequelize.BLOB,
         },
         ESRBRating: {
           type: Sequelize.JSONB,
