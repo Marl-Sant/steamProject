@@ -9,21 +9,20 @@ import ReviewArea from '../ReviewArea/ReviewArea'
 function GameDetailPage() {
   const { gameId } = useParams();
   const dispatch = useDispatch();
-  const thumbnailContainerRef = useRef(null);
-  
-
+  const thumbnailContainerRef = useRef(null); 
   const [ displayMainPicture, setDisplayMainPicture ] = useState(null);
+  const game = useSelector((state) => state.games?.currentGame);
+  const reviews = useSelector((state) => state.reviews?.allReviews);
+
 
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
     dispatch(reviewsAction.setReviewsState(gameId));
-    console.log("Hello I am working.")
   }, [dispatch, gameId]);
 
-
-
-  const game = useSelector((state) => state.games?.currentGame);
-  const reviews = useSelector((state) => state.reviews?.allReviews);
+  useEffect(() => {
+    setDisplayMainPicture(game?.screenshots[0])
+  }, [game])
   
   let allReviewsArray
   if (reviews){
@@ -62,6 +61,8 @@ function GameDetailPage() {
   }
 
   return (
+
+
     <div className='game-page-background'>
       <div className='game-container'>
         
@@ -72,20 +73,20 @@ function GameDetailPage() {
         <div className='game-image'>
           <div className='primary-game-container'>
             <img 
-              src={displayMainPicture ||  game?.GameImages.find(img => img.displayPic === false)?.url}
+              src={displayMainPicture}
               alt={`${game?.title} display`}
               className='primary-game-image'
             />
 
             <div className='thumbnail-carousel-wrapper'>
               <div className='mini-image-container' ref={thumbnailContainerRef}>
-                {game?.GameImages?.filter(img => img.displayPic == false).map((img, index) => (
+                {game?.screenshots.map((img, index) => (
                   <img 
-                    src={img.url} 
+                    src={img} 
                     alt={`Thumbnail ${index}`}
                     className='mini-images' 
                     key={index}
-                    onClick={() => setDisplayMainPicture(img.url)}
+                    onClick={() => setDisplayMainPicture(img)}
                   />
                 ))}
               </div>
@@ -99,7 +100,7 @@ function GameDetailPage() {
 
           <div className='secondary-image-container'>
             <img 
-              src={game?.GameImages?.find(img => img.displayPic === true)?.url}
+              src={game?.capsuleImage}
               alt={`${game?.title} secondary`}
               className='secondary-game-image'
             />
@@ -154,6 +155,8 @@ function GameDetailPage() {
      )}
     </div>
   </div>
+
+  
   );
 }
 
