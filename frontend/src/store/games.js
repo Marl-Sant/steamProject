@@ -32,9 +32,9 @@ export const getGameById = (id) => async (dispatch) => {
 const initialState = { allGames: null, currentGame: null };
 
 const gameReducer = (state = initialState, action) => {
+  const newState = {};
   switch (action.type) {
     case SET_GAMES:
-      let newState = {};
       action.payload.forEach((game) => {
         newState[game.id] = game;
       });

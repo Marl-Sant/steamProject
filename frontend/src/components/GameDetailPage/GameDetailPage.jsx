@@ -42,7 +42,7 @@ function GameDetailPage() {
   let notRecommendedCount = 0;
 
   if (allReviewsArray) {
-    allReviewsArray.forEach(([_, review]) => {
+    allReviewsArray.forEach((review) => {
       if (review.isRecommended === true) recommendedCount++;
       else if (review.isRecommended === false) notRecommendedCount++;
     });

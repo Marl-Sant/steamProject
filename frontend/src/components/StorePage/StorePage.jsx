@@ -69,8 +69,6 @@ const CarouselComponent = () => {
 function StorePage(){
     const dispatch = useDispatch();
     const [isLoaded, setIsLoaded] = useState(false)
-    const storeGames = useSelector((state) => state.games)
-    const storeGamesImages = useSelector((state) => state.gameImages)
 
     useEffect(() => {
         async function fetchData(){
