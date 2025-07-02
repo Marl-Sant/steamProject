@@ -7,19 +7,18 @@ if (process.env.NODE_ENV === 'production') {
   options.schema = process.env.SCHEMA;
 }
 
-const allReviews = await Review.findAll();
-
-const seededReviewLikes = allReviews.map((review, i) => {
-  let reviewLike = {};
-  reviewLike[ownerId] = i + 1;
-  reviewLike[reviewId] = review.id;
-  reviewLike[liked] = i % 2;
-  return reviewLike;
-});
-
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const allReviews = await Review.findAll();
+
+    const seededReviewLikes = allReviews.map((review, i) => {
+      let reviewLike = {};
+      reviewLike[ownerId] = i + 1;
+      reviewLike[reviewId] = review.id;
+      reviewLike[liked] = i % 2;
+      return reviewLike;
+    });
     await ReviewLike.bulkCreate(
       seededReviewLikes
       //   [
