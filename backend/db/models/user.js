@@ -18,7 +18,7 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       User.hasMany(models.Friend, {
-        foreignKey: "recieverId",
+        foreignKey: "receiverId",
         as: "ReceivedFriendRequests",
       });
 
