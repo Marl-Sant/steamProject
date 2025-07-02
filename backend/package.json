@@ -5,7 +5,7 @@
     "start": "per-env",
     "start:development": "nodemon ./bin/www",
     "start:production": "node ./bin/www",
-    "build": "node backend/psql-setup-script.js"
+    "build": "ls -la && ls -la backend && npm run --prefix backend build"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
