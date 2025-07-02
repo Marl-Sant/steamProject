@@ -54,7 +54,7 @@ const CarouselComponent = () => {
                         <h3>${game[1].price}</h3>
                         <span className='subContainer'>
                         {Array.isArray(game[1].screenshots) &&
-                            game[1].screenshots.slice(0, 4).map((url, index) => (
+                            game[1].screenshots.slice(0, 3).map((url, index) => (
                             <img src={url} className='subImage' key={index} />
                             ))}
                         </span>
