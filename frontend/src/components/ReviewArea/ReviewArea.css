@@ -60,7 +60,9 @@
   color: #c7d5e0;
   cursor: pointer;
   border: none;
-  margin-right: .3rem;
+  margin-right: .6rem;
+  display: inline-flex;
+  align-items: center;
 }
 
 #text-title{
@@ -76,4 +78,18 @@
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+.disabled-button{
+  font-family: Arial, sans-serif;
+  font-size: 14px;
+  padding: 8px 20px;
+  background-color: #4881c72f;
+  color: #c7d5e0;
+  border: none;
+  margin-right: .3rem;
+}
+
+.selected{
+    box-shadow: 0rem 0rem .2rem .2rem rgb(201, 196, 196);;
 }
