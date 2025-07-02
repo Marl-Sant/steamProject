@@ -13,20 +13,14 @@ module.exports = {
       {
         senderId: 1,
         receiverId: 2,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         senderId: 2,
         receiverId: 3,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
       {
         senderId: 3,
         receiverId: 1,
-        createdAt: new Date(),
-        updatedAt: new Date(),
       },
     ]);
   },

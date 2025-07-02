@@ -23,7 +23,7 @@ module.exports = {
           key: 'id'
         },
       },
-      recieverId: {
+      receiverId: {
         type: Sequelize.INTEGER,
         allowNull: false,
         references: {
