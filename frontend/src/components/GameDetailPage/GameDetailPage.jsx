@@ -24,7 +24,7 @@ function GameDetailPage() {
 
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
-  
+
   let allReviewsArray
   if (reviews){
     allReviewsArray = Object.entries(reviews);
@@ -71,23 +71,24 @@ function GameDetailPage() {
         
         <div className='game-image'>
           <div className='primary-game-container'>
-            <img 
-              src={displayMainPicture ||  game?.GameImages.find(img => img.displayPic === false)?.url}
-              alt={`${game?.title} display`}
-              className='primary-game-image'
+          {Array.isArray(game?.movies) && game.movies.length > 0 && (
+            <video
+              controls
+              src={displayMainPicture || game.movies[0]}
+              className='game-video'
             />
-
+          )}
             <div className='thumbnail-carousel-wrapper'>
               <div className='mini-image-container' ref={thumbnailContainerRef}>
-                {game?.GameImages?.filter(img => img.displayPic == false).map((img, index) => (
+                {Array.isArray(game?.screenshots) && game.screenshots.map((url, index) => ( 
                   <img 
-                    src={img.url} 
-                    alt={`Thumbnail ${index}`}
-                    className='mini-images' 
-                    key={index}
-                    onClick={() => setDisplayMainPicture(img.url)}
+                  src={url} 
+                  className='mini-images' 
+                  key={index}
+                  onClick={() => setDisplayMainPicture(url)}
                   />
-                ))}
+                 
+                  ))}   
               </div>
 
               <div className="carousel-scroller">

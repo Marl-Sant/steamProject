@@ -55,7 +55,11 @@ const CarouselComponent = () => {
                         <span className='subContainer'>
                         {Array.isArray(game[1].screenshots) &&
                             game[1].screenshots.slice(0, 3).map((url, index) => (
-                            <img src={url} className='subImage' key={index} />
+                            <img 
+                                src={url} 
+                                className='subImage' 
+                                key={index} 
+                            />
                             ))}
                         </span>
                         </div>
