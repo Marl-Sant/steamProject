@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Ownership.init(
     {
-      ownderId: DataTypes.INTEGER,
+      ownerId: DataTypes.INTEGER,
       gameId: DataTypes.INTEGER,
       mostRecent: DataTypes.BOOLEAN,
     },
