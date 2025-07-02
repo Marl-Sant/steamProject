@@ -81,6 +81,8 @@ router.get("/:gameId/reviews/:reviewId", async (req, res) => {
 
 //Create a new Review on game
 router.post("/:gameId/reviews", requireAuth, async (req, res) => {
+  console.log("This is the req user info:", req.user);
+
   const { review, isRecommended } = req.body;
 
   if (!review.length || review.length < 10) {

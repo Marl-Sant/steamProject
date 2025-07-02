@@ -49,29 +49,32 @@
 .game-image-container{
     height: 100%;
     width: 100%;
+    
 }
 
 .game-info-container{
-    padding-left: 1.5rem;
+    padding-left: 2rem;
 }
 
 .game-image{
     height: 30rem;
     width: 30rem;
     object-fit: stretch;
+    padding-bottom: 1rem;
+    padding-top: 0.5rem;
+    padding-left: 1rem;
 }
 
-.subImage{
-    min-height: 7rem;
-    max-height: 7rem;
-    min-width: 15rem;
-    max-width: 15rem;
-}
+.subImage {
+    width: 200px;
+    height: auto;
+    display: block;
+  }
 
 .subContainer{
     display: grid;
     grid-template-rows: 1fr 1fr;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     width: fit-content;
     gap: 1rem;
 }

@@ -44,17 +44,18 @@ const CarouselComponent = () => {
         >
             {allGamesArray?.map(game => (
                 <div key={`${game[0]}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game[1])}}>
-                    <div className='game-image-container'><img src={game[1].GameImages.find(gameImage => gameImage.displayPic === true).url} className='game-image' /></div>
+                    <div className='game-image-container'>
+                        <img src={game[1].headerImage} className='game-image' />
+                    </div>
                     <div className='game-info-container'>
-                        <h1>
-                        {game[1].title}
-                        </h1>
-                        <p>{game[1].description}</p>
+                        <h1>{game[1].title}</h1>
+                        <p>{game[1].shortDescription}</p>
                         <h3>${game[1].price}</h3>
                         <span className='subContainer'>
-                        {game[1].GameImages?.map(image => (
-                            <img src={image.url} className='subImage' key={image.id}></img>
-                        ))}
+                        {Array.isArray(game[1].screenshots) &&
+                            game[1].screenshots.slice(0, 4).map((url, index) => (
+                            <img src={url} className='subImage' key={index} />
+                            ))}
                         </span>
                         </div>
                 </div>
