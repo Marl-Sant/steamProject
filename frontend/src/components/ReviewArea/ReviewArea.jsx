@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
 import * as reviewActions from '../../store/reviews'
 import './ReviewArea.css'
 
@@ -7,6 +8,7 @@ function ReviewArea() {
     const dispatch = useDispatch();
     const [text, setText] = useState('')
     const [isRecommended, setIsRecommended] = useState(null);
+    const [disabled, setDisabled] = useState(true)
     const user = useSelector((state) => state.session.user)
     const game = useSelector((state) => state.games?.currentGame)
     
@@ -15,12 +17,14 @@ function ReviewArea() {
     }, [dispatch, game?.id])
 
     const handleSubmit = async () => {
-        return await dispatch(reviewActions.addReviewState({
+        const newReview = await dispatch(reviewActions.addReviewState({
             gameId: game.id,
             review: text,
             userId: user.id,
             isRecommended: isRecommended
         }))
+        setText('')
+        return newReview
     };
 
     const handleRecommendClick = () => setIsRecommended(true);
@@ -30,6 +34,8 @@ function ReviewArea() {
     
     return (
         <div className='text-area-container'>
+
+
             <div>
                 <h4 id='text-title'>    
                 Write a review for {`${game?.title}`}
@@ -44,25 +50,34 @@ function ReviewArea() {
                     />
                 </div>
                 <div id='text-area'>
-                    <textarea id='text' onChange={(e) => setText(e.target.value)}></textarea>
+                    <textarea id='text' value={text} onChange={(e) => {
+                        setText(e.target.value)
+                        if(text.length === 10){
+                            setDisabled(!disabled)
+                        }
+                        }}></textarea>
                     <p id="recommend-text">Do you recommend this game?</p>
                         <div id='button-row'>
                             <div id='liked-group'>
                                 <button 
-                                    className='review-button'
+                                    className={isRecommended !== false && isRecommended !== null ? 'review-button selected' : 'review-button'}
                                     onClick={handleRecommendClick}    
-                                >Yes</button>
+                                ><FaThumbsUp /></button>
                                 <button 
-                                    className='review-button'
+                                    className={isRecommended !== true && isRecommended !== null ? 'review-button selected' : 'review-button'}
                                     onClick={handleNotRecommendClick}
-                                >No</button>
+                                ><FaThumbsDown /></button>
                             </div>
                             <div id='review-button-container'>
-                                <button className='review-button' onClick={handleSubmit}>Post review</button>
+                                <button className={text.length >= 10 && isRecommended !== null ? 'review-button' : 'disabled-button'}
+                                disabled={disabled} 
+                                onClick={handleSubmit}>Post review</button>
                             </div>
                         </div>
                     </div>
             </div>
+
+
         </div>
     )
 }
