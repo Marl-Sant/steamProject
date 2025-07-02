@@ -46,6 +46,7 @@ const CarouselComponent = () => {
                 <div key={`${game[0]}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game[1])}}>
                     <div className='game-image-container'>
                         <img src={game[1].headerImage} className='game-image' />
+                        {console.log('HERE IT IS LOOK OVER HERE', game[1].headerImage)}
                     </div>
                     <div className='game-info-container'>
                         <h1>{game[1].title}</h1>

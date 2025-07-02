@@ -35,11 +35,11 @@ module.exports = {
         },
         headerImage: {
           allowNull: false,
-          type: Sequelize.BLOB,
+          type: Sequelize.TEXT,
         },
         capsuleImage: {
           allowNull: false,
-          type: Sequelize.BLOB,
+          type: Sequelize.TEXT,
         },
         website: {
           allowNull: false,
