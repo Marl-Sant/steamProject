@@ -2,42 +2,35 @@
     display: block;
     min-height: 20rem;
     margin: 0 auto;
-    padding: 2rem 1.5rem 0 1.5rem;
+    padding: 2rem 1.5rem 2rem 1.5rem;
 }
   
-  .gameSlide {
-    display: grid;
-    grid-template-columns: 0.5fr 1fr;
-    width: 100%;
-    max-width: 1200px;
-    height: 24rem; 
-    gap: 1rem;
-  }
-  
-  .gameSlide:hover {
+
+.gameSlide:hover {
     cursor: pointer;
-  }
-  
-  .gameShadow {
+}
+
+.gameShadow {
     box-shadow: 0px 0px 10px 10px rgba(0, 0, 0, 0.25);
     background-color: #0a111a;
-  }
-  
-  #container {
+}
+
+#container {
     display: grid;
     grid-template-columns: 0.5fr 5fr 0.5fr;
     gap: 3rem;
     align-items: center;
     max-width: 1400px;
-    margin: 0 auto;
-  }
-  
-  .button-container {
+    margin: 2rem auto;
+    transform: scale(1.2);
+}
+
+.button-container {
     position: relative;
-  }
-  
-  .left-slide-button,
-  .right-slide-button {
+}
+
+.left-slide-button,
+.right-slide-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -45,49 +38,65 @@
     cursor: pointer;
     display: flex;
     align-items: center;
-  }
-  
-  .left-slide-button {
+}
+
+.left-slide-button {
     left: 6rem;
-  }
-  
-  .right-slide-button {
+}
+
+.right-slide-button {
     right: 6rem;
-  }
-  
-  .store-page {
+}
+
+.store-page {
     min-height: 100vh;
     background: linear-gradient(to bottom right, #1b2838, #2a475e);
     color: #c7d5e0;
-  }
+}
+
+.gameSlide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 1200px; 
+  height: 24.5rem; 
+  gap: 1rem;
   
-  .game-image-container {
+}
+
+.game-image-container {
     height: 100%;
     width: 100%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    margin-top: 2.5rem;
+    margin-left: 1rem;
   }
   
   .game-info-container {
-    padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    height: 100%;
-    overflow-y: auto;
+    margin-left: 2rem;
+    flex-wrap: nowrap;
+    margin-right: 1.5rem;
+    text-align: justify;
+  }
+
+  .game-info-container h1 {
+    margin: 1;
+    padding-top: 1.5rem;
   }
   
+  .game-info-container p {
+    margin: 0.25rem 0; /* top/bottom spacing */
+  }
+
   .game-image {
-    height: 17.8rem;
-    max-height: 100%;
-    width: auto;
-    object-fit: fill;
-    padding: 1rem;
+    height: 18.5rem;
+    width: 15rem;
+    
   }
   
   .subImage {
-    width: 200px;
+    width: 215px;
     height: auto;
     display: block;
   }
@@ -96,8 +105,5 @@
     display: grid;
     grid-template-rows: repeat(2, 1fr);
     grid-template-columns: repeat(3, 1fr);
-    gap: 1rem;
-    width: fit-content;
-    max-width: 1200px;
   }
   

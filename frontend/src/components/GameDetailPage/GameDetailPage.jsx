@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './GameDetailPage.css'
 import ReviewArea from '../ReviewArea/ReviewArea'
+import ReviewCommentModal from '../ReviewCommentModal/ReviewCommentModal';
 
 function GameDetailPage() {
   const { gameId } = useParams();
@@ -13,6 +14,8 @@ function GameDetailPage() {
   const [ displayMainPicture, setDisplayMainPicture ] = useState(null);
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
+  const [ openModal, setOpenModal ] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
 
 
   useEffect(() => {
@@ -41,7 +44,8 @@ function GameDetailPage() {
   let notRecommendedCount = 0;
 
   if (allReviewsArray) {
-    allReviewsArray.forEach((review) => {
+    allReviewsArray.forEach((entry) => {
+      const review = entry[1];
       if (review.isRecommended === true) recommendedCount++;
       else if (review.isRecommended === false) notRecommendedCount++;
     });
@@ -80,6 +84,7 @@ function GameDetailPage() {
               loop
               controls
               playsInline
+              muted
             />
           ) : (
             <img
@@ -129,20 +134,25 @@ function GameDetailPage() {
             </div>
 
             <div className='game-genre'>
-              Genre: <div className='game-description-value'>{game?.genre}</div>
+              Genre: <div className='game-description-value'>{game?.genres}</div>
             </div>
 
             <div className='game-developer'>
-              Developer: <div className='game-description-value'>{game?.developer}</div>
+              Developer: <div className='game-description-value'>{game?.developers}</div>
             </div>
 
             <div className='game-publisher'>
-              Publisher: <div className='game-description-value'>{game?.publisher}</div>
+              Publisher: <div className='game-description-value'>{game?.publishers}</div>
+            </div>
+
+            <div className='game-publisher'>
+              Release Date: <div className='game-description-value'>{game?.releaseDate}</div>
             </div>
 
             <div className='review-sentiment'>
               All Reviews: <div className='game-description-value'>{sentiment}</div>
             </div>
+            
 
           </div>
         </div>     
@@ -166,6 +176,26 @@ function GameDetailPage() {
               <div className="review-comment">{review[1].review}</div>
               <div className='review-recommendation'>
                 {review[1].isRecommended ? '👍 Recommended' : '👎 Not Recommended'}
+              </div>
+              <div className='view-comments'>
+              <button 
+                className="speech-bubble" 
+                onClick={() => {
+                  setSelectedReviewId(review[1].id)
+                  setOpenModal(true)
+                }}
+              >
+                💬 Comment
+              </button>
+              {openModal && selectedReviewId &&(
+                <ReviewCommentModal 
+                  onClose={() => {
+                    setOpenModal(false);
+                    setSelectedReviewId(null);
+                  }}
+                  reviewId={selectedReviewId} 
+                />
+              )}
               </div>
             </div>
           </div>

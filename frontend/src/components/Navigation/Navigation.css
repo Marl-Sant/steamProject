@@ -6,7 +6,7 @@
     "logo-and-links login"
     "logo-and-links ."
     ;
-    height: 5.7rem;
+    height: 4.7rem;
 }
 
 .logo{
@@ -23,7 +23,7 @@
     grid-area: login;
     height:fit-content;
     justify-content: center;
-    align-items:flex-start;
+    margin-left: 1rem;
 }
 
 .logo-and-links{
@@ -31,6 +31,7 @@
     display: flex;
     justify-content: space-around;
     align-self: center;
+    gap: 2rem;
 }
 
 .links{
@@ -38,18 +39,18 @@
     justify-content: space-between;
     align-items: center;
     color: rgb(201, 196, 196);
+    gap: 2rem;
+    white-space: nowrap;
 }
 
 .links > a{
     text-decoration: none;
     color: rgb(201, 196, 196);
-    padding: 0 .5rem
 }
 
 .login-link > a{
     text-decoration: none;
     color: rgb(201, 196, 196);
-    padding: 0 .5rem;
     font-size: small;
 }
 

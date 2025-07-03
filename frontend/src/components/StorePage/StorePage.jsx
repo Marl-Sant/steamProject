@@ -49,9 +49,9 @@ const CarouselComponent = () => {
                     />
                 </span>
             </div>
-        <span className='keen-slider gameShadow' ref={sliderRef} 
-        key={sliderKey}
-        >
+            <span className='keen-slider gameShadow' ref={sliderRef} 
+            key={sliderKey}
+            >
             {allGamesArray?.map(game => (
                 <div key={`${game[0]}`} className='keen-slider__slide gameSlide' onClick={() => {handleClick(game[1])}}>
                     <div className='game-image-container'>
@@ -61,6 +61,7 @@ const CarouselComponent = () => {
                         <h1>{game[1].title}</h1>
                         <p>{game[1].shortDescription}</p>
                         <h3>${game[1].price}</h3>
+                    
                         <span className='subContainer'>
                         {Array.isArray(game[1].screenshots) &&
                             game[1].screenshots.slice(0, 3).map((url, index) => (
