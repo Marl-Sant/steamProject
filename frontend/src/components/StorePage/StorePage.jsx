@@ -40,13 +40,15 @@ const CarouselComponent = () => {
 
     return (
         <div id='container'>
-        <span className='left-slide-button'  onClick={() => slider.current.prev()}>
-            <FontAwesomeIcon 
-                icon={faChevronLeft} 
-                size='4x'
-                className='left-arrow' 
-            />
-        </span>
+            <div className='button-container'>
+                <span className='left-slide-button'  onClick={() => slider.current.prev()}>
+                    <FontAwesomeIcon 
+                        icon={faChevronLeft} 
+                        size='4x'
+                        className='left-arrow' 
+                    />
+                </span>
+            </div>
         <span className='keen-slider gameShadow' ref={sliderRef} 
         key={sliderKey}
         >
@@ -69,17 +71,19 @@ const CarouselComponent = () => {
                             />
                             ))}
                         </span>
-                        </div>
+                    </div>
                 </div>
             ))}
         </span>
-        <span className='right-slide-button' onClick={() => slider.current.next()}>
-            <FontAwesomeIcon 
-                icon={faChevronRight} 
-                size='4x'
-                className='left-arrow' 
-            />
-        </span>
+        <div className='button-container'>
+            <span className='right-slide-button' onClick={() => slider.current.next()}>
+                <FontAwesomeIcon 
+                    icon={faChevronRight} 
+                    size='4x'
+                    className='left-arrow' 
+                    />
+            </span>
+        </div>
         </div>
     )
 }
