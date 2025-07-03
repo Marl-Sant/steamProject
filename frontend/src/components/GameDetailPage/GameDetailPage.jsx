@@ -21,7 +21,7 @@ function GameDetailPage() {
   }, [dispatch, gameId]);
 
   useEffect(() => {
-    setDisplayMainPicture(game?.screenshots[0])
+    setDisplayMainPicture(game?.movies[0])
   }, [game])
   
   let allReviewsArray
@@ -72,19 +72,39 @@ function GameDetailPage() {
         
         <div className='game-image'>
           <div className='primary-game-container'>
-            <img 
+          {displayMainPicture?.includes('mp4') ? (
+            <video
+              src={displayMainPicture}
+              className='primary-game-image'
+              autoPlay
+              loop
+              controls
+              playsInline
+            />
+          ) : (
+            <img
               src={displayMainPicture}
               alt={`${game?.title} display`}
               className='primary-game-image'
             />
+          )}
             <div className='thumbnail-carousel-wrapper'>
               <div className='mini-image-container' ref={thumbnailContainerRef}>
+                  {game?.movies.slice(0, 2).map((vid, index) => (
+                      <video 
+                        src={vid} 
+                        className='mini-images' 
+                        key={`video-${index}`}
+                        onClick={() => setDisplayMainPicture(vid)}
+                      />
+                 
+                  ))} 
                 {game?.screenshots.map((img, index) => (
                   <img 
                     src={img} 
                     alt={`Thumbnail ${index}`}
                     className='mini-images' 
-                    key={index}
+                    key={`image-${index}`}
                     onClick={() => setDisplayMainPicture(img)}
                   />
                  

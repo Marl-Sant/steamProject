@@ -5,6 +5,8 @@ import 'keen-slider/keen-slider.min.css'
 import { useNavigate } from 'react-router-dom';
 import './StorePage.css'
 import * as gamesAction from '../../store/games'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons';
 
 const CarouselComponent = () => {
     const allGames = useSelector((state) => state.games?.allGames)
@@ -38,7 +40,13 @@ const CarouselComponent = () => {
 
     return (
         <div id='container'>
-        <span className='slide-button'  onClick={() => slider.current.prev()}>ARROW</span>
+        <span className='left-slide-button'  onClick={() => slider.current.prev()}>
+            <FontAwesomeIcon 
+                icon={faChevronLeft} 
+                size='4x'
+                className='left-arrow' 
+            />
+        </span>
         <span className='keen-slider gameShadow' ref={sliderRef} 
         key={sliderKey}
         >
@@ -65,7 +73,13 @@ const CarouselComponent = () => {
                 </div>
             ))}
         </span>
-        <span className='slide-button' onClick={() => slider.current.next()}>ARROW</span>
+        <span className='right-slide-button' onClick={() => slider.current.next()}>
+            <FontAwesomeIcon 
+                icon={faChevronRight} 
+                size='4x'
+                className='left-arrow' 
+            />
+        </span>
         </div>
     )
 }

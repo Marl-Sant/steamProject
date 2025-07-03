@@ -31,10 +31,26 @@
     align-items: center;
 }
 
-.slide-button{
-    border: 1px solid purple;
-    height: 35%;
+.left-slide-button{
+    border-radius: 10px;
+    height: 100px;
     cursor: pointer;
+    justify-content: flex-end;
+    align-items: center;
+    margin-left: 50px;
+    position: relative;
+    left: 55px;
+}
+
+.right-slide-button{
+    border-radius: 10px;
+    height: 100px;
+    cursor: pointer;
+    justify-content: flex-start;
+    align-items: center;
+    margin-left: 50px;
+    position: relative;
+    right: 85px;
 }
 
 .store-page{

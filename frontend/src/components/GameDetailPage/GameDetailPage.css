@@ -49,6 +49,8 @@
 .secondary-image-container {
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
+  margin-top: -5rem;
 }
 
 .mini-image-container {
@@ -82,9 +84,9 @@
 }
 
 .game-description {
-  margin-top: 10px;
   font-size: 15px;
   color: white;
+
 }
 
 .game-genre {
