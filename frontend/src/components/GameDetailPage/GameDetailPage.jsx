@@ -193,7 +193,7 @@ function GameDetailPage() {
                     setOpenModal(false);
                     setSelectedReviewId(null);
                   }}
-                  reviewId={selectedReviewId} 
+                  reviewId={selectedReviewId}
                 />
               )}
               </div>
