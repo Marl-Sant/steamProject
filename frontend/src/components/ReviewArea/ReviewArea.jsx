@@ -50,12 +50,16 @@ function ReviewArea() {
                     />
                 </div>
                 <div id='text-area'>
+
+
                     <textarea id='text' value={text} onChange={(e) => {
                         setText(e.target.value)
                         if(text.length === 10){
                             setDisabled(!disabled)
                         }
                         }}></textarea>
+
+
                     <p id="recommend-text">Do you recommend this game?</p>
                         <div id='button-row'>
                             <div id='liked-group'>
@@ -76,8 +80,6 @@ function ReviewArea() {
                         </div>
                     </div>
             </div>
-
-
         </div>
     )
 }

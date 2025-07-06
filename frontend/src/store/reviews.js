@@ -4,6 +4,7 @@ import { csrfFetch } from './csrf';
 const SET_REVIEWS = 'reviews/setReview';
 const SET_CURRENT_REVIEW = 'reviews/currentReview';
 const ADD_REVIEW = 'reviews/addReview';
+const EDIT_REVIEW = 'reviews/editReview';
 // Step 2: This is the thunk action. Modifies state
 const setReviews = (reviews) => {
   return {
@@ -25,6 +26,14 @@ const addReview = (review) => {
     payload: review,
   };
 };
+
+const editReview = (review) => {
+  return {
+    type: EDIT_REVIEW,
+    payload: review,
+  };
+};
+
 // Step 3: Thunk action creator
 export const setReviewsState = (gameId) => async (dispatch) => {
   const response = await fetch(`/api/games/${gameId}/reviews`);
@@ -44,7 +53,7 @@ export const setCurrentReviewState =
 
 export const addReviewState =
   (reviewArg) => async (dispatch) => {
-    const { gameId, review, userId, isRecommended  } = reviewArg;
+    const { gameId, review, userId, isRecommended } = reviewArg;
     const response = await csrfFetch(
       `/api/games/${gameId}/reviews`,
       {
@@ -70,6 +79,37 @@ export const addReviewState =
       });
     }
   };
+
+export const editReviewThunk =
+  (reviewArg) => async (dispatch) => {
+    const { gameId, reviewId, review, userId, isRecommended } =
+      reviewArg;
+    const response = await csrfFetch(
+      `/api/games/${gameId}/reviews/${reviewId}`,
+      {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          review: review,
+          userId: userId,
+          gameId: gameId,
+          isRecommended: isRecommended,
+        }),
+      }
+    );
+
+    if ((response.ok)) {
+      const data = await response.json();
+      console.log(data)
+      return dispatch(editReview(data));
+    } else {
+      return JSON.stringify({
+        message: 'Something went wrong',
+      });
+    }
+  };
 // Step 4: Building the state. The reducer controls what we return to the state
 const initialState = { allReviews: null, currentReview: null };
 
@@ -90,9 +130,17 @@ const reviewsReducer = (state = initialState, action) => {
           ...state.allReviews,
         },
       };
-      newState.allReviews[action.payload.id] =
-        action.payload;
+      newState.allReviews[action.payload.id] = action.payload;
       return newState;
+    case EDIT_REVIEW:
+      newState = {
+        ...state,
+        allReviews: {
+          ...state.allReviews,
+        },
+      };
+      newState.allReviews[action.payload.id] = action.payload;
+      return newState
     default:
       return state;
   }
