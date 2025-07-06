@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import './GameDetailPage.css'
 import ReviewArea from '../ReviewArea/ReviewArea'
+import EditReviewArea from '../EditReviewArea/EditReviewArea';
 import ReviewCommentModal from '../ReviewCommentModal/ReviewCommentModal';
 
 function GameDetailPage() {
@@ -14,6 +15,7 @@ function GameDetailPage() {
   const [ displayMainPicture, setDisplayMainPicture ] = useState(null);
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
+  const user = useSelector((state) => state.session.user)
   const [ openModal, setOpenModal ] = useState(false);
   const [selectedReviewId, setSelectedReviewId] = useState(null);
 
@@ -21,16 +23,25 @@ function GameDetailPage() {
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
     dispatch(reviewsAction.setReviewsState(gameId));
-  }, [dispatch, gameId]);
+  }, []);
 
   useEffect(() => {
     setDisplayMainPicture(game?.movies[0])
   }, [game])
   
   let allReviewsArray
+  let userReview
+  let otherReviews
   if (reviews){
     allReviewsArray = Object.entries(reviews);
+    if(user){
+      userReview = allReviewsArray.find(review => review[1].userId === user.id)
+      otherReviews = allReviewsArray.filter(review => review[1].userId !== user.id)
+    }
   }
+  let gameReviews = otherReviews || allReviewsArray
+
+
 
   const scrollThumbnails = (direction) => {
     const container = thumbnailContainerRef.current;
@@ -158,13 +169,21 @@ function GameDetailPage() {
         </div>     
       </div>
 
-    <div className='create-review-container'>
-      <ReviewArea />     
+      {user ? 
+      <div className='create-review-container'>
+        {userReview ? 
+        <EditReviewArea props={userReview}/> 
+        : 
+        <ReviewArea />     
+        }   
     </div>
+     : "Log in to leave a review!"
+    }
 
     <div className='reviews-container'> 
      {allReviewsArray && allReviewsArray.length > 0 ? (
-      allReviewsArray.map((review) => (
+
+      gameReviews.map((review) => (
         <div key={review[1].id} className='review-item'>
           <img 
             src={`${review[1].User?.profilePic}`}
