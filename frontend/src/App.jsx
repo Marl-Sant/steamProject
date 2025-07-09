@@ -7,6 +7,8 @@ import StorePage from "./components/StorePage/StorePage.jsx";
 import Navigation from "./components/Navigation/Navigation.jsx";
 import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
+import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
+import CommunityBoard from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
 
 function Layout() {
   const dispatch = useDispatch();
