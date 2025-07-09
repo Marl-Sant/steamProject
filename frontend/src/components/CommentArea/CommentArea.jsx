@@ -11,6 +11,8 @@ function CommentArea({ gameId, reviewId, isHelpful }) {
   const handleSubmit = async () => {
     if (text.length < 10 || isHelpful === null) return;
 
+    console.log(gameId)
+
     await dispatch(commentActions.addCommentState({
       gameId,
       reviewId,

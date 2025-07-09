@@ -11,17 +11,24 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const [isHelpful, setIsHelpful] = useState(null);
 
   const comments = useSelector((state) => state.comments?.allComments)
-  const allCommentsArray = comments ? Object.entries(comments) : [];
+  // const allCommentsArray = comments ? Object.entries(comments) : [];
+  let allCommentsArray
+  if(comments){
+    allCommentsArray = Object.entries(comments)
+  }else{
+    allCommentsArray = []
+  }
 
   useEffect(() => {
-    if (gameId && reviewId) {
-      dispatch(commentActions.setCommentsState(gameId, reviewId));
+    if (reviewId) {
+      dispatch(commentActions.setCommentsState(reviewId));
     }
   }, [gameId, reviewId, dispatch]);
 
   const reviewComments = allCommentsArray.filter(
-    ([_, comment]) => comment.reviewId === reviewId
+     comment => comment[1].reviewId === reviewId
   );
+  console.log(reviewComments)
   const selectedReview = allReviewsArray.find(
     ([_, review]) => review.id === reviewId
   );

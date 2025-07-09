@@ -46,14 +46,14 @@ const router = createBrowserRouter([
         path: "games/:gameId",
         element: <GameDetailPage />,
       },
-      {
-        path: "communities",
-        element: <CommunitiesListPage />,
-      },
-      {
-        path: "communities/:communityId",
-        element: <CommunityBoard />,
-      },
+      // {
+      //   path: "communities",
+      //   element: <CommunitiesListPage />,
+      // },
+      // {
+      //   path: "communities/:communityId",
+      //   element: <CommunityBoard />,
+      // },
     ],
   },
 ]);
