@@ -214,6 +214,7 @@
 #no-user-message {
   position: absolute;
   height: 17em;
+  /* height: 50vh; */
   width: 100%;
 
   display: flex;
