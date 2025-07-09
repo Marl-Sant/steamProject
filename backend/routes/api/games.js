@@ -224,7 +224,7 @@ router.post(
     }
 
     const newPost = await Post.create({
-      ownerId: req.user.id,
+      userId: req.user.id,
       communityId: req.params.communityId,
       post: post,
     });
@@ -247,7 +247,7 @@ router.put(
       });
     }
 
-    if (req.user.id !== existingPost.ownerId) {
+    if (req.user.id !== existingPost.userId) {
       return res.status(401).json({
         message: "User must be post owner in order to edit",
       });
@@ -283,7 +283,7 @@ router.delete(
       });
     }
 
-    if (deletePost.ownerId !== req.user.id) {
+    if (deletePost.userId !== req.user.id) {
       return res
         .status(401)
         .json({ message: "User must be owner of the post to delete it" });
@@ -301,7 +301,7 @@ router.delete(
 router.get("/:gameId/reviews/:reviewId/comments", async (req, res) => {
   const comments = await ReviewComment.findAll({
     where: { reviewId: req.params.reviewId },
-    include: [{ model: User, attributes: ["id", "username", "profilePic"] }],
+    include: [{ model: User}],
   });
 
   if (comments) {
@@ -320,9 +320,9 @@ router.post("/:gameId/reviews/:reviewId/comments", requireAuth, async (req, res)
   }
 
   const newComment = await ReviewComment.create({
-    ownerId: req.user.id,
+    userId: req.user.id,
     gameId: Number(req.params.gameId),
-    reviewId: Number(req.params.reviewId),
+    reviewId: req.params.reviewId,
     comment: comment,
     isHelpful: isHelpful,
   });
@@ -350,7 +350,7 @@ router.delete("/:gameId/reviews/:reviewId/comments/:commentId", requireAuth, asy
     return res.status(404).json({ message: "Comment not found" });
   }
 
-  if (reviewComment.ownerId !== req.user.id) {
+  if (reviewComment.userId !== req.user.id) {
     return res.status(403).json({ message: "Unauthorized to delete this comment" });
   }
 

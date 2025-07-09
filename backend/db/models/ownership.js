@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Ownership.belongsTo(models.User, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
       });
 
       Ownership.belongsTo(models.Game, {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Ownership.init(
     {
-      ownerId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       gameId: DataTypes.INTEGER,
       mostRecent: DataTypes.BOOLEAN,
     },

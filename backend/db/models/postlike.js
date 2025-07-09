@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       PostLike.belongsTo(models.User, {
-        foreignKey: 'ownerId'
+        foreignKey: 'userId'
       });
 
       PostLike.belongsTo(models.Post, {
@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   PostLike.init({
-    ownerId: DataTypes.INTEGER,
+    userId: DataTypes.INTEGER,
     postId: DataTypes.INTEGER,
     liked: DataTypes.BOOLEAN
   }, {

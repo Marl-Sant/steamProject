@@ -10,8 +10,6 @@ function CommentArea({ gameId, reviewId }) {
   const [isHelpful, setIsHelpful] = useState(null);
 
   const user = useSelector((state) => state.session.user);
-  const game = useSelector((state) => state.games?.currentGame)
-  const review = useSelector((state) => state.reviews?.currentReview)
 
   const handleSubmit = async () => {
     const newComment = await dispatch(commentActions.addCommentState({

@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       CommunityLike.belongsTo(models.User, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
       });
 
       CommunityLike.belongsTo(models.Community, {
@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   CommunityLike.init(
     {
-      ownerId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       communityId: DataTypes.INTEGER,
       liked: DataTypes.BOOLEAN,
     },

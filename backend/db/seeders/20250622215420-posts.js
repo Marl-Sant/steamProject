@@ -13,17 +13,17 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Post.bulkCreate([
       {
-        ownerId: 1,
+        userId: 1,
         communityId: 1,
         post: 'This is one of the best MMOs out there.'
       },
       {
-        ownerId: 2,
+        userId: 2,
         communityId: 2,
         post: 'Halo? More like Hey Hole.'
       },
       {
-        ownerId: 3,
+        userId: 3,
         communityId: 3,
         post: 'I like to make them suffer.'
       },
@@ -34,7 +34,7 @@ module.exports = {
     options.tableName = 'Posts';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: {
+      userId: {
         [Op.in] : [1, 2, 3]
       }
     })

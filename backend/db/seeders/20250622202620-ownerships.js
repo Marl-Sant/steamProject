@@ -11,17 +11,17 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await Ownership.bulkCreate([
       {
-        ownerId: 1,
+        userId: 1,
         gameId: 1,
         mostRecent: true
       },
       {
-        ownerId: 2,
+        userId: 2,
         gameId: 2,
         mostRecent: false
       },
       {
-        ownerId: 3,
+        userId: 3,
         gameId: 3,
         mostRecent: true
       }
@@ -38,7 +38,7 @@ module.exports = {
     options.tableName = "Ownerships";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: {
+      userId: {
         [Op.in] : [1, 2, 3]
       }
     }, {})

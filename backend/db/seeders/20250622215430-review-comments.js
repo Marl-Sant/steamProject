@@ -12,19 +12,19 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await ReviewComment.bulkCreate([
       {
-        ownerId: 1,
+        userId: 1,
         reviewId: 1,
         comment: 'I couldnt agree more! Its great!',
         isHelpful: true,
       },
       {
-        ownerId: 2,
+        userId: 2,
         reviewId: 2,
         comment: 'Any hole is a goal.',
         isHelpful: false,
       },
       {
-        ownerId: 3,
+        userId: 3,
         reviewId: 3,
         comment: 'BURN BABY BURN DISCO INFERNO!',
         isHelpful: true,
@@ -36,7 +36,7 @@ module.exports = {
     options.tableName = 'ReviewComments';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
-      ownerId: {
+      userId: {
         [Op.in] : [1, 2, 3]
       }
     })

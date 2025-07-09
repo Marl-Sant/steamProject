@@ -12,47 +12,47 @@ module.exports = {
   async up (queryInterface, Sequelize) {
     await PostLike.bulkCreate([
       {
-        ownerId: 1,
+        userId: 1,
         postId: 1,
         liked: true
       },
       {
-        ownerId: 2,
+        userId: 2,
         postId: 1,
         liked: false
       },
       {
-        ownerId: 3,
+        userId: 3,
         postId: 1,
         liked: true
       },
       {
-        ownerId: 1,
+        userId: 1,
         postId: 2,
         liked: true
       },
       {
-        ownerId: 2,
+        userId: 2,
         postId: 2,
         liked: false
       },
       {
-        ownerId: 3,
+        userId: 3,
         postId: 2,
         liked: true
       },
       {
-        ownerId: 1,
+        userId: 1,
         postId: 3,
         liked: true
       },
       {
-        ownerId: 2,
+        userId: 2,
         postId: 3,
         liked: false
       },
       {
-        ownerId: 3,
+        userId: 3,
         postId: 3,
         liked: true
       },

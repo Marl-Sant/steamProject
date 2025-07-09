@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Post.belongsTo(models.User, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
       });
 
       Post.belongsTo(models.Community, {
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   Post.init(
     {
-      ownerId: DataTypes.INTEGER,
+      userId: DataTypes.INTEGER,
       communityId: DataTypes.INTEGER,
       post: DataTypes.STRING,
     },

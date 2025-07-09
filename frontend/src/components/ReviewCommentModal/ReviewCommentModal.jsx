@@ -9,12 +9,14 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const allReviewsArray = reviews ? Object.entries(reviews) : [];
 
-  const comments = useSelector((state) => state.comments?.allComments)
+  const comments = useSelector(state => state.comments?.allComments);
   const allCommentsArray = comments ? Object.entries(comments) : [];
 
   useEffect(() => {
-    dispatch(commentActions.setCommentsState(reviewId));
-  }, []);
+    if (gameId && reviewId) {
+      dispatch(commentActions.setCommentsState(gameId, reviewId));
+    }
+  }, [gameId, reviewId, dispatch]);
 
   const reviewComments = allCommentsArray.filter(
     ([_, comment]) => comment.reviewId === reviewId
@@ -73,13 +75,17 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           </div>
 
           <div className='comments-container'>
-            {reviewComments.length > 0 ? (
-              reviewComments.map(([id, comment]) => (
-                <div key={id} className='comment'>
+            {allCommentsArray && allCommentsArray.length > 0 ? (
+              reviewComments.map((comment) => (
+                <div key={comment[1].id} className='comment'>
+                  <img 
+                    src={`${comment[1].User?.profilePic}`}
+                    alt={`${comment[1].User?.username}'s profile`}
+                  />
                   <div className='comment-author'>
-                    {comment.User?.username}:
+                    {comment[1].User?.username}:
                   </div>
-                  <div className='comment-text'>{comment.comment}</div>
+                  <div className='comment-text'>{comment[1].comment}</div>
                 </div>
               ))
             ) : (

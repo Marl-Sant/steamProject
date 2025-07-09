@@ -31,18 +31,20 @@ const addComment = (comment) => {
 // Step 3: Thunk action creators
 
 export const setCommentsState = (gameId, reviewId) => async (dispatch) => {
-  const response = await fetch(`/api/games/${gameId}/reviews/${reviewId}/comments`);
-  const data = await response.json();
-  dispatch(setComments(data));
-  return response;
+  const res = await fetch(`/api/games/${gameId}/reviews/${reviewId}/comments`);
+  if (res.ok) {
+    const data = await res.json();
+    console.log('Fetched comments data:', data);
+    dispatch(setComments(data));
+  }
 };
 
-// export const setCurrentCommentState = (gameId, reviewId) => async (dispatch) => {
-//   const response = await fetch(`/api/games/${gameId}/reviews/${reviewId}/comments/`);
-//   const data = await response.json();
-//   dispatch(setCurrentComment(data));
-//   return response;
-// };
+export const setCurrentCommentState = (gameId, reviewId) => async (dispatch) => {
+  const response = await fetch(`/api/games/${gameId}/reviews/${reviewId}/comments/`);
+  const data = await response.json();
+  dispatch(setCurrentComment(data));
+  return response;
+};
 
 export const addCommentState = (commentArg) => async (dispatch) => {
   const { gameId, reviewId, comment, userId, isHelpful } = commentArg;
@@ -58,6 +60,7 @@ export const addCommentState = (commentArg) => async (dispatch) => {
         comment: comment,
         userId: userId,
         reviewId: reviewId,
+        gameId: gameId,
         isHelpful: isHelpful,
       }),
     }

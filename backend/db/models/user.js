@@ -23,27 +23,27 @@ module.exports = (sequelize, DataTypes) => {
       });
 
       User.hasMany(models.ReviewLike, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
         onDelete: "CASCADE",
       });
 
       User.hasMany(models.Post, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
         onDelete: "CASCADE",
       });
 
       User.hasMany(models.CommunityLike, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
         onDelete: "CASCADE",
       });
 
       User.hasMany(models.PostLike, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
         onDelete: "CASCADE",
       });
 
       User.hasMany(models.ReviewComment, {
-        foreignKey: "ownerId",
+        foreignKey: "userId",
         onDelete: "CASCADE",
       });
       
