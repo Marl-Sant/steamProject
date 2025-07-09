@@ -7,6 +7,7 @@ const { User } = require("../../db/models");
 const { Community } = require("../../db/models");
 const { Post } = require("../../db/models");
 const { CommunityLike } = require("../../db/models");
+const { ReviewComment } = require("../../db/models")
 
 const { requireAuth } = require("../../utils/auth");
 const router = express.Router();
@@ -295,5 +296,67 @@ router.delete(
     });
   }
 );
+
+// Get all comments
+router.get("/:gameId/reviews/:reviewId/comments", async (req, res) => {
+  const comments = await ReviewComment.findAll({
+    where: { reviewId: req.params.reviewId },
+    include: [{ model: User, attributes: ["id", "username", "profilePic"] }],
+  });
+
+  if (comments) {
+    return res.json(comments);
+  } else {
+    return res.status(404).json({ message: "Comments not found" });
+  }
+});
+
+// Create a comment on a review
+router.post("/:gameId/reviews/:reviewId/comments", requireAuth, async (req, res) => {
+  const { comment, isHelpful } = req.body;
+
+  if (!comment || comment.length < 1) {
+    return res.status(400).json({ message: "Comment cannot be empty" });
+  }
+
+  const newComment = await ReviewComment.create({
+    ownerId: req.user.id,
+    gameId: Number(req.params.gameId),
+    reviewId: Number(req.params.reviewId),
+    comment: comment,
+    isHelpful: isHelpful,
+  });
+
+  const populatedComment = await ReviewComment.findOne({
+    where: { id: newComment.id },
+    include: [{ model: User }],
+  });
+
+  if (populatedComment) {
+    return res.json(populatedComment)
+  } else {
+    return res.status(401).json({
+      message: "You must be logged in to create a comment."
+    })
+  }
+});
+
+
+// Optional: Delete comment
+router.delete("/:gameId/reviews/:reviewId/comments/:commentId", requireAuth, async (req, res) => {
+  const reviewComment = await ReviewComment.findByPk(req.params.commentId);
+
+  if (!reviewComment) {
+    return res.status(404).json({ message: "Comment not found" });
+  }
+
+  if (reviewComment.ownerId !== req.user.id) {
+    return res.status(403).json({ message: "Unauthorized to delete this comment" });
+  }
+
+  await reviewComment.destroy();
+
+  return res.json({ message: "Comment deleted successfully" });
+});
 
 module.exports = router;

@@ -213,6 +213,7 @@ function GameDetailPage() {
                     setSelectedReviewId(null);
                   }}
                   reviewId={selectedReviewId}
+                  gameId={gameId}
                 />
               )}
               </div>

@@ -1,14 +1,35 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import * as commentActions from '../../store/comments';
 import './ReviewCommentModal.css';
 import CommentArea from '../CommentArea/CommentArea.jsx'
 
-function ReviewCommentModal({ onClose, reviewId }) {
+function ReviewCommentModal({ onClose, reviewId, gameId }) {
+  const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const allReviewsArray = reviews ? Object.entries(reviews) : [];
 
-  const selectedReview = allReviewsArray.find(review => review[1].id === reviewId);
+  const comments = useSelector((state) => state.comments?.allComments)
+  const allCommentsArray = comments ? Object.entries(comments) : [];
+
+  useEffect(() => {
+    dispatch(commentActions.setCommentsState(reviewId));
+  }, []);
+
+  const reviewComments = allCommentsArray.filter(
+    ([_, comment]) => comment.reviewId === reviewId
+  );
+  const selectedReview = allReviewsArray.find(
+    ([_, review]) => review.id === reviewId
+  );
+
   const review = selectedReview ? selectedReview[1] : null;
 
+  console.log('reviewId:', reviewId);
+  console.log('✅allCommentsArray:', allCommentsArray);
+  console.log('✅reviewComments:', reviewComments);
+  console.log('review:', review);
+  
   return (
     <div className='modal'>
       <div className='modal-container'>
@@ -48,7 +69,22 @@ function ReviewCommentModal({ onClose, reviewId }) {
           </div>
   
           <div>
-            <CommentArea />
+            <CommentArea gameId={gameId} reviewId={reviewId} />
+          </div>
+
+          <div className='comments-container'>
+            {reviewComments.length > 0 ? (
+              reviewComments.map(([id, comment]) => (
+                <div key={id} className='comment'>
+                  <div className='comment-author'>
+                    {comment.User?.username}:
+                  </div>
+                  <div className='comment-text'>{comment.comment}</div>
+                </div>
+              ))
+            ) : (
+              <div>No comments yet. Be the first to comment!</div>
+            )}
           </div>
         </div>
       </div>

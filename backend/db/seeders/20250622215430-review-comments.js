@@ -1,6 +1,6 @@
 'use strict';
 
-const { PostComment } = require('../models')
+const { ReviewComment } = require('../models')
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -10,27 +10,30 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await PostComment.bulkCreate([
+    await ReviewComment.bulkCreate([
       {
         ownerId: 1,
-        postId: 1,
-        comment: 'I couldnt agree more! Its great!'
+        reviewId: 1,
+        comment: 'I couldnt agree more! Its great!',
+        isHelpful: true,
       },
       {
         ownerId: 2,
-        postId: 2,
-        comment: 'Any hole is a goal.'
+        reviewId: 2,
+        comment: 'Any hole is a goal.',
+        isHelpful: false,
       },
       {
         ownerId: 3,
-        postId: 3,
-        comment: 'BURN BABY BURN DISCO INFERNO!'
+        reviewId: 3,
+        comment: 'BURN BABY BURN DISCO INFERNO!',
+        isHelpful: true,
       },
     ])
   },
 
   async down (queryInterface, Sequelize) {
-    options.tableName = 'PostComments';
+    options.tableName = 'ReviewComments';
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       ownerId: {

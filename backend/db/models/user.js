@@ -32,17 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
       });
 
-      User.hasMany(models.PostComment, {
-        foreignKey: "ownerId",
-        onDelete: "CASCADE",
-      });
-
       User.hasMany(models.CommunityLike, {
-        foreignKey: "ownerId",
-        onDelete: "CASCADE",
-      });
-
-      User.hasMany(models.PostCommentLike, {
         foreignKey: "ownerId",
         onDelete: "CASCADE",
       });
@@ -51,6 +41,12 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "ownerId",
         onDelete: "CASCADE",
       });
+
+      User.hasMany(models.ReviewComment, {
+        foreignKey: "ownerId",
+        onDelete: "CASCADE",
+      });
+      
     }
   }
 

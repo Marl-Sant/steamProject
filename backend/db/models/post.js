@@ -17,11 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "communityId",
       });
 
-      Post.hasMany(models.PostComment, {
-        foreignKey: "postId",
-        onDelete: "CASCADE",
-      });
-
       Post.hasMany(models.PostLike, {
         foreignKey: "postId",
         onDelete: "CASCADE",
