@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import * as gamesAction from "../../store/games";
 import * as reviewsAction from "../../store/reviews";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { useParams, NavLink } from "react-router-dom";
 import "./GameDetailPage.css";
 import ReviewArea from "../ReviewArea/ReviewArea";
 import EditReviewArea from "../EditReviewArea/EditReviewArea";
@@ -183,8 +183,11 @@ function GameDetailPage() {
       ) : (
         <div>
           <div id="no-user-message">
-            Join in on the conversation! Log in to leave a review and let others
-            know what you think!
+            Join in on the conversation!&nbsp;{" "}
+            <NavLink to="/login" className="login-review-area">
+              Login
+            </NavLink>
+            &nbsp;to leave a review and let others know what you think!
           </div>
           <div className="blur-container">
             <div className="text-area-container">
