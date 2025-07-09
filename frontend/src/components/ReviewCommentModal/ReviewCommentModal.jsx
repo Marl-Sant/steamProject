@@ -1,5 +1,5 @@
 import { useSelector, useDispatch } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect,useState } from 'react';
 import * as commentActions from '../../store/comments';
 import './ReviewCommentModal.css';
 import CommentArea from '../CommentArea/CommentArea.jsx'
@@ -8,8 +8,9 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const allReviewsArray = reviews ? Object.entries(reviews) : [];
+  const [isHelpful, setIsHelpful] = useState(null);
 
-  const comments = useSelector(state => state.comments?.allComments);
+  const comments = useSelector((state) => state.comments?.allComments)
   const allCommentsArray = comments ? Object.entries(comments) : [];
 
   useEffect(() => {
@@ -27,10 +28,31 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
 
   const review = selectedReview ? selectedReview[1] : null;
 
-  console.log('reviewId:', reviewId);
-  console.log('✅allCommentsArray:', allCommentsArray);
-  console.log('✅reviewComments:', reviewComments);
-  console.log('review:', review);
+  let isHelpfulCount = 0;
+  let isNotHelpfulCount = 0;
+
+  if (allCommentsArray) {
+    allCommentsArray.forEach((entry) => {
+      const comment = entry[1];
+      if (comment.isHelpful === true) isHelpfulCount++;
+      else if (comment.isHelpful === false) isNotHelpfulCount++;
+    });
+  }
+
+  let sentiment = "No Ratings";
+  const total = isHelpfulCount + isNotHelpfulCount;
+
+  if (total === 1) {
+    sentiment = isHelpfulCount === 1 ? "Mostly Helpful" : "Mostly Not Helpful";
+  } else if (total > 1) {
+    const ratio = isHelpfulCount / total;
+
+    if (ratio > 0.65) sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
+    else if (ratio < 0.35)
+      sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
+    else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
+  }
+
   
   return (
     <div className='modal'>
@@ -69,23 +91,56 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           <div className='user-review-container'>
             <div className='user-review'>{review.review}</div>
           </div>
+
+          <div className="helpful-row">
+            <p className="helpful-label">Was this review helpful?</p>
+            <div id="comment-button-row-2">
+              <button
+                className={isHelpful === true ? 'comment-review-button selected' : 'comment-review-button'}
+                onClick={() => setIsHelpful(true)}
+              >
+                👍 Yes
+              </button>
+              <button
+                className={isHelpful === false ? 'comment-review-button selected' : 'comment-review-button'}
+                onClick={() => setIsHelpful(false)}
+              >
+                👎 No
+              </button>
+            </div>
+          </div>
   
           <div>
-            <CommentArea gameId={gameId} reviewId={reviewId} />
+            <CommentArea gameId={gameId} reviewId={reviewId} isHelpful={isHelpful}/>
           </div>
 
-          <div className='comments-container'>
+          <div className='comment-container'>
             {allCommentsArray && allCommentsArray.length > 0 ? (
               reviewComments.map((comment) => (
-                <div key={comment[1].id} className='comment'>
+                <div key={comment[1].id} className='comment-item'>
                   <img 
                     src={`${comment[1].User?.profilePic}`}
                     alt={`${comment[1].User?.username}'s profile`}
+                    className="commentor-profile-pic"
                   />
-                  <div className='comment-author'>
-                    {comment[1].User?.username}:
+                  <div className='comment-details'>
+                  <div className="comment-header">
+                    <div className="comment-author">@{comment[1].User?.username}</div>
+                    <div className="comment-created-at">
+                      {(() => {
+                        const date = new Date(comment[1].createdAt);
+                        const day = String(date.getDate()).padStart(2, '0');
+                        const month = date.toLocaleString('en-US', { month: 'short' });
+                        let hours = date.getHours();
+                        const minutes = String(date.getMinutes()).padStart(2, '0');
+                        const ampm = hours >= 12 ? 'pm' : 'am';
+                        hours = hours % 12 || 12;
+                        return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                      })()}
+                    </div>
                   </div>
                   <div className='comment-text'>{comment[1].comment}</div>
+                  </div>
                 </div>
               ))
             ) : (
