@@ -37,12 +37,12 @@ export const setCommentsState = (gameId, reviewId) => async (dispatch) => {
   return response;
 };
 
-export const setCurrentCommentState = (reviewId) => async (dispatch) => {
-  const response = await fetch(`/api/games/${gamesId}/reviews/${reviewId}/comments/`);
-  const data = await response.json();
-  dispatch(setCurrentComment(data));
-  return response;
-};
+// export const setCurrentCommentState = (gameId, reviewId) => async (dispatch) => {
+//   const response = await fetch(`/api/games/${gameId}/reviews/${reviewId}/comments/`);
+//   const data = await response.json();
+//   dispatch(setCurrentComment(data));
+//   return response;
+// };
 
 export const addCommentState = (commentArg) => async (dispatch) => {
   const { gameId, reviewId, comment, userId, isHelpful } = commentArg;
