@@ -1,11 +1,7 @@
 .game-page-background {
-    min-height: 100vh;
-    background: linear-gradient(
-        to bottom right,
-        #1b2838,
-        #2a475e
-      );
-    color: #c7d5e0;
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1b2838, #2a475e);
+  color: #c7d5e0;
 }
 
 .game-container {
@@ -85,7 +81,6 @@
 .game-description {
   font-size: 15px;
   color: white;
-
 }
 
 .game-genre {
@@ -116,8 +111,8 @@
   display: flex;
 }
 
-.game-description-value{
-  color: #90D5FF;
+.game-description-value {
+  color: #90d5ff;
   margin-left: 0.25rem;
 }
 
@@ -157,7 +152,7 @@
 .carousel-scroller {
   display: flex;
   width: 100%;
-  margin-top: 8px; 
+  margin-top: 8px;
   justify-content: space-between;
 }
 
@@ -176,7 +171,7 @@
   border: 1px solid #324352;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
   gap: 1rem;
 }
@@ -210,4 +205,22 @@
   height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   object-fit: cover;
+}
+
+.blur-container {
+  filter: blur(7px);
+}
+
+#no-user-message {
+  position: absolute;
+  height: 50%;
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: white;
+  font-size: 20px;
+  z-index: 10;
 }
