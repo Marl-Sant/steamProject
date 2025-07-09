@@ -1,12 +1,12 @@
-import { useState, useEffect } from 'react';
-import { useDispatch } from 'react-redux';
-import { Outlet, createBrowserRouter, RouterProvider } from 'react-router-dom';
-import LoginFormPage from './components/LoginFormPage/LoginFormPage.jsx';
-import SignupFormPage from './components/SignupFormPage/SignupFormPage.jsx';
-import StorePage from './components/StorePage/StorePage.jsx';
-import Navigation from './components/Navigation/Navigation.jsx';
-import * as sessionActions from './store/session';
-import GameDetailPage from './components/GameDetailPage/GameDetailPage.jsx';
+import { useState, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginFormPage from "./components/LoginFormPage/LoginFormPage.jsx";
+import SignupFormPage from "./components/SignupFormPage/SignupFormPage.jsx";
+import StorePage from "./components/StorePage/StorePage.jsx";
+import Navigation from "./components/Navigation/Navigation.jsx";
+import * as sessionActions from "./store/session";
+import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -14,7 +14,7 @@ function Layout() {
 
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => {
-      setIsLoaded(true)
+      setIsLoaded(true);
     });
   }, [dispatch]);
 
@@ -31,23 +31,31 @@ const router = createBrowserRouter([
     element: <Layout />,
     children: [
       {
-        path: '/',
-        element: <StorePage />
+        path: "/",
+        element: <StorePage />,
       },
       {
         path: "login",
-        element: <LoginFormPage />
+        element: <LoginFormPage />,
       },
       {
         path: "signup",
-        element: <SignupFormPage />
+        element: <SignupFormPage />,
       },
       {
         path: "games/:gameId",
-        element: <GameDetailPage />
+        element: <GameDetailPage />,
+      },
+      {
+        path: "communities",
+        element: <CommunitiesListPage />,
+      },
+      {
+        path: "communities/:communityId",
+        element: <CommunityBoard />,
       },
     ],
-  }
+  },
 ]);
 
 function App() {

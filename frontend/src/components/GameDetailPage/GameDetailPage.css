@@ -214,6 +214,7 @@
 #no-user-message {
   position: absolute;
   height: 17em;
+  /* height: 50vh; */
   width: 100%;
 
   display: flex;
@@ -223,4 +224,8 @@
   color: white;
   font-size: 20px;
   z-index: 10;
+}
+
+.login-review-area {
+  color: white;
 }
