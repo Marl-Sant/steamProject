@@ -1,10 +1,12 @@
-import { csrfFetch } from './csrf';
+import { csrfFetch } from "./csrf";
 
 // Step 1: Create a type case
-const SET_REVIEWS = 'reviews/setReview';
-const SET_CURRENT_REVIEW = 'reviews/currentReview';
-const ADD_REVIEW = 'reviews/addReview';
-const EDIT_REVIEW = 'reviews/editReview';
+const SET_REVIEWS = "reviews/setReview";
+const SET_CURRENT_REVIEW = "reviews/currentReview";
+const ADD_REVIEW = "reviews/addReview";
+const EDIT_REVIEW = "reviews/editReview";
+const DELETE_REVIEW = "reviews/deleteReview";
+
 // Step 2: This is the thunk action. Modifies state
 const setReviews = (reviews) => {
   return {
@@ -34,6 +36,13 @@ const editReview = (review) => {
   };
 };
 
+const destoryReview = (reviewId) => {
+  return {
+    type: DELETE_REVIEW,
+    payload: reviewId,
+  };
+};
+
 // Step 3: Thunk action creator
 export const setReviewsState = (gameId) => async (dispatch) => {
   const response = await fetch(`/api/games/${gameId}/reviews`);
@@ -43,73 +52,75 @@ export const setReviewsState = (gameId) => async (dispatch) => {
   return response;
 };
 
-export const setCurrentReviewState =
-  (gameId) => async (dispatch) => {
-    const response = await fetch(`/api/games/${gameId}/reviews`);
+export const setCurrentReviewState = (gameId) => async (dispatch) => {
+  const response = await fetch(`/api/games/${gameId}/reviews`);
+  const data = await response.json();
+  dispatch(setCurrentReview(data));
+  return response;
+};
+
+export const addReviewState = (reviewArg) => async (dispatch) => {
+  const { gameId, review, userId, isRecommended } = reviewArg;
+  const response = await csrfFetch(`/api/games/${gameId}/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      review: review,
+      userId: userId,
+      gameId: gameId,
+      isRecommended: isRecommended,
+    }),
+  });
+
+  if (response.ok) {
     const data = await response.json();
-    dispatch(setCurrentReview(data));
-    return response;
-  };
+    return dispatch(addReview(data));
+  } else {
+    return JSON.stringify({
+      message: "Something went wrong.",
+    });
+  }
+};
 
-export const addReviewState =
-  (reviewArg) => async (dispatch) => {
-    const { gameId, review, userId, isRecommended } = reviewArg;
-    const response = await csrfFetch(
-      `/api/games/${gameId}/reviews`,
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          review: review,
-          userId: userId,
-          gameId: gameId,
-          isRecommended: isRecommended,
-        }),
-      }
-    );
+export const editReviewThunk = (reviewArg) => async (dispatch) => {
+  const { gameId, reviewId, review, userId, isRecommended } = reviewArg;
+  const response = await csrfFetch(`/api/games/${gameId}/reviews/${reviewId}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      review: review,
+      userId: userId,
+      gameId: gameId,
+      isRecommended: isRecommended,
+    }),
+  });
 
-    if (response.ok) {
-      const data = await response.json();
-      return dispatch(addReview(data));
-    } else {
-      return JSON.stringify({
-        message: 'Something went wrong.',
-      });
-    }
-  };
+  if (response.ok) {
+    const data = await response.json();
+    console.log(data);
+    return dispatch(editReview(data));
+  } else {
+    return JSON.stringify({
+      message: "Something went wrong",
+    });
+  }
+};
 
-export const editReviewThunk =
-  (reviewArg) => async (dispatch) => {
-    const { gameId, reviewId, review, userId, isRecommended } =
-      reviewArg;
-    const response = await csrfFetch(
-      `/api/games/${gameId}/reviews/${reviewId}`,
-      {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          review: review,
-          userId: userId,
-          gameId: gameId,
-          isRecommended: isRecommended,
-        }),
-      }
-    );
-
-    if ((response.ok)) {
-      const data = await response.json();
-      console.log(data)
-      return dispatch(editReview(data));
-    } else {
-      return JSON.stringify({
-        message: 'Something went wrong',
-      });
-    }
-  };
+export const deleteReview = (deletedReview) => async (dispatch) => {
+  const { gameId, reviewId } = deletedReview;
+  const response = await csrfFetch(`/api/games/${gameId}/reviews/${reviewId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    const data = response.json();
+    dispatch(destoryReview(reviewId));
+    return data;
+  }
+};
 // Step 4: Building the state. The reducer controls what we return to the state
 const initialState = { allReviews: null, currentReview: null };
 
@@ -140,7 +151,12 @@ const reviewsReducer = (state = initialState, action) => {
         },
       };
       newState.allReviews[action.payload.id] = action.payload;
-      return newState
+      return newState;
+    case DELETE_REVIEW:
+      newState = {
+        ...state,
+      };
+      delete newState.allReviews[action.payload];
     default:
       return state;
   }
