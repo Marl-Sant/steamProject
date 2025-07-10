@@ -2,6 +2,7 @@ const express = require("express");
 
 const { Community } = require("../../db/models");
 const { Post } = require("../../db/models");
+const { Game } = require("../../db/models");
 
 const { Op } = require("sequelize");
 
@@ -20,6 +21,9 @@ router.get("/", async (req, res) => {
             [Op.gte]: oneWeekAgo,
           },
         },
+      },
+      {
+        model: Game,
       },
     ],
   });
