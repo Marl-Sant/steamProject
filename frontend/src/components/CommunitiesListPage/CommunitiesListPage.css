@@ -1,0 +1,5 @@
+.communities-list-container {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1b2838, #2a475e);
+  color: #c7d5e0;
+}

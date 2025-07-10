@@ -1,27 +1,24 @@
-import {
-  createStore,
-  combineReducers,
-  applyMiddleware,
-  compose,
-} from 'redux';
-import { thunk } from 'redux-thunk';
-import sessionReducer from './session';
-import gameReducer from './games';
-import reviewsReducer from './reviews';
-import commentsReducer from './comments'
+import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { thunk } from "redux-thunk";
+import sessionReducer from "./session";
+import gameReducer from "./games";
+import reviewsReducer from "./reviews";
+import communitiesReducer from "./communities";
+import commentsReducer from "./comments";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
   games: gameReducer,
-  reviews:  reviewsReducer,
-  comments: commentsReducer
+  reviews: reviewsReducer,
+  communities: communitiesReducer,
+  comments: commentsReducer,
 });
 
 let enhancer;
-if (import.meta.env.MODE === 'production') {
+if (import.meta.env.MODE === "production") {
   enhancer = applyMiddleware(thunk);
 } else {
-  const logger = (await import('redux-logger')).default;
+  const logger = (await import("redux-logger")).default;
   const composeEnhancers =
     window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
   enhancer = composeEnhancers(applyMiddleware(thunk, logger));
