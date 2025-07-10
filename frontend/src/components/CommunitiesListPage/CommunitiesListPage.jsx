@@ -1,16 +1,18 @@
 import {
   useEffect,
   //  useMemo,
-  //   useState
+  useState,
 } from "react";
-import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import * as communitiesActions from "../../store/communities";
-import { useSelector } from "react-redux";
 import "./CommunitiesListPage.css";
 
 function CommunitiesListPage() {
   const dispatch = useDispatch();
+  const [loaded, setLoaded] = useState(false);
   const communities = useSelector((state) => state.communities?.allCommunities);
+  const user = useSelector((state) => state.session?.user);
   let allCommunitiesArray;
   if (communities) {
     allCommunitiesArray = Object.entries(communities);
@@ -18,20 +20,45 @@ function CommunitiesListPage() {
 
   useEffect(() => {
     dispatch(communitiesActions.populateCommunities());
+    setLoaded(true);
   }, [dispatch]);
 
   return (
-    <div className="communities-list-container">
-      {communities ? (
-        <div>
-          {allCommunitiesArray.map((community) => (
-            <div key={community[0]}>{community[1].gameId}</div>
-          ))}
+    <>
+      {loaded ? (
+        <div className="communities-list-container">
+          <div className="community-header">
+            <h2>Community Activity</h2>
+            Community and official content for all games and software on Gleam.
+          </div>
+          <>
+            {user ? (
+              <div className="logged-out-popular-hubs">
+                <div className="login-signup">
+                  <p>Welcome to the Gleam Community</p>
+                  <p>
+                    Log in to the Gleam Community to find Hubs that center
+                    around your favorite games!
+                  </p>
+                  <span>
+                    <button className="review-button">Log In</button>
+                    <button className="review-button">Join Gleam</button>
+                  </span>
+                  <p>
+                    Want to know more about the dev team?{" "}
+                    <NavLink to="/about">Click here!</NavLink>
+                  </p>
+                </div>
+              </div>
+            ) : (
+              <div></div>
+            )}
+          </>
         </div>
       ) : (
-        <></>
+        <p>Loading</p>
       )}
-    </div>
+    </>
   );
 }
 

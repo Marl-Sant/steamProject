@@ -2,4 +2,15 @@
   min-height: 100vh;
   background: linear-gradient(to bottom right, #1b2838, #2a475e);
   color: #c7d5e0;
+  display: flex;
+  padding: 0 20lvw;
+  flex-direction: column;
+}
+
+.logged-out-popular-hubs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #1b2838;
+  margin: 0.5em 0;
+  padding: 0.5em;
 }
