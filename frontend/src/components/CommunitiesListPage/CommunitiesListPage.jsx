@@ -13,10 +13,11 @@ function CommunitiesListPage() {
   const [loaded, setLoaded] = useState(false);
   const communities = useSelector((state) => state.communities?.allCommunities);
   const user = useSelector((state) => state.session?.user);
-  let allCommunitiesArray;
+  let topCommunitiesArray;
   if (communities) {
-    allCommunitiesArray = Object.entries(communities);
+    topCommunitiesArray = Object.entries(communities).sort((a, b) => b[1].newPostCount - a[1].newPostCount );
   }
+  
 
   useEffect(() => {
     dispatch(communitiesActions.populateCommunities());
@@ -45,9 +46,21 @@ function CommunitiesListPage() {
                     <button className="review-button">Join Gleam</button>
                   </span>
                   <p>
-                    Want to know more about the dev team?{" "}
-                    <NavLink to="/about">Click here!</NavLink>
+                    Want to know more about the dev team?&nbsp;
+                    <NavLink to="/about" className={'about-link'}>Click here!</NavLink>
                   </p>
+                </div>
+                <div className="recently-active-communities">
+                    {topCommunitiesArray ? topCommunitiesArray.map(community => {
+                      {console.log(community[1].Game.title)}
+                      return (<div className="community-card">
+                        <img src={community[1].Game.capsuleImage} className="community-logo" />
+                        <div className="community-name-activity">
+                        <span className="community-title">{community[1].Game.title}</span>
+                        {community[1].newPostCount} new posts this week!
+                        </div>
+                      </div>)
+                    }) : <></>}
                 </div>
               </div>
             ) : (

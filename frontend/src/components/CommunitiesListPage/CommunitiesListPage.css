@@ -14,3 +14,29 @@
   margin: 0.5em 0;
   padding: 0.5em;
 }
+
+.about-link{
+  color: #c7d5e0;
+}
+
+.community-card{
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  margin-bottom: .5em;
+  background: #0d1219;
+  padding: .25em;
+}
+
+.community-logo{
+  height: 3em;
+  margin-right: 2em;
+}
+
+.community-title{
+ 
+}
+
+.community-name-activity{
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+}
