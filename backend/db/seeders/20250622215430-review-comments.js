@@ -1,6 +1,28 @@
 'use strict';
 
+const { default: reviewsReducer } = require('../../../frontend/src/store/reviews');
 const { ReviewComment } = require('../models')
+const {Review} = require('../models')
+
+const allReviews = await Review.findAll()
+
+const seededReviews = allReviews.map((review, i) => {
+  if(review.id % 2){
+    return {
+      userId: i + 1,
+      reviewId: review.id,
+      comment: 'I couldnt agree more! Its great!',
+      isHelpful: true
+    }
+  }else{
+    return {
+      userId: i + 1,
+      reviewId: review.id,
+      comment: "Just all around bad",
+      isHelpful: false
+    }
+  }
+})
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -10,26 +32,29 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up (queryInterface, Sequelize) {
-    await ReviewComment.bulkCreate([
-      {
-        userId: 1,
-        reviewId: 1,
-        comment: 'I couldnt agree more! Its great!',
-        isHelpful: true,
-      },
-      {
-        userId: 2,
-        reviewId: 2,
-        comment: 'Any hole is a goal.',
-        isHelpful: false,
-      },
-      {
-        userId: 3,
-        reviewId: 3,
-        comment: 'BURN BABY BURN DISCO INFERNO!',
-        isHelpful: true,
-      },
-    ])
+    await ReviewComment.bulkCreate(
+      seededReviews
+    //   [
+    //   {
+    //     userId: 1,
+    //     reviewId: 1,
+    //     comment: 'I couldnt agree more! Its great!',
+    //     isHelpful: true,
+    //   },
+    //   {
+    //     userId: 2,
+    //     reviewId: 2,
+    //     comment: 'Any hole is a goal.',
+    //     isHelpful: false,
+    //   },
+    //   {
+    //     userId: 3,
+    //     reviewId: 3,
+    //     comment: 'BURN BABY BURN DISCO INFERNO!',
+    //     isHelpful: true,
+    //   },
+    // ]
+  )
   },
 
   async down (queryInterface, Sequelize) {
