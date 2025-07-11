@@ -3,7 +3,6 @@ import parse from "html-react-parser";
 import "./HtmlToText.css";
 
 const HtmlToText = (htmlString) => {
-  console.log(htmlString);
   //   const [formatted, setFormatted] = useState("");
 
   //   useEffect(() => {

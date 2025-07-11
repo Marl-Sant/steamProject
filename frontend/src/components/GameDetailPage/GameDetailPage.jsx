@@ -81,7 +81,12 @@ function GameDetailPage() {
 
   return (
     <div className="game-page-background">
-      <div className="game-container">
+      <div
+        className="game-container"
+        style={{
+          backgroundImage: `url(${game?.background})`,
+        }}
+      >
         <div className="game-title">{game?.title}</div>
 
         <div className="game-image">
