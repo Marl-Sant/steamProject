@@ -1,0 +1,14 @@
+.long-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 940px;
+  margin: 0 auto;
+}
+
+.long-description img {
+  display: flex;
+  max-width: 940px;
+  justify-content: center;
+  align-items: center;
+}

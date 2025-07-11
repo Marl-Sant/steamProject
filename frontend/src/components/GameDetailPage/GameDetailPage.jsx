@@ -7,6 +7,7 @@ import "./GameDetailPage.css";
 import ReviewArea from "../ReviewArea/ReviewArea";
 import EditReviewArea from "../EditReviewArea/EditReviewArea";
 import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
+import HtmlToText from "../HtmlToText/HtmlToText";
 
 function GameDetailPage() {
   const { gameId } = useParams();
@@ -146,11 +147,13 @@ function GameDetailPage() {
               alt={`${game?.title} secondary`}
               className="secondary-game-image"
             />
-            <div className="game-description">{game?.description}</div>
+            <div className="game-description">{game?.shortDescription}</div>
 
             <div className="game-genre">
               Genre:{" "}
-              <div className="game-description-value">{game?.genres}</div>
+              <div className="game-description-value">
+                {game?.genres.join(", ")}
+              </div>
             </div>
 
             <div className="game-developer">
@@ -171,10 +174,20 @@ function GameDetailPage() {
             <div className="review-sentiment">
               All Reviews:{" "}
               <div className="game-description-value">{sentiment}</div>
+              <div></div>
             </div>
           </div>
         </div>
       </div>
+
+      {game ? (
+        <div>
+          {console.log(game?.detailedDescription)}
+          <HtmlToText props={game?.detailedDescription} />
+        </div>
+      ) : (
+        <></>
+      )}
 
       {user ? (
         <div className="create-review-container">

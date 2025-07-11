@@ -20,6 +20,12 @@
   );
 }
 
+.long-description {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .game-title {
   font-size: 35px;
   margin-bottom: 75px;
