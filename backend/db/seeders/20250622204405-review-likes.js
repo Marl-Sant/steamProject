@@ -14,9 +14,9 @@ module.exports = {
 
     const seededReviewLikes = allReviews.map((review, i) => {
       let reviewLike = {};
-      reviewLike["userId"] = i + 1;
-      reviewLike["reviewId"] = review.id;
-      reviewLike["liked"] = true;
+      reviewLike['userId'] = i + 1;
+      reviewLike['reviewId'] = review.id;
+      reviewLike['liked'] = true;
       return reviewLike;
     });
     await ReviewLike.bulkCreate(
@@ -53,7 +53,7 @@ module.exports = {
     return queryInterface.bulkDelete(
       options,
       {
-        userId: {
+        ownerId: {
           [Op.in]: [1, 2, 3],
         },
       },
