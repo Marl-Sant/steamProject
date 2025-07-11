@@ -29,9 +29,8 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const reviewComments = allCommentsArray.filter(
      comment => comment[1].reviewId === reviewId
   );
-  console.log(reviewComments)
   const selectedReview = allReviewsArray.find(
-    ([_, review]) => review.id === reviewId
+    (review) => review[1].id === reviewId
   );
 
   const review = selectedReview ? selectedReview[1] : null;
@@ -142,22 +141,21 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           <div className="helpful-row-container">
             <div className="helpful-divider"></div>
 
-            <div className="helpful-row">
-              <p className="helpful-label">Was this review helpful?</p>
-              <div id="review-comment-button-row-2">
-                <button
-                  className={isHelpful === true ? 'review-comment-button selected' : 'review-comment-button'}
-                  onClick={() => setIsHelpful(true)}
-                >
-                  👍 Yes
-                </button>
-                <button
-                  className={isHelpful === false ? 'review-comment-button selected' : 'review-comment-button'}
-                  onClick={() => setIsHelpful(false)}
-                >
-                  👎 No
-                </button>
-              </div>
+          <div className="helpful-row">
+            <p className="helpful-label">Was this review helpful?</p>
+            <div id="comment-button-row-2">
+              <button
+                className={isHelpful === true ? 'comment-review-button selected' : 'comment-review-button'}
+                onClick={() => setIsHelpful(true)}
+              >
+                👍 Yes
+              </button>
+              <button
+                className={isHelpful === false ? 'comment-review-button selected' : 'comment-review-button'}
+                onClick={() => setIsHelpful(false)}
+              >
+                👎 No
+              </button>
             </div>
           </div>
   
@@ -200,6 +198,7 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           </div>
         </div>
       </div>
+    </div>
     </div>
   );
 }

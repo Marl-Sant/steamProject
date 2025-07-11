@@ -5,6 +5,7 @@ import gameReducer from "./games";
 import reviewsReducer from "./reviews";
 import communitiesReducer from "./communities";
 import commentsReducer from "./comments";
+import userPostReducer from "./posts";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -12,6 +13,7 @@ const rootReducer = combineReducers({
   reviews: reviewsReducer,
   communities: communitiesReducer,
   comments: commentsReducer,
+  userPosts: userPostReducer,
 });
 
 let enhancer;

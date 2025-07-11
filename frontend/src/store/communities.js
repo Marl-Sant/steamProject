@@ -50,7 +50,7 @@ export const getCommunityById = (id) => async (dispatch) => {
 export const createCommunityPost = (newPost) => async (dispatch) => {
   const { communityId, post, ownerId } = newPost;
 
-  const response = await csrfFetch(`/api/communities/${id}/posts`, {
+  const response = await csrfFetch(`/api/communities/${communityId}/posts`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -77,7 +77,6 @@ export const deletePost = (deleteRequest) => async (dispatch) => {
   );
 
   if (response.ok) {
-    const data = response.json();
     return dispatch(deleteCommunityPost(postId));
   }
 };
