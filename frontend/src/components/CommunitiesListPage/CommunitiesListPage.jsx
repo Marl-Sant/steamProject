@@ -33,7 +33,24 @@ function CommunitiesListPage() {
             Community and official content for all games and software on Gleam.
           </div>
           <>
-            {user ? (
+            {user ?(
+              <div className="logged-out-popular-hubs">
+                REPLACE THIS WITH USERS LATEST COMMUNITY POSTS
+                <div className="recently-active-communities">
+                    {topCommunitiesArray ? topCommunitiesArray.map(community => {
+                      {console.log(community[1].Game.title)}
+                      return (<div className="community-card" key={community[0]}>
+                        <img src={community[1].Game.capsuleImage} className="community-logo" />
+                        <div className="community-name-activity">
+                        <span className="community-title">{community[1].Game.title}</span>
+                        {community[1].newPostCount} new posts this week!
+                        </div>
+                      </div>)
+                    }) : <></>}
+                </div>
+              </div>
+            )  : (
+              (
               <div className="logged-out-popular-hubs">
                 <div className="login-signup">
                   <p>Welcome to the Gleam Community</p>
@@ -63,8 +80,7 @@ function CommunitiesListPage() {
                     }) : <></>}
                 </div>
               </div>
-            ) : (
-              <div></div>
+            )
             )}
           </>
         </div>
