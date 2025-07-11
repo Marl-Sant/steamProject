@@ -53,7 +53,7 @@ function CommunitiesListPage() {
                 <div className="recently-active-communities">
                     {topCommunitiesArray ? topCommunitiesArray.map(community => {
                       {console.log(community[1].Game.title)}
-                      return (<div className="community-card">
+                      return (<div className="community-card" key={community[0]}>
                         <img src={community[1].Game.capsuleImage} className="community-logo" />
                         <div className="community-name-activity">
                         <span className="community-title">{community[1].Game.title}</span>

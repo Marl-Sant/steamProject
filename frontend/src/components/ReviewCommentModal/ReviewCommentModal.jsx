@@ -30,7 +30,7 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   );
   console.log(reviewComments)
   const selectedReview = allReviewsArray.find(
-    ([_, review]) => review.id === reviewId
+    (review) => review.id === reviewId
   );
 
   const review = selectedReview ? selectedReview[1] : null;
@@ -100,6 +100,7 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           </div>
 
           <div className="helpful-row">
+            <p>{sentiment}</p>
             <p className="helpful-label">Was this review helpful?</p>
             <div id="comment-button-row-2">
               <button

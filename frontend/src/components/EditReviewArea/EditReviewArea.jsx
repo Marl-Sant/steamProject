@@ -15,7 +15,6 @@ function EditReviewArea(userReview) {
   const [editReviewDisable, setEditReviewDisable] = useState(false);
   const user = useSelector((state) => state.session.user);
   const game = useSelector((state) => state.games?.currentGame);
-  const reviews = useSelector((state) => state.reviews?.allReviews);
 
   useEffect(() => {
     dispatch(reviewActions.setReviewsState(game?.id));
