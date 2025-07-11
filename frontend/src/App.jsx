@@ -5,7 +5,6 @@ import LoginFormPage from "./components/LoginFormPage/LoginFormPage.jsx";
 import SignupFormPage from "./components/SignupFormPage/SignupFormPage.jsx";
 import StorePage from "./components/StorePage/StorePage.jsx";
 import Navigation from "./components/Navigation/Navigation.jsx";
-import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx";
 import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
 import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
@@ -49,10 +48,10 @@ const router = createBrowserRouter([
         path: "games/:gameId",
         element: <GameDetailPage />,
       },
-      {
-        path: "communities",
-        element: <CommunitiesListPage />,
-      },
+      // {
+      //   path: "communities",
+      //   element: <CommunitiesListPage />,
+      // },
       // {
       //   path: "communities/:communityId",
       //   element: <CommunityBoard />,

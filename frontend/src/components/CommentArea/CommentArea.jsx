@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as commentActions from '../../store/comments';
 import './CommentArea.css';
 
+
 function CommentArea({ gameId, reviewId, isHelpful }) {
   const dispatch = useDispatch();
   const [text, setText] = useState('');
@@ -28,22 +29,22 @@ function CommentArea({ gameId, reviewId, isHelpful }) {
 
   return (
     <div className='comment-area-container'>
-      <div id='comment-text-area'>
-        <div id='comment-profile-pic-container'>
+      <div className='comment-text-area'>
+        <div className='comment-profile-pic-container'>
           <img
             src={user?.profilePic}
             className='comment-user-profile-pic'
             alt='profile'
           />
         </div>
-        <div id='comment-area'>
+        <div className='comment-area'>
           <textarea
-            id='text'
+            className='comment-text'
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder='Write your comment…'
           />
-          <div id='comment-review-button-container'>
+          <div className='comment-review-button-container'>
             <button
               className={!disabled ? 'comment-review-button' : 'comment-disabled-button'}
               disabled={disabled}
@@ -55,6 +56,7 @@ function CommentArea({ gameId, reviewId, isHelpful }) {
         </div>
       </div>
     </div>
+
   );
 }
 
