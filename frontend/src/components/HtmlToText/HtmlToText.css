@@ -6,7 +6,11 @@
   margin: 0 auto;
 }
 
-.long-description img {
+.long-description .bb_img {
+  max-width: 940px;
+}
+
+.bb_img_ctn {
   display: flex;
   max-width: 940px;
   justify-content: center;
