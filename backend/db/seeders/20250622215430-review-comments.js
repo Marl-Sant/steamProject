@@ -3,7 +3,6 @@
 const { ReviewComment } = require('../models');
 const { Review } = require('../models');
 
-const allReviews = await Review.findAll();
 
 let options = {};
 if (process.env.NODE_ENV === 'production') {
@@ -13,6 +12,7 @@ if (process.env.NODE_ENV === 'production') {
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
+    const allReviews = await Review.findAll();
     const seededReviews = allReviews.map((review, i) => {
       if (review.id % 2) {
         return {
