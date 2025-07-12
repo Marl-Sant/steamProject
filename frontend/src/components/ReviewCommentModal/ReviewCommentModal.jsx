@@ -3,7 +3,7 @@ import { useEffect,useState } from 'react';
 import * as commentActions from '../../store/comments';
 import './ReviewCommentModal.css';
 import CommentArea from '../CommentArea/CommentArea.jsx'
-import {FaThumbsUp} from 'react-icons/fa'
+import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
 
 function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const dispatch = useDispatch();

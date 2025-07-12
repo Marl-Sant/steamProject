@@ -8,7 +8,7 @@ import Navigation from "./components/Navigation/Navigation.jsx";
 import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
 import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
-import CommunityBoard from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
+
 
 function Layout() {
   const dispatch = useDispatch();
@@ -48,14 +48,10 @@ const router = createBrowserRouter([
         path: "games/:gameId",
         element: <GameDetailPage />,
       },
-      // {
-      //   path: "communities",
-      //   element: <CommunitiesListPage />,
-      // },
-      // {
-      //   path: "communities/:communityId",
-      //   element: <CommunityBoard />,
-      // },
+      {
+        path: "communities",
+        element: <CommunitiesListPage />,
+      },
     ],
   },
 ]);
