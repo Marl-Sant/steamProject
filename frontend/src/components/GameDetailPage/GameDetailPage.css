@@ -157,7 +157,6 @@
   justify-content: space-between;
 }
 
-/* === Updated Reviews Section === */
 .reviews-container {
   width: 940px;
   margin: 0 auto;
@@ -251,7 +250,6 @@
   align-items: center;
   gap: 0.5rem;
 }
-/* === End Updated Reviews Section === */
 
 .game-video {
   width: 625px;
