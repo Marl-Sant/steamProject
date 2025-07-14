@@ -8,6 +8,7 @@ import Navigation from "./components/Navigation/Navigation.jsx";
 import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
 import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
+import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
 
 
 function Layout() {
@@ -51,6 +52,10 @@ const router = createBrowserRouter([
       {
         path: "communities",
         element: <CommunitiesListPage />,
+      },
+      {
+        path: "users/:userId",
+        element: <ProfilePage />, 
       },
     ],
   },

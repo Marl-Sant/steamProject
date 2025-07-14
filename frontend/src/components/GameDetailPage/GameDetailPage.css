@@ -13,11 +13,6 @@
   padding-top: 3rem;
   justify-content: flex-start;
   height: 545px;
-  /* background: linear-gradient(
-    300deg,
-    rgba(0, 0, 0, 0.1) 0%,
-    rgba(0, 0, 0, 0) 100%
-  ); */
 }
 
 .long-description {
@@ -162,6 +157,7 @@
   justify-content: space-between;
 }
 
+/* === Updated Reviews Section === */
 .reviews-container {
   width: 940px;
   margin: 0 auto;
@@ -170,41 +166,92 @@
   padding: 1rem;
   box-sizing: border-box;
   display: grid;
+  gap: 1rem;
 }
 
 .review-item {
   background-color: #6a8396;
   border: 1px solid #324352;
   padding: 1rem;
-  margin-bottom: 1rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   display: flex;
-  gap: 1rem;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.review-header-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: bold;
+  font-size: 1.1rem;
+  color: white;
+}
+
+.yes-helpful {
+  color: #2ecc71;
+  font-size: 1.5rem;
+}
+
+.not-helpful {
+  color: #e74c3c;
+  font-size: 1.5rem;
+}
+
+.review-date {
+  margin-top: 1rem;
+  font-size: 0.8rem;
+  color: #c7d5e0cc;
+}
+
+.review-comment {
+  font-size: 1rem;
+  color: white;
+  white-space: pre-wrap;
+}
+
+.review-profile-pic-container {
+  margin-top: 1rem;
+  display: flex;
+  justify-content: flex-start;
 }
 
 .review-profile-pic {
-  width: 150px;
-  height: 150px;
+  width: 70px;
+  height: 70px;
   object-fit: cover;
-}
-
-.review-text {
+  border: 1px solid #324352;
   display: flex;
-  flex-direction: column;
 }
 
-.review-author {
-  margin-bottom: 10px;
-  font-weight: bold;
-  font-size: 20px;
+.reviewer-username{
+  margin-left: 1rem;
+  justify-content: center;
 }
 
-.review-recommendation {
-  font-size: 1rem;
-  color: #fff;
-  font-weight: bold;
-  margin-top: auto;
+.speech-bubble {
+  background: transparent;
+  border: none;
+  color: skyblue;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  transition: color 0.2s ease;
+  margin-left: auto;
+  align-self: flex-start;
 }
+
+.speech-bubble:hover {
+  color: #90d5ff;
+}
+
+.recommendation {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+/* === End Updated Reviews Section === */
 
 .game-video {
   width: 625px;
@@ -220,7 +267,6 @@
 #no-user-message {
   position: absolute;
   height: 17em;
-  /* height: 50vh; */
   width: 100%;
 
   display: flex;
@@ -234,4 +280,56 @@
 
 .login-review-area {
   color: white;
+}
+
+.game-detailed-description {
+  max-height: 900px;
+  overflow: hidden;
+  position: relative;
+  transition: max-height 0.3s ease;
+}
+
+.game-detailed-description.expanded {
+  max-height: none;
+}
+
+.game-detailed-description-wrapper {
+  display: flex;
+  gap: 8px;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.see-more-btn {
+  background: none;
+  border: none;
+  color: #3f80f0;
+  cursor: pointer;
+  margin-top: 8px;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.arrow {
+  font-size: 16px;
+}
+
+.speech-bubble {
+  background: transparent;
+  border: none;
+  color: skyblue;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  user-select: none;
+  transition: color 0.2s ease;
+}
+
+.line-break{
+  border: none;
+  border-top: 2px solid #90d5ff;
+  margin: 1rem 0;
 }

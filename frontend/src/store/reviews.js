@@ -44,6 +44,20 @@ const destoryReview = (reviewId) => {
 };
 
 // Step 3: Thunk action creator
+export const getReviewsByUser = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}/reviews`);
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(setReviews(data));
+    return response;
+  } else {
+    return JSON.stringify({
+      message: 'Something went wrong while fetching user reviews.',
+    });
+  }
+};
+
 export const setReviewsState = (gameId) => async (dispatch) => {
   const response = await fetch(`/api/games/${gameId}/reviews`);
   const data = await response.json();

@@ -11,6 +11,7 @@ const {
   requireAuth,
 } = require('../../utils/auth');
 const { User } = require('../../db/models');
+const { Review, Game } = require('../../db/models');
 
 const router = express.Router();
 
@@ -41,6 +42,16 @@ const validateSignup = [
       .withMessage('Password must be 6 characters or more.'),
     handleValidationErrors
   ];
+
+  // Get reviews by userId
+router.get('/:userId/reviews', async (req, res) => {
+  const { userId } = req.params;
+  const reviews = await Review.findAll({
+    where: { userId },
+    include: [Game], // optionally include related Game
+  });
+  res.json(reviews);
+});
 
 // Sign up
 router.post(

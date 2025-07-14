@@ -8,6 +8,7 @@ import ReviewArea from "../ReviewArea/ReviewArea";
 import EditReviewArea from "../EditReviewArea/EditReviewArea";
 import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import HtmlToText from "../HtmlToText/HtmlToText";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 function GameDetailPage() {
   const { gameId } = useParams();
@@ -19,6 +20,7 @@ function GameDetailPage() {
   const user = useSelector((state) => state.session.user);
   const [openModal, setOpenModal] = useState(false);
   const [selectedReviewId, setSelectedReviewId] = useState(null);
+  const [showFullDescription, setShowFullDescription] = useState(false);
 
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
@@ -43,6 +45,7 @@ function GameDetailPage() {
       );
     }
   }
+  
   let gameReviews = otherReviews || allReviewsArray;
 
   const scrollThumbnails = (direction) => {
@@ -186,9 +189,24 @@ function GameDetailPage() {
       </div>
 
       {game ? (
-        <div>
-          {console.log(game?.detailedDescription)}
-          <HtmlToText props={game?.detailedDescription} />
+        <div className="game-detailed-description-wrapper">
+          <div className={`game-detailed-description ${showFullDescription ? "expanded" : ""}`}>
+            <HtmlToText props={game?.detailedDescription} />
+          </div>
+          <button
+            onClick={() => setShowFullDescription(!showFullDescription)}
+            className="see-more-btn"
+          >
+            {showFullDescription ? (
+              <>
+                Read less <span className="arrow">▲</span>
+              </>
+            ) : (
+              <>
+                Read more <span className="arrow">▼</span>
+              </>
+            )}
+          </button>
         </div>
       ) : (
         <></>
@@ -246,39 +264,66 @@ function GameDetailPage() {
         {allReviewsArray && allReviewsArray.length > 0 ? (
           gameReviews.map((review) => (
             <div key={review[1].id} className="review-item">
-              <img
-                src={`${review[1].User?.profilePic}`}
-                alt={`${review[1].User?.username}'s profile`}
-                className="review-profile-pic"
-              />
-              <div className="review-text">
-                <div className="review-author">{review[1].User?.username}</div>
-                <div className="review-comment">{review[1].review}</div>
-                <div className="review-recommendation">
-                  {review[1].isRecommended
-                    ? "👍 Recommended"
-                    : "👎 Not Recommended"}
+              <div className="review-header-row">
+                {review[1].isRecommended ? (
+                  <>
+                    <FaThumbsUp className="yes-helpful" />
+                    <span className="review-recommended-text">Recommended</span>
+                  </>
+                ) : (
+                  <>
+                    <FaThumbsDown className="not-helpful" />
+                    <span className="review-not-recommended-text">Not Recommended</span>
+                  </>
+                )}
+              </div>
+
+              <div className="review-date">Post: {(() => {
+                const date = new Date(review[1].createdAt);
+                const day = String(date.getDate()).padStart(2, '0');
+                const month = date.toLocaleString('en-US', { month: 'short' });
+                let hours = date.getHours();
+                const minutes = String(date.getMinutes()).padStart(2, '0');
+                const ampm = hours >= 12 ? 'pm' : 'am';
+                hours = hours % 12 || 12;
+                return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+              })()}
+              </div>
+
+              <div className="review-comment">{review[1].review}</div>
+
+              <hr className="line-break"/>
+
+              <div className="review-profile-pic-container">
+                <img
+                  src={`${review[1].User?.profilePic}`}
+                  alt={`${review[1].User?.username}'s profile`}
+                  className="review-profile-pic"
+                />
+                <div>
+                  <div className="reviewer-username">{review[1].User?.username}</div>
                 </div>
-                <div className="view-comments">
-                  <button
-                    className="speech-bubble"
-                    onClick={() => {
-                      setSelectedReviewId(review[1].id);
-                      setOpenModal(true);
+              </div>
+
+              <div className="view-comments">
+                <button
+                  className="speech-bubble"
+                  onClick={() => {
+                    setSelectedReviewId(review[1].id);
+                    setOpenModal(true);
+                  }}
+                >
+                  💬
+                </button>
+                {openModal && selectedReviewId && (
+                  <ReviewCommentModal
+                    onClose={() => {
+                      setOpenModal(false);
+                      setSelectedReviewId(null);
                     }}
-                  >
-                    💬 Comment
-                  </button>
-                  {openModal && selectedReviewId && (
-                    <ReviewCommentModal
-                      onClose={() => {
-                        setOpenModal(false);
-                        setSelectedReviewId(null);
-                      }}
-                      reviewId={selectedReviewId}
-                    />
-                  )}
-                </div>
+                    reviewId={selectedReviewId}
+                  />
+                )}
               </div>
             </div>
           ))
