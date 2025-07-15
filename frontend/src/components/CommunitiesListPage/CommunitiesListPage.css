@@ -35,9 +35,6 @@
   margin-right: 2em;
 }
 
-.community-title {
-}
-
 .community-name-activity {
   display: grid;
   grid-template-rows: 1fr 1fr;
@@ -87,6 +84,7 @@
 .user-info {
   display: flex;
   flex-direction: column;
+  text-align: center;
 }
 
 .user-info img {
