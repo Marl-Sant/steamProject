@@ -84,7 +84,7 @@ function GameDetailPage() {
     else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
-  let numberOfComments = comments ? Object.keys(comments).length : 0;
+  // let numberOfComments = comments ? Object.keys(comments).length : 0;
 
   return (
     <div className="game-page-background">
