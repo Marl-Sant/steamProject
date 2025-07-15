@@ -43,13 +43,6 @@
   justify-content: flex-end;
 }
 
-.secondary-image-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  margin-top: -5rem;
-}
-
 .mini-image-container {
   display: flex;
   scroll-behavior: smooth;
@@ -65,10 +58,18 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
 
+.game-detailed-information-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  margin-top: -5rem;
+}
+
 .secondary-game-image {
-  width: 250px;
+  width: 300px;
   height: 120px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+  object-fit: cover;
 }
 
 .mini-images {
@@ -79,9 +80,12 @@
   cursor: pointer;
 }
 
-.game-description {
+.short-game-description {
+  margin-top: 0.5rem;
   font-size: 15px;
   color: white;
+  width: 95%;
+
 }
 
 .game-genre {
@@ -99,6 +103,13 @@
 }
 
 .game-publisher {
+  margin-top: 10px;
+  font-size: 13px;
+  color: grey;
+  display: flex;
+}
+
+.game-review-sentiment{
   margin-top: 10px;
   font-size: 13px;
   color: grey;
@@ -187,14 +198,16 @@
   color: white;
 }
 
-.yes-helpful {
-  color: #2ecc71;
-  font-size: 1.5rem;
-}
-
 .not-helpful {
-  color: #e74c3c;
-  font-size: 1.5rem;
+  background-color: #550000;
+  color: #FF474C;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: 600;
+  font-size: 2rem;
+  padding: 6px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  transition: background-color 0.2s ease;
 }
 
 .review-date {
@@ -210,14 +223,13 @@
 }
 
 .review-profile-pic-container {
-  margin-top: 1rem;
   display: flex;
   justify-content: flex-start;
 }
 
 .review-profile-pic {
-  width: 70px;
-  height: 70px;
+  width: 2.5rem;
+  height: 2.5rem;
   object-fit: cover;
   border: 1px solid #324352;
   display: flex;
@@ -226,23 +238,6 @@
 .reviewer-username{
   margin-left: 1rem;
   justify-content: center;
-}
-
-.speech-bubble {
-  background: transparent;
-  border: none;
-  color: skyblue;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
-  user-select: none;
-  transition: color 0.2s ease;
-  margin-left: auto;
-  align-self: flex-start;
-}
-
-.speech-bubble:hover {
-  color: #90d5ff;
 }
 
 .recommendation {
@@ -315,19 +310,27 @@
   font-size: 16px;
 }
 
+.comment-icon-wrapper {
+  display: flex;
+  align-items: center;
+}
+
 .speech-bubble {
   background: transparent;
   border: none;
-  color: skyblue;
-  font-size: 1.5rem;
-  cursor: pointer;
-  padding: 0;
-  user-select: none;
-  transition: color 0.2s ease;
+  font-size: 1.2rem;
+  margin-left: 1rem;
+  margin-top: 0.4rem;
+}
+
+.total-comments{
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
 }
 
 .line-break{
   border: none;
   border-top: 2px solid #90d5ff;
-  margin: 1rem 0;
+  margin: 0;
+  margin-top: 5rem;
 }

@@ -8,7 +8,8 @@ import ReviewArea from "../ReviewArea/ReviewArea";
 import EditReviewArea from "../EditReviewArea/EditReviewArea";
 import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import HtmlToText from "../HtmlToText/HtmlToText";
-import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown  } from "react-icons/fa";
+import { SlSpeech } from "react-icons/sl";
 
 function GameDetailPage() {
   const { gameId } = useParams();
@@ -18,6 +19,7 @@ function GameDetailPage() {
   const game = useSelector((state) => state.games?.currentGame);
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const user = useSelector((state) => state.session.user);
+  const comments = useSelector((state) => state.comments?.allComments);
   const [openModal, setOpenModal] = useState(false);
   const [selectedReviewId, setSelectedReviewId] = useState(null);
   const [showFullDescription, setShowFullDescription] = useState(false);
@@ -81,6 +83,10 @@ function GameDetailPage() {
       sentiment = `${Math.floor(ratio * 100)}% Mostly Negative`;
     else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
+
+  let numberOfComments = comments ? Object.keys(comments).length : 0;
+
+
 
   return (
     <div className="game-page-background">
@@ -149,13 +155,14 @@ function GameDetailPage() {
             </div>
           </div>
 
-          <div className="secondary-image-container">
+          <div className="game-detailed-information-container">
+            
             <img
               src={game?.capsuleImage}
               alt={`${game?.title} secondary`}
               className="secondary-game-image"
             />
-            <div className="game-description">{game?.shortDescription}</div>
+            <div className="short-game-description">{game?.shortDescription}</div>
 
             <div className="game-genre">
               Genre:{" "}
@@ -179,7 +186,7 @@ function GameDetailPage() {
               <div className="game-description-value">{game?.releaseDate}</div>
             </div>
 
-            <div className="review-sentiment">
+            <div className="game-review-sentiment">
               All Reviews:{" "}
               <div className="game-description-value">{sentiment}</div>
               <div></div>
@@ -263,7 +270,14 @@ function GameDetailPage() {
       <div className="reviews-container">
         {allReviewsArray && allReviewsArray.length > 0 ? (
           gameReviews.map((review) => (
-            <div key={review[1].id} className="review-item">
+            <div key={review[1].id} 
+              className="review-item"
+              onClick={() => {
+                if (openModal) return;
+                setSelectedReviewId(review[1].id);
+                setOpenModal(true);
+              }}
+            >
               <div className="review-header-row">
                 {review[1].isRecommended ? (
                   <>
@@ -302,19 +316,15 @@ function GameDetailPage() {
                 />
                 <div>
                   <div className="reviewer-username">{review[1].User?.username}</div>
+
+                  <div className="comment-icon-wrapper">
+                    <SlSpeech className="speech-bubble"/>
+                    <span className="total-comments">{numberOfComments}</span>
+                  </div>
                 </div>
               </div>
 
               <div className="view-comments">
-                <button
-                  className="speech-bubble"
-                  onClick={() => {
-                    setSelectedReviewId(review[1].id);
-                    setOpenModal(true);
-                  }}
-                >
-                  💬
-                </button>
                 {openModal && selectedReviewId && (
                   <ReviewCommentModal
                     onClose={() => {

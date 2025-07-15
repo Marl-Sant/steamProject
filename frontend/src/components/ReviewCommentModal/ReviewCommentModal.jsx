@@ -60,16 +60,14 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
     else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
-  const handleClickOffScreen = (e) => {
-    if(e.target.classList.contains('modal')) {
-      onClose();
-    }
-  }
 
   
   return (
-    <div className='modal' onClick={handleClickOffScreen}>
-      <div className='modal-container'>
+    <div className='modal' onClick={onClose}>
+      <div
+        className='modal-container'
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className='modal-header'>
           <button className='close' onClick={onClose}>&times;</button>
   
