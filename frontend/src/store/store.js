@@ -13,7 +13,7 @@ const rootReducer = combineReducers({
   reviews: reviewsReducer,
   communities: communitiesReducer,
   comments: commentsReducer,
-  userPosts: userPostReducer,
+  posts: userPostReducer,
 });
 
 let enhancer;

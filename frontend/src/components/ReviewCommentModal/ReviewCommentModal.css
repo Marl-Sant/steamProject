@@ -7,9 +7,10 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(76,96,112, 0);
+  background-color: rgba(76, 96, 112, 0);
   backdrop-filter: blur(1px);
   -webkit-backdrop-filter: blur(1px);
+  z-index: 10;
 }
 
 .modal-container {
@@ -56,7 +57,7 @@
   border: 1px solid #324352;
   padding: 1rem;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   gap: 1rem;
   margin-top: 1rem;
 }
@@ -69,7 +70,7 @@
   margin-right: 1rem;
 }
 
-.is-recommended{
+.is-recommended {
   margin: 1rem;
 }
 
@@ -104,7 +105,7 @@
 .commentor-profile-pic {
   width: 3rem;
   height: 3rem;
-  border: .2rem solid turquoise;
+  border: 0.2rem solid turquoise;
   object-fit: cover;
   margin-top: 0.15rem;
 }
@@ -133,9 +134,9 @@
 }
 
 .commentor-comment {
-    max-width: 92%;
-    min-height: 100px;
-    resize: none;
+  max-width: 92%;
+  min-height: 100px;
+  resize: none;
 }
 
 .helpful-label {
@@ -201,11 +202,9 @@
   margin-left: 0.3rem;
 }
 
-
-
 .yes-helpful {
-  background-color: #00008B;
-  color: #006CA5;
+  background-color: #00008b;
+  color: #006ca5;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
@@ -218,6 +217,5 @@
 .recommended-text {
   font-weight: bold;
   margin-left: 0.5rem;
-  text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
-

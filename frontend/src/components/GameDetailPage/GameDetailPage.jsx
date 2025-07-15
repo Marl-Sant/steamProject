@@ -8,7 +8,7 @@ import ReviewArea from "../ReviewArea/ReviewArea";
 import EditReviewArea from "../EditReviewArea/EditReviewArea";
 import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import HtmlToText from "../HtmlToText/HtmlToText";
-import { FaThumbsUp, FaThumbsDown  } from "react-icons/fa";
+import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { SlSpeech } from "react-icons/sl";
 
 function GameDetailPage() {
@@ -27,7 +27,7 @@ function GameDetailPage() {
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
     dispatch(reviewsAction.setReviewsState(gameId));
-  }, []);
+  }, [comments]);
 
   useEffect(() => {
     setDisplayMainPicture(game?.movies[0]);
@@ -47,7 +47,7 @@ function GameDetailPage() {
       );
     }
   }
-  
+
   let gameReviews = otherReviews || allReviewsArray;
 
   const scrollThumbnails = (direction) => {
@@ -85,8 +85,6 @@ function GameDetailPage() {
   }
 
   let numberOfComments = comments ? Object.keys(comments).length : 0;
-
-
 
   return (
     <div className="game-page-background">
@@ -156,13 +154,14 @@ function GameDetailPage() {
           </div>
 
           <div className="game-detailed-information-container">
-            
             <img
               src={game?.capsuleImage}
               alt={`${game?.title} secondary`}
               className="secondary-game-image"
             />
-            <div className="short-game-description">{game?.shortDescription}</div>
+            <div className="short-game-description">
+              {game?.shortDescription}
+            </div>
 
             <div className="game-genre">
               Genre:{" "}
@@ -197,7 +196,11 @@ function GameDetailPage() {
 
       {game ? (
         <div className="game-detailed-description-wrapper">
-          <div className={`game-detailed-description ${showFullDescription ? "expanded" : ""}`}>
+          <div
+            className={`game-detailed-description ${
+              showFullDescription ? "expanded" : ""
+            }`}
+          >
             <HtmlToText props={game?.detailedDescription} />
           </div>
           <button
@@ -270,7 +273,8 @@ function GameDetailPage() {
       <div className="reviews-container">
         {allReviewsArray && allReviewsArray.length > 0 ? (
           gameReviews.map((review) => (
-            <div key={review[1].id} 
+            <div
+              key={review[1].id}
               className="review-item"
               onClick={() => {
                 if (openModal) return;
@@ -287,26 +291,32 @@ function GameDetailPage() {
                 ) : (
                   <>
                     <FaThumbsDown className="not-helpful" />
-                    <span className="review-not-recommended-text">Not Recommended</span>
+                    <span className="review-not-recommended-text">
+                      Not Recommended
+                    </span>
                   </>
                 )}
               </div>
 
-              <div className="review-date">Post: {(() => {
-                const date = new Date(review[1].createdAt);
-                const day = String(date.getDate()).padStart(2, '0');
-                const month = date.toLocaleString('en-US', { month: 'short' });
-                let hours = date.getHours();
-                const minutes = String(date.getMinutes()).padStart(2, '0');
-                const ampm = hours >= 12 ? 'pm' : 'am';
-                hours = hours % 12 || 12;
-                return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-              })()}
+              <div className="review-date">
+                Post:{" "}
+                {(() => {
+                  const date = new Date(review[1].createdAt);
+                  const day = String(date.getDate()).padStart(2, "0");
+                  const month = date.toLocaleString("en-US", {
+                    month: "short",
+                  });
+                  let hours = date.getHours();
+                  const minutes = String(date.getMinutes()).padStart(2, "0");
+                  const ampm = hours >= 12 ? "pm" : "am";
+                  hours = hours % 12 || 12;
+                  return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                })()}
               </div>
 
               <div className="review-comment">{review[1].review}</div>
 
-              <hr className="line-break"/>
+              <hr className="line-break" />
 
               <div className="review-profile-pic-container">
                 <img
@@ -315,11 +325,15 @@ function GameDetailPage() {
                   className="review-profile-pic"
                 />
                 <div>
-                  <div className="reviewer-username">{review[1].User?.username}</div>
+                  <div className="reviewer-username">
+                    {review[1].User?.username}
+                  </div>
 
                   <div className="comment-icon-wrapper">
-                    <SlSpeech className="speech-bubble"/>
-                    <span className="total-comments">{numberOfComments}</span>
+                    <SlSpeech className="speech-bubble" />
+                    <span className="total-comments">
+                      {review[1].ReviewComments.length}
+                    </span>
                   </div>
                 </div>
               </div>

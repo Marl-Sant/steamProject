@@ -7,7 +7,7 @@ const { User } = require("../../db/models");
 const { Community } = require("../../db/models");
 const { Post } = require("../../db/models");
 const { CommunityLike } = require("../../db/models");
-const { ReviewComment } = require("../../db/models")
+const { ReviewComment } = require("../../db/models");
 
 const { requireAuth } = require("../../utils/auth");
 const router = express.Router();
@@ -54,6 +54,9 @@ router.get("/:gameId/reviews", async (req, res) => {
     include: [
       {
         model: User,
+      },
+      {
+        model: ReviewComment,
       },
     ],
   });
@@ -297,24 +300,27 @@ router.delete(
   }
 );
 
-
-
-
 // Optional: Delete comment
-router.delete("/:gameId/reviews/:reviewId/comments/:commentId", requireAuth, async (req, res) => {
-  const reviewComment = await ReviewComment.findByPk(req.params.commentId);
+router.delete(
+  "/:gameId/reviews/:reviewId/comments/:commentId",
+  requireAuth,
+  async (req, res) => {
+    const reviewComment = await ReviewComment.findByPk(req.params.commentId);
 
-  if (!reviewComment) {
-    return res.status(404).json({ message: "Comment not found" });
+    if (!reviewComment) {
+      return res.status(404).json({ message: "Comment not found" });
+    }
+
+    if (reviewComment.userId !== req.user.id) {
+      return res
+        .status(403)
+        .json({ message: "Unauthorized to delete this comment" });
+    }
+
+    await reviewComment.destroy();
+
+    return res.json({ message: "Comment deleted successfully" });
   }
-
-  if (reviewComment.userId !== req.user.id) {
-    return res.status(403).json({ message: "Unauthorized to delete this comment" });
-  }
-
-  await reviewComment.destroy();
-
-  return res.json({ message: "Comment deleted successfully" });
-});
+);
 
 module.exports = router;
