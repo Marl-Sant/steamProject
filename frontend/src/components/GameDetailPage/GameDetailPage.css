@@ -1,6 +1,7 @@
 .game-page-background {
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #1b2838, #2a475e);
+  background: #1b2838;
+  /* background: linear-gradient(to bottom right, #1b2838, #2a475e); */
   color: #c7d5e0;
 }
 
@@ -8,11 +9,14 @@
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 940px;
+  /* width: 940px; */
+  width: 70vw;
   margin: 0 auto;
-  padding-top: 3rem;
+  /* padding-top: 3rem; */
+  padding: 5em 12em 12em;
   justify-content: flex-start;
-  height: 545px;
+  /* height: 545px; */
+  height: 65vh;
 }
 
 .long-description {
@@ -65,6 +69,11 @@
   margin-top: -5rem;
 }
 
+.about-header {
+  width: 940px;
+  margin: 1em auto -0.25em;
+}
+
 .secondary-game-image {
   width: 300px;
   height: 120px;
@@ -85,7 +94,6 @@
   font-size: 15px;
   color: white;
   width: 95%;
-
 }
 
 .game-genre {
@@ -109,7 +117,7 @@
   display: flex;
 }
 
-.game-review-sentiment{
+.game-review-sentiment {
   margin-top: 10px;
   font-size: 13px;
   color: grey;
@@ -200,7 +208,7 @@
 
 .not-helpful {
   background-color: #550000;
-  color: #FF474C;
+  color: #ff474c;
   border-radius: 4px;
   cursor: pointer;
   font-weight: 600;
@@ -235,7 +243,7 @@
   display: flex;
 }
 
-.reviewer-username{
+.reviewer-username {
   margin-left: 1rem;
   justify-content: center;
 }
@@ -299,7 +307,7 @@
   border: none;
   color: #3f80f0;
   cursor: pointer;
-  margin-top: 8px;
+  margin: 1em 0;
   font-size: 20px;
   display: flex;
   align-items: center;
@@ -323,14 +331,79 @@
   margin-top: 0.4rem;
 }
 
-.total-comments{
+.total-comments {
   margin-left: 0.5rem;
   margin-top: 0.2rem;
 }
 
-.line-break{
+.line-break {
   border: none;
   border-top: 2px solid #90d5ff;
   margin: 0;
   margin-top: 5rem;
+}
+
+.community-link-container {
+  display: flex;
+  justify-content: space-around;
+}
+
+.community-link-container a {
+  text-decoration: none;
+  border: 1px white solid;
+  padding: 0.4em;
+  color: white;
+  background-color: #3f80f0;
+  font-size: 1rem;
+}
+
+.add-to-cart-container {
+  display: flex;
+  background: linear-gradient(to right, #213145, #2a475e);
+  padding-left: 1.5em;
+  padding-right: 1em;
+  justify-content: space-between;
+  width: 30vw;
+}
+
+.floating-div {
+  display: flex;
+  position: absolute;
+  background-color: rgb(19, 19, 19);
+  height: fit-content;
+  padding: 0.25em 0.15em;
+  margin-top: 2.7em;
+  margin-left: 20em;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-button {
+  border-radius: 3px;
+  background-color: rgb(12, 133, 12);
+  padding: 0.25em;
+  margin-left: 0.25em;
+}
+
+.cart-button a {
+  text-decoration: none;
+  color: white;
+}
+
+.community-button {
+  border-radius: 3px;
+  background-color: rgb(12, 107, 133);
+  padding: 0.25em;
+}
+
+.community-cart-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin: -2em auto 5em;
+  max-width: 80vw;
+}
+
+.community-cart-container a {
+  text-decoration: none;
+  color: white;
 }

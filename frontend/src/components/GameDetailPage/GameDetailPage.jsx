@@ -188,36 +188,59 @@ function GameDetailPage() {
             <div className="game-review-sentiment">
               All Reviews:{" "}
               <div className="game-description-value">{sentiment}</div>
-              <div></div>
             </div>
           </div>
         </div>
       </div>
 
       {game ? (
-        <div className="game-detailed-description-wrapper">
-          <div
-            className={`game-detailed-description ${
-              showFullDescription ? "expanded" : ""
-            }`}
-          >
-            <HtmlToText props={game?.detailedDescription} />
+        <>
+          <div className="community-cart-container">
+            <div className="add-to-cart-container about-header">
+              <h3>{`Buy ${game.title}!`}</h3>
+              <div className="floating-div">
+                <div>{`$${game.price}`}</div>
+                <div className="cart-button">
+                  <NavLink to="/communities">Add to cart</NavLink>
+                </div>
+              </div>
+            </div>
+
+            <div className="add-to-cart-container about-header">
+              <h3>{`See what fans are saying about ${game.title}!`}</h3>
+              <div className="floating-div">
+                <div className="community-button">
+                  <NavLink to="/communities">Community</NavLink>
+                </div>
+              </div>
+            </div>
           </div>
-          <button
-            onClick={() => setShowFullDescription(!showFullDescription)}
-            className="see-more-btn"
-          >
-            {showFullDescription ? (
-              <>
-                Read less <span className="arrow">▲</span>
-              </>
-            ) : (
-              <>
-                Read more <span className="arrow">▼</span>
-              </>
-            )}
-          </button>
-        </div>
+          <h1 className="about-header">{`About ${game.title}`}</h1>
+          <hr className="about-header line"></hr>
+          <div className="game-detailed-description-wrapper">
+            <div
+              className={`game-detailed-description ${
+                showFullDescription ? "expanded" : ""
+              }`}
+            >
+              <HtmlToText props={game?.detailedDescription} />
+            </div>
+            <button
+              onClick={() => setShowFullDescription(!showFullDescription)}
+              className="see-more-btn"
+            >
+              {showFullDescription ? (
+                <>
+                  Read less <span className="arrow">▲</span>
+                </>
+              ) : (
+                <>
+                  Read more <span className="arrow">▼</span>
+                </>
+              )}
+            </button>
+          </div>
+        </>
       ) : (
         <></>
       )}
