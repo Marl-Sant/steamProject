@@ -89,105 +89,112 @@ function GameDetailPage() {
   return (
     <div className="game-page-background">
       <div
-        className="game-container"
+        // className="game-container"
         style={{
           backgroundImage: `url(${game?.background})`,
         }}
       >
-        <div className="game-title">{game?.title}</div>
+        <div className="game-container">
+          <div className="game-title">{game?.title}</div>
 
-        <div className="game-image">
-          <div className="primary-game-container">
-            {displayMainPicture?.includes("mp4") ? (
-              <video
-                src={displayMainPicture}
-                className="primary-game-image"
-                autoPlay
-                loop
-                controls
-                playsInline
-                muted
-              />
-            ) : (
+          <div className="game-image">
+            <div className="primary-game-container">
+              {displayMainPicture?.includes("mp4") ? (
+                <video
+                  src={displayMainPicture}
+                  className="primary-game-image"
+                  autoPlay
+                  loop
+                  controls
+                  playsInline
+                  muted
+                />
+              ) : (
+                <img
+                  src={displayMainPicture}
+                  alt={`${game?.title} display`}
+                  className="primary-game-image"
+                />
+              )}
+              <div className="thumbnail-carousel-wrapper">
+                <div
+                  className="mini-image-container"
+                  ref={thumbnailContainerRef}
+                >
+                  {game?.movies.slice(0, 2).map((vid, index) => (
+                    <video
+                      src={vid}
+                      className="mini-images"
+                      key={`video-${index}`}
+                      onClick={() => setDisplayMainPicture(vid)}
+                    />
+                  ))}
+                  {game?.screenshots.map((img, index) => (
+                    <img
+                      src={img}
+                      alt={`Thumbnail ${index}`}
+                      className="mini-images"
+                      key={`image-${index}`}
+                      onClick={() => setDisplayMainPicture(img)}
+                    />
+                  ))}
+                </div>
+
+                <div className="carousel-scroller">
+                  <button
+                    className="side-scroll-arrow left"
+                    onClick={() => scrollThumbnails("left")}
+                  >
+                    &lt;
+                  </button>
+                  <button
+                    className="side-scroll-arrow right"
+                    onClick={() => scrollThumbnails("right")}
+                  >
+                    &gt;
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <div className="game-detailed-information-container">
               <img
-                src={displayMainPicture}
-                alt={`${game?.title} display`}
-                className="primary-game-image"
+                src={game?.capsuleImage}
+                alt={`${game?.title} secondary`}
+                className="secondary-game-image"
               />
-            )}
-            <div className="thumbnail-carousel-wrapper">
-              <div className="mini-image-container" ref={thumbnailContainerRef}>
-                {game?.movies.slice(0, 2).map((vid, index) => (
-                  <video
-                    src={vid}
-                    className="mini-images"
-                    key={`video-${index}`}
-                    onClick={() => setDisplayMainPicture(vid)}
-                  />
-                ))}
-                {game?.screenshots.map((img, index) => (
-                  <img
-                    src={img}
-                    alt={`Thumbnail ${index}`}
-                    className="mini-images"
-                    key={`image-${index}`}
-                    onClick={() => setDisplayMainPicture(img)}
-                  />
-                ))}
+              <div className="short-game-description">
+                {game?.shortDescription}
               </div>
 
-              <div className="carousel-scroller">
-                <button
-                  className="side-scroll-arrow left"
-                  onClick={() => scrollThumbnails("left")}
-                >
-                  &lt;
-                </button>
-                <button
-                  className="side-scroll-arrow right"
-                  onClick={() => scrollThumbnails("right")}
-                >
-                  &gt;
-                </button>
+              <div className="game-genre">
+                Genre:{" "}
+                <div className="game-description-value">
+                  {game?.genres.join(", ")}
+                </div>
               </div>
-            </div>
-          </div>
 
-          <div className="game-detailed-information-container">
-            <img
-              src={game?.capsuleImage}
-              alt={`${game?.title} secondary`}
-              className="secondary-game-image"
-            />
-            <div className="short-game-description">
-              {game?.shortDescription}
-            </div>
-
-            <div className="game-genre">
-              Genre:{" "}
-              <div className="game-description-value">
-                {game?.genres.join(", ")}
+              <div className="game-developer">
+                Developer:{" "}
+                <div className="game-description-value">{game?.developers}</div>
               </div>
-            </div>
 
-            <div className="game-developer">
-              Developer:{" "}
-              <div className="game-description-value">{game?.developers}</div>
-            </div>
+              <div className="game-publisher">
+                Publisher:{" "}
+                <div className="game-description-value">{game?.publishers}</div>
+              </div>
 
-            <div className="game-publisher">
-              Publisher:{" "}
-              <div className="game-description-value">{game?.publishers}</div>
-            </div>
+              <div className="game-publisher">
+                Release Date:{" "}
+                <div className="game-description-value">
+                  {game?.releaseDate}
+                </div>
+              </div>
 
-            <div className="game-publisher">
-              Release Date:{" "}
-              <div className="game-description-value">{game?.releaseDate}</div>
-            </div>
-
-            <div className="game-review-sentiment">
-              All Reviews:{" "}
-              <div className="game-description-value">{sentiment}</div>
+              <div className="game-review-sentiment">
+                All Reviews:{" "}
+                <div className="game-description-value">{sentiment}</div>
+              </div>
             </div>
           </div>
         </div>
