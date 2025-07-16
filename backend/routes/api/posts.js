@@ -15,7 +15,7 @@ router.get("/", async (req, res) => {
   if (req.user) {
     excludeUserId = req.user.id;
   } else {
-    excludeUserId = "";
+    excludeUserId = 0;
   }
 
   const recentPosts = await Post.findAll({
