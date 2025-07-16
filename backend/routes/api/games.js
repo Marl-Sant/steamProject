@@ -2,7 +2,6 @@ const express = require("express");
 
 const { Game } = require("../../db/models");
 const { Review } = require("../../db/models");
-const { GameImage } = require("../../db/models");
 const { User } = require("../../db/models");
 const { Community } = require("../../db/models");
 const { Post } = require("../../db/models");
@@ -12,7 +11,7 @@ const { ReviewComment } = require("../../db/models");
 const { requireAuth } = require("../../utils/auth");
 const router = express.Router();
 
-//Get game by gameId
+//Get game by gameId. Include Community model to allow user to navigate to community from GameDetailPage
 router.get("/:gameId", async (req, res) => {
   const game = await Game.findOne({
     where: {
@@ -20,7 +19,7 @@ router.get("/:gameId", async (req, res) => {
     },
     include: [
       {
-        model: GameImage,
+        model: Community,
       },
     ],
   });
@@ -34,15 +33,7 @@ router.get("/:gameId", async (req, res) => {
 
 //Get all games
 router.get("/", async (req, res) => {
-  return res.json(
-    await Game.findAll({
-      include: [
-        {
-          model: GameImage,
-        },
-      ],
-    })
-  );
+  return res.json(await Game.findAll());
 });
 
 //Get all reviews on game
@@ -85,8 +76,6 @@ router.get("/:gameId/reviews/:reviewId", async (req, res) => {
 
 //Create a new Review on game
 router.post("/:gameId/reviews", requireAuth, async (req, res) => {
-  console.log("This is the req user info:", req.user);
-
   const { review, isRecommended } = req.body;
 
   if (!review.length || review.length < 10) {

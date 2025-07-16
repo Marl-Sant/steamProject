@@ -14,11 +14,6 @@ module.exports = (sequelize, DataTypes) => {
         onDelete: "CASCADE",
       });
 
-      Game.hasMany(models.GameImage, {
-        foreignKey: "gameId",
-        onDelete: "CASCADE",
-      });
-
       Game.hasOne(models.Community, {
         foreignKey: "gameId",
         onDelete: "CASCADE",
