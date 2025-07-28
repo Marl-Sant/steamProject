@@ -92,9 +92,13 @@ function GameDetailPage() {
         // className="game-container"
         style={{
           backgroundImage: `url(${game?.background})`,
+          backgroundRepeat: 'no-repeat',
+          backgroundSize: 'cover'
         }}
       >
         <div className="game-container">
+          {/* <div className="game-information"> */}
+
           <div className="game-title">{game?.title}</div>
 
           <div className="game-image">
@@ -197,9 +201,11 @@ function GameDetailPage() {
               </div>
             </div>
           </div>
+          {/* </div> */}
         </div>
       </div>
 
+      <div className="rest-of-page">
       {game ? (
         <>
           <div className="community-cart-container">
@@ -385,6 +391,7 @@ function GameDetailPage() {
           <p>No Reviews</p>
         )}
       </div>
+    </div>
     </div>
   );
 }
