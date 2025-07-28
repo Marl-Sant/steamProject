@@ -2,9 +2,8 @@
 html, body {
     margin: 0;
     height: 100vh;
-    width: 100vw;
-    overflow-x: hidden;
-    scrollbar-color: blue;
+    /* overflow-x: hidden; */
+    /* scrollbar-color: blue; */
   }
 
 #root{
