@@ -79,7 +79,7 @@ module.exports = {
         },
         background: {
           allowNull: false,
-          type: Sequelize.BLOB,
+          type: Sequelize.TEXT,
         },
         ESRBRating: {
           type: Sequelize.JSONB,
