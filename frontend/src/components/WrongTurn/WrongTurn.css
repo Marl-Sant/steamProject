@@ -1,0 +1,14 @@
+.wrong-turn{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 0 25%;
+    height: 100vh;
+    background: #1b2838;
+    color: #c7d5e0;
+}
+
+.icons{
+    font-size: xx-large;
+}

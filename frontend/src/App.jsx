@@ -9,6 +9,7 @@ import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
 import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
 import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
+import WrongTurn from "./components/WrongTurn/WrongTurn.jsx";
 
 
 function Layout() {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
         path: "users/:userId",
         element: <ProfilePage />, 
       },
+      {
+        path: "*",
+        element: <WrongTurn />
+      }
     ],
   },
 ]);
