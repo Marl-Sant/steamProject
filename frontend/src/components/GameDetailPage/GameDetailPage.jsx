@@ -27,7 +27,7 @@ function GameDetailPage() {
   useEffect(() => {
     dispatch(gamesAction.getGameById(gameId));
     dispatch(reviewsAction.setReviewsState(gameId));
-  }, [comments]);
+  }, [comments, gameId, dispatch]);
 
   useEffect(() => {
     setDisplayMainPicture(game?.movies[0]);
@@ -92,8 +92,8 @@ function GameDetailPage() {
         // className="game-container"
         style={{
           backgroundImage: `url(${game?.background})`,
-          backgroundRepeat: 'no-repeat',
-          backgroundSize: 'cover'
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         }}
       >
         <div className="game-container">
@@ -206,192 +206,198 @@ function GameDetailPage() {
       </div>
 
       <div className="rest-of-page">
-      {game ? (
-        <>
-          <div className="community-cart-container">
-            <div className="add-to-cart-container about-header">
-              <h3>{`Buy ${game.title}!`}</h3>
-              <div className="floating-div">
-                <div>{`$${game.price}`}</div>
-                <div className="cart-button">
-                  <NavLink to="/communities">Add to cart</NavLink>
+        {game ? (
+          <>
+            <div className="community-cart-container">
+              <div className="add-to-cart-container about-header">
+                <h3>{`Buy ${game.title}!`}</h3>
+                <div className="floating-div">
+                  <div>{`$${game.price}`}</div>
+                  <div className="cart-button">
+                    <NavLink to="/communities">Add to cart</NavLink>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            <div className="add-to-cart-container about-header">
-              <h3>{`See what fans are saying about ${game.title}!`}</h3>
-              <div className="floating-div">
-                <div className="community-button">
-                  <NavLink to="/communities">Community</NavLink>
-                </div>
-              </div>
-            </div>
-          </div>
-          <h1 className="about-header">{`About ${game.title}`}</h1>
-          <hr className="about-header line"></hr>
-          <div className="game-detailed-description-wrapper">
-            <div
-              className={`game-detailed-description ${
-                showFullDescription ? "expanded" : ""
-              }`}
-            >
-              <HtmlToText props={game?.detailedDescription} />
-            </div>
-            <button
-              onClick={() => setShowFullDescription(!showFullDescription)}
-              className="see-more-btn"
-            >
-              {showFullDescription ? (
-                <>
-                  Read less <span className="arrow">▲</span>
-                </>
-              ) : (
-                <>
-                  Read more <span className="arrow">▼</span>
-                </>
-              )}
-            </button>
-          </div>
-        </>
-      ) : (
-        <></>
-      )}
-
-      {user ? (
-        <div className="create-review-container">
-          {userReview ? <EditReviewArea props={userReview} /> : <ReviewArea />}
-        </div>
-      ) : (
-        <div>
-          <div id="no-user-message">
-            Join in on the conversation!&nbsp;{" "}
-            <NavLink to="/login" className="login-review-area">
-              Login
-            </NavLink>
-            &nbsp;to leave a review and let others know what you think!
-          </div>
-          <div className="blur-container">
-            <div className="text-area-container">
-              <div>
-                <h4 id="text-title">Write a review for {`${game?.title}`}</h4>
-                <p className="rules-and-guidelines">
-                  Please describe what you liked or disliked about this game and
-                  whether you recommend it to others.
-                </p>
-                <p className="rules-and-guidelines">
-                  Please remember to be polite and follow the Rules and
-                  Guidelines.
-                </p>
-              </div>
-              <div id="user-text-area">
-                <div id="profile-pic-container"></div>
-                <div id="text-area">
-                  <textarea id="text"></textarea>
-
-                  <p id="recommend-text">Do you recommend this game?</p>
-                  <div id="button-row">
-                    <div id="liked-group">
-                      <button className="review-button"></button>
-                      <button className="review-button"></button>
-                    </div>
-                    <div id="review-button-container">
-                      <button className={"review-button"}>Post review</button>
-                    </div>
+              <div className="add-to-cart-container about-header">
+                <h3>{`See what fans are saying about ${game.title}!`}</h3>
+                <div className="floating-div">
+                  <div className="community-button">
+                    <NavLink to="/communities">Community</NavLink>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      )}
-
-      <div className="reviews-container">
-        {allReviewsArray && allReviewsArray.length > 0 ? (
-          gameReviews.map((review) => (
-            <div
-              key={review[1].id}
-              className="review-item"
-              onClick={() => {
-                if (openModal) return;
-                setSelectedReviewId(review[1].id);
-                setOpenModal(true);
-              }}
-            >
-              <div className="review-header-row">
-                {review[1].isRecommended ? (
+            <h1 className="about-header">{`About ${game.title}`}</h1>
+            <hr className="about-header line"></hr>
+            <div className="game-detailed-description-wrapper">
+              <div
+                className={`game-detailed-description ${
+                  showFullDescription ? "expanded" : ""
+                }`}
+              >
+                <HtmlToText props={game?.detailedDescription} />
+              </div>
+              <button
+                onClick={() => setShowFullDescription(!showFullDescription)}
+                className="see-more-btn"
+              >
+                {showFullDescription ? (
                   <>
-                    <FaThumbsUp className="yes-helpful" />
-                    <span className="review-recommended-text">Recommended</span>
+                    Read less <span className="arrow">▲</span>
                   </>
                 ) : (
                   <>
-                    <FaThumbsDown className="not-helpful" />
-                    <span className="review-not-recommended-text">
-                      Not Recommended
-                    </span>
+                    Read more <span className="arrow">▼</span>
                   </>
                 )}
-              </div>
+              </button>
+            </div>
+          </>
+        ) : (
+          <></>
+        )}
 
-              <div className="review-date">
-                Post:{" "}
-                {(() => {
-                  const date = new Date(review[1].createdAt);
-                  const day = String(date.getDate()).padStart(2, "0");
-                  const month = date.toLocaleString("en-US", {
-                    month: "short",
-                  });
-                  let hours = date.getHours();
-                  const minutes = String(date.getMinutes()).padStart(2, "0");
-                  const ampm = hours >= 12 ? "pm" : "am";
-                  hours = hours % 12 || 12;
-                  return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                })()}
-              </div>
-
-              <div className="review-comment">{review[1].review}</div>
-
-              <hr className="line-break" />
-
-              <div className="review-profile-pic-container">
-                <img
-                  src={`${review[1].User?.profilePic}`}
-                  alt={`${review[1].User?.username}'s profile`}
-                  className="review-profile-pic"
-                />
+        {user ? (
+          <div className="create-review-container">
+            {userReview ? (
+              <EditReviewArea props={userReview} />
+            ) : (
+              <ReviewArea />
+            )}
+          </div>
+        ) : (
+          <div>
+            <div id="no-user-message">
+              Join in on the conversation!&nbsp;{" "}
+              <NavLink to="/login" className="login-review-area">
+                Login
+              </NavLink>
+              &nbsp;to leave a review and let others know what you think!
+            </div>
+            <div className="blur-container">
+              <div className="text-area-container">
                 <div>
-                  <div className="reviewer-username">
-                    {review[1].User?.username}
-                  </div>
+                  <h4 id="text-title">Write a review for {`${game?.title}`}</h4>
+                  <p className="rules-and-guidelines">
+                    Please describe what you liked or disliked about this game
+                    and whether you recommend it to others.
+                  </p>
+                  <p className="rules-and-guidelines">
+                    Please remember to be polite and follow the Rules and
+                    Guidelines.
+                  </p>
+                </div>
+                <div id="user-text-area">
+                  <div id="profile-pic-container"></div>
+                  <div id="text-area">
+                    <textarea id="text"></textarea>
 
-                  <div className="comment-icon-wrapper">
-                    <SlSpeech className="speech-bubble" />
-                    <span className="total-comments">
-                      {review[1].ReviewComments.length}
-                    </span>
+                    <p id="recommend-text">Do you recommend this game?</p>
+                    <div id="button-row">
+                      <div id="liked-group">
+                        <button className="review-button"></button>
+                        <button className="review-button"></button>
+                      </div>
+                      <div id="review-button-container">
+                        <button className={"review-button"}>Post review</button>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
-
-              <div className="view-comments">
-                {openModal && selectedReviewId && (
-                  <ReviewCommentModal
-                    onClose={() => {
-                      setOpenModal(false);
-                      setSelectedReviewId(null);
-                    }}
-                    reviewId={selectedReviewId}
-                  />
-                )}
-              </div>
             </div>
-          ))
-        ) : (
-          <p>No Reviews</p>
+          </div>
         )}
+
+        <div className="reviews-container">
+          {allReviewsArray && allReviewsArray.length > 0 ? (
+            gameReviews.map((review) => (
+              <div
+                key={review[1].id}
+                className="review-item"
+                onClick={() => {
+                  if (openModal) return;
+                  setSelectedReviewId(review[1].id);
+                  setOpenModal(true);
+                }}
+              >
+                <div className="review-header-row">
+                  {review[1].isRecommended ? (
+                    <>
+                      <FaThumbsUp className="yes-helpful" />
+                      <span className="review-recommended-text">
+                        Recommended
+                      </span>
+                    </>
+                  ) : (
+                    <>
+                      <FaThumbsDown className="not-helpful" />
+                      <span className="review-not-recommended-text">
+                        Not Recommended
+                      </span>
+                    </>
+                  )}
+                </div>
+
+                <div className="review-date">
+                  Post:{" "}
+                  {(() => {
+                    const date = new Date(review[1].createdAt);
+                    const day = String(date.getDate()).padStart(2, "0");
+                    const month = date.toLocaleString("en-US", {
+                      month: "short",
+                    });
+                    let hours = date.getHours();
+                    const minutes = String(date.getMinutes()).padStart(2, "0");
+                    const ampm = hours >= 12 ? "pm" : "am";
+                    hours = hours % 12 || 12;
+                    return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                  })()}
+                </div>
+
+                <div className="review-comment">{review[1].review}</div>
+
+                <hr className="line-break" />
+
+                <div className="review-profile-pic-container">
+                  <img
+                    src={`${review[1].User?.profilePic}`}
+                    alt={`${review[1].User?.username}'s profile`}
+                    className="review-profile-pic"
+                  />
+                  <div>
+                    <div className="reviewer-username">
+                      {review[1].User?.username}
+                    </div>
+
+                    <div className="comment-icon-wrapper">
+                      <SlSpeech className="speech-bubble" />
+                      <span className="total-comments">
+                        {review[1].ReviewComments.length}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="view-comments">
+                  {openModal && selectedReviewId && (
+                    <ReviewCommentModal
+                      onClose={() => {
+                        setOpenModal(false);
+                        setSelectedReviewId(null);
+                      }}
+                      reviewId={selectedReviewId}
+                    />
+                  )}
+                </div>
+              </div>
+            ))
+          ) : (
+            <p>No Reviews</p>
+          )}
+        </div>
       </div>
-    </div>
     </div>
   );
 }

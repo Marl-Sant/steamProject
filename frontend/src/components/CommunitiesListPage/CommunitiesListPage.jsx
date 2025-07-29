@@ -30,12 +30,12 @@ function CommunitiesListPage() {
 
   useEffect(() => {
     dispatch(communitiesActions.populateCommunities());
+    dispatch(postsActions.populateAllRecentPosts());
     if (user) {
       dispatch(postsActions.populateRecentUserPosts());
     }
-    dispatch(postsActions.populateAllRecentPosts());
     setLoaded(true);
-  }, []);
+  }, [user?.id, dispatch]);
 
   return (
     <div className="communities-page">
@@ -107,8 +107,12 @@ function CommunitiesListPage() {
                       around your favorite games!
                     </p>
                     <span>
-                      <button className="review-button">Log In</button>
-                      <button className="review-button">Join Gleam</button>
+                      <NavLink to="/login">
+                        <button className="review-button">Log In</button>
+                      </NavLink>
+                      <NavLink to="/signup">
+                        <button className="review-button">Join Gleam</button>
+                      </NavLink>
                     </span>
                     <p>
                       Want to know more about the dev team?&nbsp;
@@ -156,7 +160,10 @@ function CommunitiesListPage() {
                       <div>{post[1].post}</div>
                       <div className="recent-post-info">
                         <div className="recent-post-title">
-                          Posted in: <NavLink to={`/games/${post[1].Community.gameId}`}>{post[1].Community.Game.title}</NavLink>
+                          Posted in:{" "}
+                          <NavLink to={`/games/${post[1].Community.gameId}`}>
+                            {post[1].Community.Game.title}
+                          </NavLink>
                         </div>
                         <div className="recent-post-date">
                           {new Date(post[1].createdAt).toLocaleDateString(

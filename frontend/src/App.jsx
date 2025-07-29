@@ -5,12 +5,12 @@ import LoginFormPage from "./components/LoginFormPage/LoginFormPage.jsx";
 import SignupFormPage from "./components/SignupFormPage/SignupFormPage.jsx";
 import StorePage from "./components/StorePage/StorePage.jsx";
 import Navigation from "./components/Navigation/Navigation.jsx";
-import * as sessionActions from "./store/session";
 import GameDetailPage from "./components/GameDetailPage/GameDetailPage.jsx";
-import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx"
-import ProfilePage from './components/ProfilePage/ProfilePage.jsx';
+import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesListPage.jsx";
+import ProfilePage from "./components/ProfilePage/ProfilePage.jsx";
 import WrongTurn from "./components/WrongTurn/WrongTurn.jsx";
-
+import CommunityDetail from "./components/CommunityDetail/CommunityDetail.jsx";
+import * as sessionActions from "./store/session";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -55,13 +55,17 @@ const router = createBrowserRouter([
         element: <CommunitiesListPage />,
       },
       {
+        path: "communities/:communityId",
+        element: <CommunityDetail />,
+      },
+      {
         path: "users/:userId",
-        element: <ProfilePage />, 
+        element: <ProfilePage />,
       },
       {
         path: "*",
-        element: <WrongTurn />
-      }
+        element: <WrongTurn />,
+      },
     ],
   },
 ]);
