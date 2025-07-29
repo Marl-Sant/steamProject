@@ -48,7 +48,7 @@ router.get('/:userId/reviews', async (req, res) => {
   const { userId } = req.params;
   const reviews = await Review.findAll({
     where: { userId },
-    include: [Game], // optionally include related Game
+    include: [Game],
   });
   res.json(reviews);
 });

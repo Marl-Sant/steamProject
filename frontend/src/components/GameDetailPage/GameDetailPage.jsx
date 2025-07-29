@@ -84,12 +84,9 @@ function GameDetailPage() {
     else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
-  // let numberOfComments = comments ? Object.keys(comments).length : 0;
-
   return (
     <div className="game-page-background">
       <div
-        // className="game-container"
         style={{
           backgroundImage: `url(${game?.background})`,
           backgroundRepeat: "no-repeat",
@@ -97,7 +94,6 @@ function GameDetailPage() {
         }}
       >
         <div className="game-container">
-          {/* <div className="game-information"> */}
 
           <div className="game-title">{game?.title}</div>
 
@@ -201,7 +197,6 @@ function GameDetailPage() {
               </div>
             </div>
           </div>
-          {/* </div> */}
         </div>
       </div>
 

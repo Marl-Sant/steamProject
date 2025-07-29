@@ -1,15 +1,15 @@
 const express = require('express');
-const { ReviewComment } = require('../../db/models');
-const { User } = require('../../db/models');
+const { ReviewComment, User } = require('../../db/models');
 const { requireAuth } = require('../../utils/auth');
 
 const router = express.Router();
 
-// Get all comments
+// Get all comments for a specific review
 router.get('/:reviewId/comments', async (req, res) => {
+  const { reviewId } = req.params;
   const comments = await ReviewComment.findAll({
-    where: { reviewId: req.params.reviewId },
-    include: [{ model: User }],
+    where: { reviewId },
+    include: [User],
   });
 
   if (comments) {
@@ -18,6 +18,21 @@ router.get('/:reviewId/comments', async (req, res) => {
     return res
       .status(404)
       .json({ message: 'Comments not found' });
+  }
+});
+
+// Get all comments by a specific user
+router.get('/:userId/comments', async (req, res) => {
+  const { userId } = req.params;
+  const comments = await ReviewComment.findAll({
+    where: { userId },
+    include: [User],
+  });
+
+  if (comments) {
+    return res.json(comments);
+  } else {
+    return res.status(404).json({ message: 'Comments not found' });
   }
 });
 

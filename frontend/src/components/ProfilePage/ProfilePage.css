@@ -48,7 +48,14 @@
 .profile-page-number-of-reviews{
   margin-left: 1rem;
   font-size: 1rem;
-  margin-top: 6.3rem;
+  margin-top: 4.8rem;
+  margin-bottom: 0;
+}
+
+.profile-page-number-of-comments{
+  margin-left: 1rem;
+  font-size: 1rem;
+  margin-top: 0.3rem;
   margin-bottom: 0;
 }
 

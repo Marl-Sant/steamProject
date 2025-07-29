@@ -23,6 +23,8 @@ const ProfilePage = () => {
     dispatch(reviewsAction.getReviewsByUser(userId));
   }, [userId, dispatch]);
 
+  console.log("Reviews from Redux:", reviews);
+
   useEffect(() => {
     if (reviews) {
       Object.keys(reviews).forEach((reviewId) => {
@@ -75,9 +77,7 @@ const ProfilePage = () => {
     else helpfulSentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
-  if (!user || user.id.toString() !== userId) {
-    return <div>User not found or not logged in.</div>;
-  }
+
 
   return (
     <div className="profile-page-background">
@@ -105,6 +105,23 @@ const ProfilePage = () => {
           </div>
         </div>
       
+        <div className="profile-user-reviews">
+          <h2>Recent Activity</h2>
+          {reviews && Object.values(reviews).length > 0 ? (
+            Object.values(reviews).map((review) => (
+              <div key={review.id} className="user-review-item">
+                <h3>{review.Game?.title}</h3>
+                <img src={review.Game?.headerImage}/>
+                <p>{review.review}</p>
+                <p>Recommended: {review.isRecommended ? "Yes" : "No"}</p>
+                <p>Date: {new Date(review.createdAt).toLocaleDateString()}</p>
+              </div>
+            ))
+          ) : (
+            <p>This user has not left any reviews yet.</p>
+          )}
+        </div>
+
       <div className="profile-comment-wrapper">
         <div className="profile-comment-section">
           <div className="profile-comment-section-header">
