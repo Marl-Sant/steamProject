@@ -6,6 +6,7 @@ const gamesRouter = require("./games.js");
 const communityRouter = require("./communities.js");
 const commentRouter = require("./comments.js");
 const postRouter = require("./posts.js");
+const profileCommentsRouter = require("./profile-comments.js"); 
 const { restoreUser } = require("../../utils/auth.js");
 
 // Connect restoreUser middleware to the API router
@@ -24,5 +25,9 @@ router.use("/communities", communityRouter);
 router.use("/reviews", commentRouter);
 
 router.use("/posts", postRouter);
+
+router.use("/users", profileCommentsRouter);
+
+
 
 module.exports = router;

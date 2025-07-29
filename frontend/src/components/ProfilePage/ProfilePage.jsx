@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from "react-redux";
 import * as reviewsAction from "../../store/reviews";
 import * as commentsAction from "../../store/comments";
+import * as profileCommentsAction from '../../store/profileComments';
 import './ProfilePage.css'
 
 const ProfilePage = () => {
@@ -11,10 +12,11 @@ const ProfilePage = () => {
   const user = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const comments = useSelector((state) => state.comments?.allComments);
+  const profileComments = useSelector(state => state.profileComments?.allComments);
 
   useEffect(() => {
     dispatch(reviewsAction.getReviewsByUser(userId));
-  }, [userId, dispatch]);
+  }, [userId]);
 
   useEffect(() => {
     if (reviews) {
@@ -22,7 +24,13 @@ const ProfilePage = () => {
         dispatch(commentsAction.setCommentsState(reviewId));
       });
     }
-  }, [reviews, dispatch]);
+  }, [reviews]);
+
+  useEffect(() => {
+    if (userId) {
+      dispatch(profileCommentsAction.setProfileCommentsState(userId));
+    }
+  }, [userId]);
 
   let numberOfReviews = reviews ? Object.keys(reviews).length : 0;
 
@@ -56,9 +64,6 @@ const ProfilePage = () => {
     return <div>User not found or not logged in.</div>;
   }
 
-  console.log(`LOOK OVER HERE: ${helpfulCount}`)
-  console.log(`LOOK OVER HERE 2: ${notHelpfulCount}`)
-
   return (
     <div className='profile-page-background'>
 
@@ -73,6 +78,12 @@ const ProfilePage = () => {
           <div className='profile-page-user-information'>
             <h1 className='profile-page-username'>{user.username}</h1>
             <h2 className='profile-page-user-location'>{user.country}</h2>
+            <div className='profile-bio'>
+              <div className='profile-page-bio-header'>
+                <h2 className='profile-page-bio-title'>About Me</h2>
+              </div>
+              <p className='profile-page-use-bio'>{user.bio}</p>
+            </div>
             <h2 className='profile-page-number-of-reviews'>
               Review(s): <span className='sky-blue-text'>{numberOfReviews}</span>
             </h2>
@@ -84,11 +95,19 @@ const ProfilePage = () => {
       
         </div>
 
-        <div className='profile-bio'>
-          <div className='profile-page-bio-header'>
-            <h2 className='profile-page-bio-title'>About Me</h2>
-          </div>
-          <p className='profile-page-use-bio'>{user.bio}</p>
+        <div className="profile-comments-section">
+          <h2>Comments on {user?.username}'s Profile</h2>
+          {profileComments && Object.values(profileComments).length > 0 ? (
+            <ul>
+              {Object.values(profileComments).map((comment) => (
+                <li key={comment.id} className="profile-comment">
+                  <strong>{comment.commenter?.username || 'Anonymous'}:</strong> {comment.comment}
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>No comments yet.</p>
+          )}
         </div>
 
       </div>

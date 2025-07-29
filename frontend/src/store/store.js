@@ -6,6 +6,8 @@ import reviewsReducer from "./reviews";
 import communitiesReducer from "./communities";
 import commentsReducer from "./comments";
 import userPostReducer from "./posts";
+import profileCommentsReducer from "./profileComments"
+
 
 const rootReducer = combineReducers({
   session: sessionReducer,
@@ -14,6 +16,7 @@ const rootReducer = combineReducers({
   communities: communitiesReducer,
   comments: commentsReducer,
   posts: userPostReducer,
+  profileComments: profileCommentsReducer,
 });
 
 let enhancer;

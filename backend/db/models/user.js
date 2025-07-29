@@ -46,6 +46,16 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "userId",
         onDelete: "CASCADE",
       });
+
+      User.hasMany(models.ProfileComment, {
+        foreignKey: 'userId',
+        as: 'commentsMade'
+      });
+      
+      User.hasMany(models.ProfileComment, {
+        foreignKey: 'profileUserId',
+        as: 'commentsReceived'
+      });
       
     }
   }
