@@ -99,7 +99,7 @@
   display: flex;
   align-items: flex-start;
   gap: 0.75rem;
-  margin: 1rem 0;
+  margin-bottom: 1rem;
 }
 
 .commentor-profile-pic {
@@ -134,9 +134,8 @@
 }
 
 .commentor-comment {
-  max-width: 92%;
-  min-height: 100px;
-  resize: none;
+  width: 750px;           
+  overflow-wrap: break-word;
 }
 
 .helpful-label {

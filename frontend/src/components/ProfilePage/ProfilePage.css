@@ -82,3 +82,60 @@
   color: skyblue;
   font-weight: lighter;
 }
+
+
+.profile-comment-wrapper{
+  background-color: #101820;
+  margin: 1rem;
+}
+
+.profile-comment-section-header {
+  background-color: #2a475e;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+.profile-comment-header-title1{
+  padding-left: 1rem;
+  padding-top: 1rem;
+  margin-bottom: 0;
+  font-size: 18px;
+  margin-top: 0;
+}
+
+.profile-comment-header-group{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pagination-controls1{
+  padding-right: 1rem;
+}
+
+.profile-comment-header-title2{
+  padding-left: 1rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  font-size: 14px;
+}
+
+.profile-comment-area {
+  background-color: #101820 !important;
+}
+
+.profile-comment-wrapper .comment-container {
+  background-color: #101820;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.profile-comment-footer{
+  display: flex;
+  align-content: center;
+  justify-content: center;
+}
+
+.pagination-controls2{
+  padding-bottom: 1rem;
+}

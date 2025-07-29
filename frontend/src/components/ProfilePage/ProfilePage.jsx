@@ -1,14 +1,17 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 import * as reviewsAction from "../../store/reviews";
 import * as commentsAction from "../../store/comments";
 import * as profileCommentsAction from "../../store/profileComments";
+import CommentArea from "../CommentArea/CommentArea";
 import "./ProfilePage.css";
 
 const ProfilePage = () => {
   const { userId } = useParams();
   const dispatch = useDispatch();
+  const [currentCommentPage, setCurrentCommentPage] = useState(1);
   const user = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const comments = useSelector((state) => state.comments?.allComments);
@@ -34,9 +37,17 @@ const ProfilePage = () => {
     }
   }, [userId, dispatch]);
 
-  let numberOfReviews = reviews ? Object.keys(reviews).length : 0;
+  const commentsPerPage = 6;
+  
+  const allComments = profileComments ? Object.values(profileComments) : [];
+  const totalPages = Math.ceil(allComments.length / commentsPerPage);
+
+  const currentComments = [...allComments]
+    .reverse()
+    .slice((currentCommentPage - 1) * commentsPerPage, currentCommentPage * commentsPerPage);
 
   let allCommentsArray = comments ? Object.entries(comments) : [];
+  let numberOfReviews = reviews ? Object.keys(reviews).length : 0;
 
   let helpfulCount = 0;
   let notHelpfulCount = 0;
@@ -72,10 +83,7 @@ const ProfilePage = () => {
     <div className="profile-page-background">
       <div className="profile-page-user-details">
         <div className="profile-page-header">
-          <img
-            src={`${user.profilePic}`}
-            className="profile-page-display-pic"
-          />
+          <img src={`${user.profilePic}`} className="profile-page-display-pic" />
 
           <div className="profile-page-user-information">
             <h1 className="profile-page-username">{user.username}</h1>
@@ -87,8 +95,7 @@ const ProfilePage = () => {
               <p className="profile-page-use-bio">{user.bio}</p>
             </div>
             <h2 className="profile-page-number-of-reviews">
-              Review(s):{" "}
-              <span className="sky-blue-text">{numberOfReviews}</span>
+              Review(s): <span className="sky-blue-text">{numberOfReviews}</span>
             </h2>
 
             <h2 className="profile-page-review-ranking">
@@ -97,21 +104,105 @@ const ProfilePage = () => {
             </h2>
           </div>
         </div>
+      
+      <div className="profile-comment-wrapper">
+        <div className="profile-comment-section">
+          <div className="profile-comment-section-header">
+            <p className="profile-comment-header-title1">Comments</p>
+            <div className="profile-comment-header-group">
+              <div className="profile-comment-header-title2">View all {allComments.length} comments</div>
+              <div className="pagination-controls1">
+                <button
+                  disabled={currentCommentPage === 1}
+                  onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
+                  >
+                  <FaChevronLeft />
+                </button>
+                <span>
+                  Page {currentCommentPage} of {totalPages}
+                </span>
+                <button
+                  disabled={currentCommentPage === totalPages}
+                  onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
+                  >
+                  <FaChevronRight />
+                </button>
+              </div>
+            </div>
+          </div>
+          
+          <CommentArea
+            className="profile-comment-area"
+            onSubmitOverride={(commentText) =>
+              dispatch(
+                profileCommentsAction.addProfileCommentState({
+                  userId: user.id,
+                  profileUserId: userId,
+                  comment: commentText,
+                })
+              )
+            }
+          />
 
-        <div className="profile-comments-section">
-          <h2>Comments on {user?.username}&apos;s Profile</h2>
-          {profileComments && Object.values(profileComments).length > 0 ? (
-            <ul>
-              {Object.values(profileComments).map((comment) => (
-                <li key={comment.id} className="profile-comment">
-                  <strong>{comment.commenter?.username || "Anonymous"}:</strong>{" "}
-                  {comment.comment}
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No comments yet.</p>
-          )}
+          
+            <div className="comment-container">
+              {currentComments.length > 0 ? (
+                currentComments.map((comment) => (
+                  <div key={comment.id} className="comment-item">
+                    <img
+                      src={comment.commenter?.profilePic}
+                      alt={`${comment.commenter?.username}`}
+                      className="commentor-profile-pic"
+                    />
+                    <div className="comment-details">
+                      <div className="comment-header">
+                        <div className="comment-author">
+                          {comment.commenter?.username}
+                        </div>
+                        <div className="comment-created-at">
+                          {(() => {
+                            const date = new Date(comment.createdAt);
+                            const day = String(date.getDate()).padStart(2, "0");
+                            const month = date.toLocaleString("en-US", {
+                              month: "short",
+                            });
+                            let hours = date.getHours();
+                            const minutes = String(date.getMinutes()).padStart(2, "0");
+                            const ampm = hours >= 12 ? "pm" : "am";
+                            hours = hours % 12 || 12;
+                            return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                          })()}
+                        </div>
+                      </div>
+                      <div className="commentor-comment">{comment.comment}</div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div>No comments yet.</div>
+              )}
+            </div>
+
+            <div className="profile-comment-footer">
+              <div className="pagination-controls2">
+                <button
+                  disabled={currentCommentPage === 1}
+                  onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
+                  >
+                  <FaChevronLeft />
+                </button>
+                <span>
+                  Page {currentCommentPage} of {totalPages}
+                </span>
+                <button
+                  disabled={currentCommentPage === totalPages}
+                  onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
+                  >
+                  <FaChevronRight />
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>

@@ -12,7 +12,6 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const [isHelpful, setIsHelpful] = useState(null);
 
   const comments = useSelector((state) => state.comments?.allComments)
-  // const allCommentsArray = comments ? Object.entries(comments) : [];
   let allCommentsArray
   if(comments){
     allCommentsArray = Object.entries(comments)
@@ -163,7 +162,7 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
 
           <div className='comment-container'>
             {allCommentsArray && allCommentsArray.length > 0 ? (
-              reviewComments.map((comment) => (
+              [...reviewComments].reverse().map((comment) => (
                 <div key={comment[1].id} className='comment-item'>
                   <img 
                     src={`${comment[1].User?.profilePic}`}
