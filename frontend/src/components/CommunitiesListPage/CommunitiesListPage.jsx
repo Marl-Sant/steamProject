@@ -156,7 +156,7 @@ function CommunitiesListPage() {
                       <div>{post[1].post}</div>
                       <div className="recent-post-info">
                         <div className="recent-post-title">
-                          Posted in: {post[1].Community.Game.title}
+                          Posted in: <NavLink to={`/games/${post[1].Community.gameId}`}>{post[1].Community.Game.title}</NavLink>
                         </div>
                         <div className="recent-post-date">
                           {new Date(post[1].createdAt).toLocaleDateString(
