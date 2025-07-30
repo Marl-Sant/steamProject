@@ -53,7 +53,22 @@ router.get("/:userId", async (req, res) => {
     include: [
       { model: Review },
       { model: Post },
-      // { model: ProfileComment, as: "profileOwner" },
+      {
+        model: ProfileComment,
+        as: "commentsReceived",
+        include: {
+          model: User,
+          as: "commenter",
+        },
+      },
+      {
+        model: ProfileComment,
+        as: "commentsMade",
+        include: {
+          model: User,
+          as: "profileOwner",
+        },
+      },
       { model: ReviewComment },
     ],
   });
