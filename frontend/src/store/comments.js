@@ -30,15 +30,17 @@ const addComment = (comment) => {
 
 // Step 3: Thunk action creators
 
-export const setCommentsState =
-  (reviewId) => async (dispatch) => {
-    const res = await fetch(`/api/reviews/${reviewId}/comments`);
-    if (res.ok) {
-      const data = await res.json();
-      console.log('Fetched comments data:', data);
-      dispatch(setComments(data));
-    }
-  };
+export const setCommentsState = (reviewId) => async (dispatch) => {
+  console.log("Fetching comments for reviewId:", reviewId);
+  const res = await fetch(`/api/reviews/${reviewId}/comments`);
+  if (res.ok) {
+    const data = await res.json();
+    console.log(`Fetched comments for review ${reviewId}:`, data);
+    dispatch(setComments(data));
+  } else {
+    console.error("Failed to fetch comments for review", reviewId);
+  }
+};
 
 export const setCurrentCommentState =
   (gameId, reviewId) => async (dispatch) => {
@@ -92,7 +94,9 @@ const commentsReducer = (state = initialState, action) => {
   switch (action.type) {
     case SET_COMMENTS:
       newState = { ...state };
-      newState.allComments = {}
+      newState.allComments = {
+        ...newState.allComments,
+      };
       action.payload.forEach((comment) => {
         newState.allComments[comment.id] = comment;
       });

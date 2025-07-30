@@ -36,6 +36,8 @@ router.get('/:userId/comments', async (req, res) => {
   }
 });
 
+
+
 // Create a comment on a review
 router.post(
   '/:reviewId/comments',

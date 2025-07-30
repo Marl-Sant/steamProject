@@ -11,6 +11,8 @@ const {
   ProfileComment,
   Post,
   ReviewComment,
+  Community,
+  Game,
 } = require("../../db/models");
 
 const router = express.Router();
@@ -51,8 +53,25 @@ router.get("/:userId", async (req, res) => {
       id: userId,
     },
     include: [
-      { model: Review },
-      { model: Post },
+      {
+        model: Review,
+        include: [
+          {
+            model: Game,
+            attributes: ["id", "title", "headerImage"],
+          },
+        ],
+        order: [["createdAt", "DESC"]],
+      },
+      { model: Post,
+        include: {
+          model: Community,
+          include: {
+            model: Game,
+            attributes: ["id", "title"],
+          }
+        }
+      },
       {
         model: ProfileComment,
         as: "commentsReceived",

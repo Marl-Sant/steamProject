@@ -7,6 +7,7 @@ import communitiesReducer from "./communities";
 import commentsReducer from "./comments";
 import userPostReducer from "./posts";
 import profileCommentsReducer from "./profileComments"
+import currentProfileReducer from "./currentProfile"
 
 
 const rootReducer = combineReducers({
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   comments: commentsReducer,
   posts: userPostReducer,
   profileComments: profileCommentsReducer,
+  currentProfile: currentProfileReducer,
 });
 
 let enhancer;

@@ -44,12 +44,12 @@ const destoryReview = (reviewId) => {
 };
 
 // Step 3: Thunk action creator
-export const getReviewsByUser = (userId) => async (dispatch) => {
-  const response = await fetch(`/api/users/${userId}/reviews`);
+export const getDataByUser = (userId) => async (dispatch) => {
+  const response = await fetch(`/api/users/${userId}`);
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(setReviews(data));
+    dispatch(setReviews(data.Reviews));
     return response;
   } else {
     return JSON.stringify({
@@ -150,7 +150,7 @@ export const deleteReview =
     }
   };
 // Step 4: Building the state. The reducer controls what we return to the state
-const initialState = { allReviews: null, currentReview: null };
+const initialState = { allReviews: {}, currentReview: null };
 
 const reviewsReducer = (state = initialState, action) => {
   let newState = {};
