@@ -1,8 +1,39 @@
 .featured-games-menu {
-  display: block;
-  min-height: 20rem;
+  padding: 2rem 1.5rem;
+}
+
+.store-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1b2838, #2a475e);
+  color: #c7d5e0;
+  width: 100%;
+}
+
+.page-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 1440px;
   margin: 0 auto;
-  padding: 2rem 1.5rem 2rem 1.5rem;
+  gap: 2rem;
+}
+
+#container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.keen-slider {
+  width: 100%;
+}
+
+.gameSlide {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  width: 100%;
+  height: 24.5rem;
+  gap: 1rem;
+  box-sizing: border-box;
 }
 
 .gameSlide:hover {
@@ -14,51 +45,20 @@
   background-color: #0a111a;
 }
 
-#container {
-  display: grid;
-  grid-template-columns: 0.5fr 5fr 0.5fr;
-  gap: 3rem;
-  align-items: center;
-  max-width: fit-content;
-  margin: 2rem auto;
-  /* transform: scale(1.2); */
-}
-
-.button-container {
-  position: relative;
-}
 
 .left-slide-button,
 .right-slide-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: none;
   height: 100px;
+  width: 1px;
   cursor: pointer;
+  z-index: 10;
   display: flex;
   align-items: center;
-}
-
-.left-slide-button {
-  left: 6rem;
-}
-
-.right-slide-button {
-  right: 6rem;
-}
-
-.store-page {
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #1b2838, #2a475e);
-  color: #c7d5e0;
-}
-
-.gameSlide {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  width: 1200px;
-  height: 24.5rem;
-  gap: 1rem;
+  justify-content: center;
+  color: white;
+  background: none;
 }
 
 .game-image-container {
@@ -72,14 +72,15 @@
 .game-info-container {
   display: flex;
   flex-direction: column;
+  margin-top: 1.2rem;
   margin-left: 2rem;
-  flex-wrap: nowrap;
   margin-right: 1.5rem;
+  flex-wrap: nowrap;
   text-align: justify;
 }
 
 .game-info-container h1 {
-  margin: 1;
+  margin: 0;
   padding-top: 1.5rem;
 }
 
@@ -89,7 +90,7 @@
 
 .game-image {
   height: 18.5rem;
-  width: 15rem;
+  width: 18.5rem;
 }
 
 .subImage {
@@ -102,4 +103,5 @@
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, 1fr);
+  gap: 5px;
 }

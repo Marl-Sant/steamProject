@@ -15,16 +15,8 @@ const CarouselComponent = () => {
   const allGames = useSelector((state) => state.games?.allGames);
   const navigate = useNavigate();
 
-  let allGamesArray;
-  if (allGames) {
-    allGamesArray = Object.entries(allGames);
-  }
-
-  const handleClick = (game) => {
-    navigate(`/games/${game.id}`);
-  };
-
-  const isReady = allGamesArray?.length > 0;
+  const allGamesArray = allGames ? Object.entries(allGames) : [];
+  const isReady = allGamesArray.length > 0;
 
   const sliderKey = useMemo(
     () => (isReady ? `slider-${allGamesArray.length}` : null),
@@ -34,7 +26,7 @@ const CarouselComponent = () => {
   const [sliderRef, slider] = useKeenSlider(
     {
       loop: true,
-      mode: "free-snap",
+      mode: "snap",
       slides: {
         perView: 1,
       },
@@ -45,60 +37,41 @@ const CarouselComponent = () => {
   );
 
   return (
-    <div id="container">
-      <div className="button-container">
-        <span
-          className="left-slide-button"
-          onClick={() => slider.current.prev()}
-        >
-          <FontAwesomeIcon
-            icon={faChevronLeft}
-            size="4x"
-            className="left-arrow"
-          />
-        </span>
-      </div>
-      <span className="keen-slider gameShadow" ref={sliderRef} key={sliderKey}>
-        {allGamesArray?.map((game) => (
-          <div
-            key={`${game[0]}`}
-            className="keen-slider__slide gameSlide"
-            onClick={() => {
-              handleClick(game[1]);
-            }}
-          >
-            <div className="game-image-container">
-              <img src={game[1].headerImage} className="game-image" />
-            </div>
-            <div className="game-info-container">
-              <h1>{game[1].title}</h1>
-              <p>{game[1].shortDescription}</p>
-              <h3>${game[1].price}</h3>
+    <div className="page-wrapper">
+      <button className="left-slide-button" onClick={() => slider.current.prev()}>
+        <FontAwesomeIcon icon={faChevronLeft} size="4x" />
+      </button>
 
-              <span className="subContainer">
-                {Array.isArray(game[1].screenshots) &&
-                  game[1].screenshots
-                    .slice(0, 3)
-                    .map((url, index) => (
-                      <img src={url} className="subImage" key={index} />
+      <div id="container">
+        <div className="keen-slider gameShadow" ref={sliderRef} key={sliderKey}>
+          {allGamesArray.map(([key, game]) => (
+            <div
+              key={key}
+              className="keen-slider__slide gameSlide"
+              onClick={() => navigate(`/games/${game.id}`)}
+            >
+              <div className="game-image-container">
+                <img src={game.headerImage} className="game-image" alt={game.title} />
+              </div>
+              <div className="game-info-container">
+                <h1>{game.title}</h1>
+                <p>{game.shortDescription}</p>
+                <h3>${game.price}</h3>
+                <span className="subContainer">
+                  {Array.isArray(game.screenshots) &&
+                    game.screenshots.slice(0, 3).map((url, index) => (
+                      <img src={url} className="subImage" key={index} alt={`screenshot-${index}`} />
                     ))}
-              </span>
+                </span>
+              </div>
             </div>
-          </div>
-        ))}
-      </span>
-      <div className="button-container">
-        <span
-          className="right-slide-button"
-          onClick={() => slider.current.next()}
-        >
-          <FontAwesomeIcon
-            icon={faChevronRight}
-            size="4x"
-            className="left-arrow"
-          />
-        </span>
+          ))}
+        </div>
       </div>
+
+      <button className="right-slide-button" onClick={() => slider.current.next()}>
+        <FontAwesomeIcon icon={faChevronRight} size="4x" />
+      </button>
     </div>
   );
 };
@@ -108,10 +81,7 @@ function StorePage() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    // async function fetchData(){
     dispatch(gamesAction.populateGames());
-    // }
-    // fetchData()
     setIsLoaded(true);
   }, [dispatch]);
 
