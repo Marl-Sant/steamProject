@@ -1,4 +1,5 @@
 import { useDispatch } from 'react-redux';
+import { useEffect, useRef } from 'react';
 import * as sessionActions from '../../store/session';
 import './ProfileButton.css';
 import { useState } from 'react';
@@ -7,16 +8,35 @@ import { NavLink } from 'react-router-dom';
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
+  const dropdownRef = useRef(null); 
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
   };
 
+  useEffect(() => {
+    const handleClickOutside = (e) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(e.target)) {
+        setShowMenu(false);
+      }
+    };
+
+    if (showMenu) {
+      document.addEventListener('mousedown', handleClickOutside);
+    } else {
+      document.removeEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [showMenu]);
+
   const ulClassName = showMenu ? "profile-dropdown" : "hidden";
 
   return (
-    <div className="profile-button-wrapper">
+    <div ref={dropdownRef} className="profile-button-wrapper">
       <button className="user-details" onClick={() => setShowMenu(!showMenu)}>
         {user.username} <span className="arrow">▼</span>
       </button>
