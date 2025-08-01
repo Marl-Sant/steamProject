@@ -1,0 +1,17 @@
+.search-results {
+  list-style: none;
+  background-color: #0f181ee7;
+}
+
+.search-results-links {
+  text-decoration: none;
+}
+
+.search-div {
+  position: absolute;
+}
+
+.search-bar {
+  background-color: #0f181ee7;
+  color: #c7d5e0;
+}

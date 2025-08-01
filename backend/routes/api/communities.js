@@ -9,10 +9,22 @@ const { Op } = require("sequelize");
 
 const router = express.Router();
 
+router.get("/", async (req, res) => {
+  const name = req.query.name;
+  const searchResults = await Game.findAll({
+    where: {
+      title: { [Op.like]: `%${name.toLowerCase()}%` },
+    },
+    include: [{ model: Community }],
+  });
+  console.log(searchResults);
+  res.json(searchResults);
+});
+
 const oneWeekAgo = new Date();
 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
-router.get("/", async (req, res) => {
+router.get("/recent", async (req, res) => {
   const allCommunities = await Community.findAll({
     include: [
       {

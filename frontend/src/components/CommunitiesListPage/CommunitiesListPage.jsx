@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import CommunitySearch from "../CommunitySearch/CommunitySearch";
 import * as communitiesActions from "../../store/communities";
 import * as postsActions from "../../store/posts";
 import "./CommunitiesListPage.css";
@@ -41,6 +42,7 @@ function CommunitiesListPage() {
     <div className="communities-page">
       {loaded ? (
         <>
+          <CommunitySearch />
           <div className="communities-list-container">
             <div className="community-header">
               <h2>Community Activity</h2>
@@ -79,18 +81,23 @@ function CommunitiesListPage() {
                     {topCommunitiesArray ? (
                       topCommunitiesArray.map((community) => {
                         return (
-                          <div className="community-card" key={community[0]}>
-                            <img
-                              src={community[1].Game.capsuleImage}
-                              className="community-logo"
-                            />
-                            <div className="community-name-activity">
-                              <span className="community-title">
-                                {community[1].Game.title}
-                              </span>
-                              {community[1].newPostCount} new posts this week!
+                          <NavLink
+                            to={`/communities/${community[1].id}`}
+                            className="community-links"
+                          >
+                            <div className="community-card" key={community[0]}>
+                              <img
+                                src={community[1].Game.capsuleImage}
+                                className="community-logo"
+                              />
+                              <div className="community-name-activity">
+                                <span className="community-title">
+                                  {community[1].Game.title}
+                                </span>
+                                {community[1].newPostCount} new posts this week!
+                              </div>
                             </div>
-                          </div>
+                          </NavLink>
                         );
                       })
                     ) : (
@@ -125,18 +132,23 @@ function CommunitiesListPage() {
                     {topCommunitiesArray ? (
                       topCommunitiesArray.map((community) => {
                         return (
-                          <div className="community-card" key={community[0]}>
-                            <img
-                              src={community[1].Game.capsuleImage}
-                              className="community-logo"
-                            />
-                            <div className="community-name-activity">
-                              <span className="community-title">
-                                {community[1].Game.title}
-                              </span>
-                              {community[1].newPostCount} new posts this week!
+                          <NavLink
+                            to={`/communities/${community[1].id}`}
+                            className="community-links"
+                          >
+                            <div className="community-card" key={community[0]}>
+                              <img
+                                src={community[1].Game.capsuleImage}
+                                className="community-logo"
+                              />
+                              <div className="community-name-activity">
+                                <span className="community-title">
+                                  {community[1].Game.title}
+                                </span>
+                                {community[1].newPostCount} new posts this week!
+                              </div>
                             </div>
-                          </div>
+                          </NavLink>
                         );
                       })
                     ) : (
@@ -153,15 +165,30 @@ function CommunitiesListPage() {
                 <div className="recent-post-card" key={post[1].id}>
                   <div className="pic-and-post">
                     <div className="user-info">
-                      <img src={`${post[1].User.profilePic}`} />
-                      {post[1].User.username}
+                      <NavLink
+                        to={`/users/${post[1].User.id}`}
+                        className="community-links"
+                      >
+                        <img src={`${post[1].User.profilePic}`} />
+                        {post[1].User.username}
+                      </NavLink>
                     </div>
                     <div className="post-and-post-info">
-                      <div>{post[1].post}</div>
+                      <span className="post-title">{post[1].title}</span>
+                      {post[1].post.length < 50 ? (
+                        <div className="post-content">{post[1].post}</div>
+                      ) : (
+                        <div className="post-content">
+                          {post[1].post.split(" ").splice(0, 8).join(" ")}...
+                        </div>
+                      )}
                       <div className="recent-post-info">
                         <div className="recent-post-title">
                           Posted in:{" "}
-                          <NavLink to={`/games/${post[1].Community.gameId}`}>
+                          <NavLink
+                            to={`/communities/${post[1].Community.id}`}
+                            className="community-links"
+                          >
                             {post[1].Community.Game.title}
                           </NavLink>
                         </div>

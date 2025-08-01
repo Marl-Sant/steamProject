@@ -34,7 +34,7 @@ const deleteCommunityPost = (id) => {
 };
 
 export const populateCommunities = () => async (dispatch) => {
-  const response = await fetch("/api/communities");
+  const response = await fetch("/api/communities/recent");
   const data = await response.json();
   dispatch(setCommunities(data));
   return response;

@@ -65,7 +65,7 @@
 .recent-posts-container {
   color: #c7d5e0;
   display: grid;
-  gap: .5em;
+  gap: 0.5em;
   grid-template-columns: 1fr 1fr;
   padding: 0 20vw;
   flex-direction: column;
@@ -104,4 +104,17 @@
 
 .recent-post-info {
   text-align: right;
+}
+
+.community-links {
+  text-decoration: none;
+  color: #c7d5e0;
+}
+
+.post-title {
+  font-weight: 900;
+}
+
+.post-content {
+  margin-top: -1em;
 }
