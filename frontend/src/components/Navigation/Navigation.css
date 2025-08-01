@@ -1,59 +1,80 @@
-.nav-container{
-    background-color: #131c27;
-    padding: .4rem 22rem;
-    display: grid;
-    grid-template-areas:
-    "logo-and-links login"
-    "logo-and-links ."
-    ;
-    height: 4.7rem;
+.nav-bar {
+  background: #131c27;
+  height: 123px;
+  width: 100%;
+  display: flex;
+  align-items: center;
 }
 
-.logo{
-    font-size: 2.05rem;
-    color: rgb(201, 196, 196);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 15%;
+.nav-wrapper {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
 }
 
-.login{
-    display: flex;
-    grid-area: login;
-    height:fit-content;
-    justify-content: center;
-    margin-left: 1rem;
+.nav-logo-section {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 
-.logo-and-links{
-    grid-area: logo-and-links;
-    display: flex;
-    justify-content: space-around;
-    align-self: center;
-    gap: 2rem;
+.diamond-icon {
+  font-size: 3rem;
+  color: white;
+  margin-right: 0.5rem;
+  margin-top: 0.2rem;
 }
 
-.links{
-    display: inline-flex;
-    justify-content: space-between;
-    align-items: center;
-    color: rgb(201, 196, 196);
-    gap: 2rem;
-    white-space: nowrap;
+.nav-title {
+  text-decoration: none;
+  font-family: var(--body-font);
+  font-size: 30px;
+  font-weight: 700;
+  color: white;
+  letter-spacing: 0.8px;
+  font-variant: small-caps;
 }
 
-.links > a{
-    text-decoration: none;
-    color: rgb(201, 196, 196);
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 38px;
+  margin: 0;
+  padding: 0;
+  height: 39px;
+  align-items: center;
 }
 
-.login-link > a{
-    text-decoration: none;
-    color: rgb(201, 196, 196);
-    font-size: small;
+.nav-links li a {
+  color: white;
+  text-decoration: none;
+  font-family: var(--body-font);
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.6px;
+  font-variant: small-caps;
+  display: flex;
+  align-items: flex-end;
+  height: 39px;
 }
 
-.user-details{
-    color: rgb(201, 196, 196);
+.nav-login-section {
+  display: flex;
+  align-items: center;
+  height: fit-content;
+  color: white;
+}
+
+.login-link > a {
+  text-decoration: none;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  font-variant: small-caps;
+  letter-spacing: 0.6px;
 }

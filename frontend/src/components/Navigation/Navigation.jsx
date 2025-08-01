@@ -16,30 +16,32 @@ function Navigation({ isLoaded }) {
   );
 
   return (
-    <div className="nav-container">
-      <div className="login">{isLoaded && sessionLinks}</div>
-      <div className="logo-and-links">
-        <span className="logo">
-          <MdDiamond />
-          GLEAM
-        </span>
-        <span className="links">
-          <NavLink to="/">STORE</NavLink>
-          <NavLink to="/communities">COMMUNITY</NavLink>
+    <nav className="nav-bar">
+      <div className="nav-wrapper">
+        <div className="nav-logo-section">
+          <MdDiamond className="diamond-icon" />
+          <NavLink to="/" className="nav-title">GLEAM</NavLink>
+        </div>
+
+        <ul className="nav-links">
+          <li><NavLink to="/">STORE</NavLink></li>
+          <li><NavLink to="/communities">COMMUNITY</NavLink></li>
           {sessionUser ? (
             <>
-              <NavLink to={`/users/${sessionUser.id}`}>
-                {sessionUser.username.toUpperCase()}
-              </NavLink>
-              <NavLink to="/chat">CHAT</NavLink>
+              <li><NavLink to={`/users/${sessionUser.id}`}>{sessionUser.username.toUpperCase()}</NavLink></li>
+              <li><NavLink to="/chat">CHAT</NavLink></li>
             </>
           ) : (
-            <NavLink to="/about">ABOUT</NavLink>
+            <li><NavLink to="/about">ABOUT</NavLink></li>
           )}
-          <NavLink to="/support">SUPPORT</NavLink>
-        </span>
+          <li><NavLink to="/support">SUPPORT</NavLink></li>
+        </ul>
+
+        <div className="nav-login-section">
+          {isLoaded && sessionLinks}
+        </div>
       </div>
-    </div>
+    </nav>
   );
 }
 
