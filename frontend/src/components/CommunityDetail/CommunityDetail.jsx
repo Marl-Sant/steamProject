@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useParams, NavLink } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as communityActions from "../../store/communities";
 import "./CommunityDetail.css";
 
@@ -16,8 +16,8 @@ function CommunityDetail() {
     dispatch(communityActions.getCommunityById(communityId));
   }, [dispatch, communityId]);
 
-  if (community) {
-  }
+  // if (community) {
+  // }
   return (
     <div className="community-detail-page">
       {community ? (
@@ -66,7 +66,7 @@ function CommunityDetail() {
       {community ? (
         <div className="community-posts">
           {Object.entries(community.Posts).map((post) => (
-            <div className="community-post">
+            <div className="community-post" key={post[0]}>
               <div className="post-title">{post[1].title}</div>
               <hr></hr>
               <div className="post-content">{post[1].post}</div>

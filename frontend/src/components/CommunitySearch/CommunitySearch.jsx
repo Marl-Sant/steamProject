@@ -41,6 +41,7 @@ function CommunitySearch() {
             <NavLink
               to={`/communities/${community.Community.id}`}
               className="search-results-links"
+              key={community[0]}
             >
               <li key={community.Community.id} className="search-results">
                 {community.title}

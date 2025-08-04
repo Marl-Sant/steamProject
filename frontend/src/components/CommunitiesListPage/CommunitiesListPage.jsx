@@ -84,6 +84,7 @@ function CommunitiesListPage() {
                           <NavLink
                             to={`/communities/${community[1].id}`}
                             className="community-links"
+                            key={community[0]}
                           >
                             <div className="community-card" key={community[0]}>
                               <img
@@ -135,6 +136,7 @@ function CommunitiesListPage() {
                           <NavLink
                             to={`/communities/${community[1].id}`}
                             className="community-links"
+                            key={community[0]}
                           >
                             <div className="community-card" key={community[0]}>
                               <img

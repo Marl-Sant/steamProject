@@ -17,12 +17,14 @@ const ProfilePage = () => {
 
   const [currentCommentPage, setCurrentCommentPage] = useState(1);
 
-  const [showActivities, setShowActivities] = useState(true);
+  // const [showActivities, setShowActivities] = useState(true);
 
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews);
   const comments = useSelector((state) => state.comments?.allComments);
-  const profileComments = useSelector((state) => state.profileComments?.allComments);
+  const profileComments = useSelector(
+    (state) => state.profileComments?.allComments
+  );
   const currentProfile = useSelector((state) => state.currentProfile);
 
   useEffect(() => {
@@ -50,26 +52,34 @@ const ProfilePage = () => {
   const totalPages = Math.ceil(allComments.length / commentsPerPage);
   const currentComments = [...allComments]
     .reverse()
-    .slice((currentCommentPage - 1) * commentsPerPage, currentCommentPage * commentsPerPage);
+    .slice(
+      (currentCommentPage - 1) * commentsPerPage,
+      currentCommentPage * commentsPerPage
+    );
 
   const allCommentsArray = comments ? Object.entries(comments) : [];
   let helpfulCount = 0;
   let notHelpfulCount = 0;
-  allCommentsArray.forEach(([_, comment]) => {
-    if (comment.isHelpful === true) helpfulCount++;
-    else if (comment.isHelpful === false) notHelpfulCount++;
+  allCommentsArray.forEach((comment) => {
+    if (comment[1].isHelpful === true) helpfulCount++;
+    else if (comment[1].isHelpful === false) notHelpfulCount++;
   });
 
-  const numberOfReviews = reviews?.allReviews ? Object.keys(reviews.allReviews).length : 0;
+  const numberOfReviews = reviews?.allReviews
+    ? Object.keys(reviews.allReviews).length
+    : 0;
   const total = helpfulCount + notHelpfulCount;
 
   let helpfulSentiment = "None";
   if (total === 1) {
-    helpfulSentiment = helpfulCount === 1 ? "Mostly Helpful" : "Mostly Not Helpful";
+    helpfulSentiment =
+      helpfulCount === 1 ? "Mostly Helpful" : "Mostly Not Helpful";
   } else if (total > 1) {
     const ratio = helpfulCount / total;
-    if (ratio > 0.65) helpfulSentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
-    else if (ratio < 0.35) helpfulSentiment = `${Math.floor(ratio * 100)}% Mostly Not Helpful`;
+    if (ratio > 0.65)
+      helpfulSentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
+    else if (ratio < 0.35)
+      helpfulSentiment = `${Math.floor(ratio * 100)}% Mostly Not Helpful`;
     else helpfulSentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
@@ -82,17 +92,23 @@ const ProfilePage = () => {
               src={currentProfile?.profilePic}
               className="profile-page-display-pic"
               alt="Profile"
-              />
+            />
             <h2 className="profile-page-number-of-reviews">
-              Review(s): <span className="sky-blue-text">{numberOfReviews}</span>
+              Review(s):{" "}
+              <span className="sky-blue-text">{numberOfReviews}</span>
             </h2>
             <h2 className="profile-page-review-ranking">
-              Review(s) Rating: <span className="sky-blue-text">{helpfulSentiment}</span>
+              Review(s) Rating:{" "}
+              <span className="sky-blue-text">{helpfulSentiment}</span>
             </h2>
           </div>
           <div className="profile-page-user-information">
-            <h1 className="profile-page-username">{currentProfile?.username}</h1>
-            <h2 className="profile-page-user-location">{currentProfile?.country}</h2>
+            <h1 className="profile-page-username">
+              {currentProfile?.username}
+            </h1>
+            <h2 className="profile-page-user-location">
+              {currentProfile?.country}
+            </h2>
             <div className="profile-bio">
               <div className="profile-page-bio-header">
                 <h2 className="profile-page-bio-title">About Me</h2>
@@ -102,57 +118,70 @@ const ProfilePage = () => {
           </div>
         </div>
 
-
         <div className="all-activities-container">
           <div className="recent-activities-container">
             <div className="profile-user-reviews-container">
               <div className="profile-comment-section-header">
-                <h2 className="profile-comment-reviews-title1">Recent Activity</h2>
+                <h2 className="profile-comment-reviews-title1">
+                  Recent Activity
+                </h2>
               </div>
               <div className="profile-user-reviews-detail-container">
-              {reviews?.allReviews && Object.keys(reviews.allReviews).length > 0 ? (
-                Object.values(reviews.allReviews).slice(0, 3).map((review) => (
-                  <div key={review.id} className="user-review-wrapper">
-                    <div className="user-review-item">
-                      <div className="user-review-item-left">
-                        <img
-                          className="profile-game-img"
-                          src={review.Game?.headerImage}
-                          alt={review.Game?.title}
-                        />
-                        <h3 className="profile-game-title">{review.Game?.title}</h3>
+                {reviews?.allReviews &&
+                Object.keys(reviews.allReviews).length > 0 ? (
+                  Object.values(reviews.allReviews)
+                    .slice(0, 3)
+                    .map((review) => (
+                      <div key={review.id} className="user-review-wrapper">
+                        <div className="user-review-item">
+                          <div className="user-review-item-left">
+                            <img
+                              className="profile-game-img"
+                              src={review.Game?.headerImage}
+                              alt={review.Game?.title}
+                            />
+                            <h3 className="profile-game-title">
+                              {review.Game?.title}
+                            </h3>
+                          </div>
+                          <div className="user-review-item-right">
+                            <p className="profile-game-review-data">
+                              Date:{" "}
+                              {new Date(review.createdAt).toLocaleDateString()}
+                            </p>
+                            <p className="profile-game-review">
+                              {review.review}
+                            </p>
+                          </div>
+                        </div>
+                        <div className="profile-game-review-footer">
+                          <p className="profile-game-recommendation">
+                            Recommended: {review.isRecommended ? "Yes" : "No"}
+                          </p>
+                          <p className="profile-game-review-comments">
+                            {comments
+                              ? `${
+                                  Object.values(comments).filter(
+                                    (comment) => comment.reviewId === review.id
+                                  ).length
+                                } comment(s)`
+                              : "0 comment(s)"}
+                          </p>
+                        </div>
                       </div>
-                      <div className="user-review-item-right">
-                        <p className="profile-game-review-data">
-                          Date: {new Date(review.createdAt).toLocaleDateString()}
-                        </p>
-                        <p className="profile-game-review">{review.review}</p>
-                      </div>
-                    </div>
-                    <div className="profile-game-review-footer"> 
-                      <p className="profile-game-recommendation">
-                        Recommended: {review.isRecommended ? "Yes" : "No"}
-                      </p>
-                      <p className="profile-game-review-comments">
-                        {comments
-                          ? `${Object.values(comments).filter(
-                            (comment) => comment.reviewId === review.id
-                            ).length} comment(s)`
-                            : "0 comment(s)"}
-                      </p>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <p>This user has not left any reviews yet.</p>
-              )}
+                    ))
+                ) : (
+                  <p>This user has not left any reviews yet.</p>
+                )}
               </div>
             </div>
 
             <div className="profile-user-reviews-container">
               <div className="profile-comment-section-header">
                 <div className="profile-user-posts">
-                  <h2 className="profile-comment-reviews-title1">Recent Posts</h2>
+                  <h2 className="profile-comment-reviews-title1">
+                    Recent Posts
+                  </h2>
                 </div>
               </div>
               {currentProfile?.Posts?.length > 0 ? (
@@ -161,7 +190,9 @@ const ProfilePage = () => {
                     <h3>{post.title}</h3>
                     <p>{post.post}</p>
                     <p>Community Game: {post.Community?.Game?.title}</p>
-                    <p>Posted on {new Date(post.createdAt).toLocaleDateString()}</p>
+                    <p>
+                      Posted on {new Date(post.createdAt).toLocaleDateString()}
+                    </p>
                   </div>
                 ))
               ) : (
@@ -182,7 +213,9 @@ const ProfilePage = () => {
                 <div className="pagination-controls1">
                   <button
                     disabled={currentCommentPage === 1}
-                    onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
+                    onClick={() =>
+                      setCurrentCommentPage(currentCommentPage - 1)
+                    }
                   >
                     <FaChevronLeft />
                   </button>
@@ -191,7 +224,9 @@ const ProfilePage = () => {
                   </span>
                   <button
                     disabled={currentCommentPage === totalPages}
-                    onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
+                    onClick={() =>
+                      setCurrentCommentPage(currentCommentPage + 1)
+                    }
                   >
                     <FaChevronRight />
                   </button>
@@ -224,14 +259,21 @@ const ProfilePage = () => {
                   />
                   <div className="comment-details">
                     <div className="comment-header">
-                      <div className="comment-author">{comment.commenter?.username}</div>
+                      <div className="comment-author">
+                        {comment.commenter?.username}
+                      </div>
                       <div className="comment-created-at">
                         {(() => {
                           const date = new Date(comment.createdAt);
                           const day = String(date.getDate()).padStart(2, "0");
-                          const month = date.toLocaleString("en-US", { month: "short" });
+                          const month = date.toLocaleString("en-US", {
+                            month: "short",
+                          });
                           let hours = date.getHours();
-                          const minutes = String(date.getMinutes()).padStart(2, "0");
+                          const minutes = String(date.getMinutes()).padStart(
+                            2,
+                            "0"
+                          );
                           const ampm = hours >= 12 ? "pm" : "am";
                           hours = hours % 12 || 12;
                           return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
