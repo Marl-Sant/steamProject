@@ -1,14 +1,22 @@
 .search-results {
   list-style: none;
-  background-color: #0f181ee7;
+  background-color: #0f181e;
+  padding: 0.15em;
+}
+
+.search-results:hover {
+  background-color: #314551;
 }
 
 .search-results-links {
   text-decoration: none;
+  color: #c7d5e0;
 }
 
 .search-div {
   position: absolute;
+  padding-left: 0;
+  margin: 0.25em;
 }
 
 .search-bar {

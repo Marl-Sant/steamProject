@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunitySearch from "../CommunitySearch/CommunitySearch";
+import RecentlyActiveCommunities from "../RecentlyActiveCommunities/RecentlyActiveCommunities";
 import * as communitiesActions from "../../store/communities";
 import * as postsActions from "../../store/posts";
 import "./CommunitiesListPage.css";
@@ -9,17 +10,10 @@ import "./CommunitiesListPage.css";
 function CommunitiesListPage() {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
-  const communities = useSelector((state) => state.communities?.allCommunities);
   const user = useSelector((state) => state.session?.user);
   const userPosts = useSelector((state) => state.posts?.userRecentPosts);
   const allPosts = useSelector((state) => state.posts?.allRecentPosts);
 
-  let topCommunitiesArray;
-  if (communities) {
-    topCommunitiesArray = Object.entries(communities).sort(
-      (a, b) => b[1].newPostCount - a[1].newPostCount
-    );
-  }
   let userRecentPosts;
   if (user && userPosts) {
     userRecentPosts = Object.entries(userPosts);
@@ -42,7 +36,6 @@ function CommunitiesListPage() {
     <div className="communities-page">
       {loaded ? (
         <>
-          <CommunitySearch />
           <div className="communities-list-container">
             <div className="community-header">
               <h2>Community Activity</h2>
@@ -78,32 +71,17 @@ function CommunitiesListPage() {
                   </div>
                   <div className="recently-active-communities">
                     Join in on the conversation!
-                    {topCommunitiesArray ? (
-                      topCommunitiesArray.map((community) => {
-                        return (
-                          <NavLink
-                            to={`/communities/${community[1].id}`}
-                            className="community-links"
-                            key={community[0]}
-                          >
-                            <div className="community-card" key={community[0]}>
-                              <img
-                                src={community[1].Game.capsuleImage}
-                                className="community-logo"
-                              />
-                              <div className="community-name-activity">
-                                <span className="community-title">
-                                  {community[1].Game.title}
-                                </span>
-                                {community[1].newPostCount} new posts this week!
-                              </div>
-                            </div>
-                          </NavLink>
-                        );
-                      })
-                    ) : (
-                      <></>
-                    )}
+                    <RecentlyActiveCommunities />
+                  </div>
+                  <div className="search-area">
+                    Search for your community
+                    <p></p>
+                    <CommunitySearch />
+                    <p></p>
+                    Search for a user
+                    <p></p>
+                    {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                    <input></input>
                   </div>
                 </div>
               ) : (
@@ -130,32 +108,18 @@ function CommunitiesListPage() {
                     </p>
                   </div>
                   <div className="recently-active-communities">
-                    {topCommunitiesArray ? (
-                      topCommunitiesArray.map((community) => {
-                        return (
-                          <NavLink
-                            to={`/communities/${community[1].id}`}
-                            className="community-links"
-                            key={community[0]}
-                          >
-                            <div className="community-card" key={community[0]}>
-                              <img
-                                src={community[1].Game.capsuleImage}
-                                className="community-logo"
-                              />
-                              <div className="community-name-activity">
-                                <span className="community-title">
-                                  {community[1].Game.title}
-                                </span>
-                                {community[1].newPostCount} new posts this week!
-                              </div>
-                            </div>
-                          </NavLink>
-                        );
-                      })
-                    ) : (
-                      <></>
-                    )}
+                    Join in on the conversation!
+                    <RecentlyActiveCommunities />
+                  </div>
+                  <div className="search-area">
+                    Search for your community
+                    <p></p>
+                    <CommunitySearch />
+                    <p></p>
+                    Search for a user
+                    <p></p>
+                    {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                    <input></input>
                   </div>
                 </div>
               )}
