@@ -22,4 +22,7 @@
 .search-bar {
   background-color: #0f181ee7;
   color: #c7d5e0;
+  padding: 0.25em;
+  border-radius: 2.5px;
+  box-shadow: none;
 }
