@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunitySearch from "../CommunitySearch/CommunitySearch";
+import UserSearch from "../UserSearch/UserSearch";
 import RecentlyActiveCommunities from "../RecentlyActiveCommunities/RecentlyActiveCommunities";
 import * as communitiesActions from "../../store/communities";
 import * as postsActions from "../../store/posts";
@@ -74,14 +75,11 @@ function CommunitiesListPage() {
                     <RecentlyActiveCommunities />
                   </div>
                   <div className="search-area">
-                    Search for your community
                     <p></p>
                     <CommunitySearch />
                     <p></p>
-                    Search for a user
                     <p></p>
-                    {/*PLACEHOLDER FOR STYLING PURPOSES*/}
-                    <input></input>
+                    <UserSearch />
                   </div>
                 </div>
               ) : (

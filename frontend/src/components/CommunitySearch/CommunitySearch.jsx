@@ -28,13 +28,16 @@ function CommunitySearch() {
 
   return (
     <div>
-      <input
-        type="text"
-        placeholder="Search communities..."
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        className="search-bar"
-      />
+      <label>Search for your community</label>
+      <button className="search-button">
+        <input
+          type="text"
+          placeholder="Search communities..."
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          className="search-bar-2"
+        />
+      </button>
       {results.length ? (
         <ul className="search-div">
           {results.map((community) => (

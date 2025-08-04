@@ -17,6 +17,7 @@
   position: absolute;
   padding-left: 0;
   margin: 0.25em;
+  width: 12em;
 }
 
 .search-bar {
@@ -24,5 +25,29 @@
   color: #c7d5e0;
   padding: 0.25em;
   border-radius: 2.5px;
+}
+
+.search-button {
+  background-color: #0f181ee7;
+  color: #c7d5e0;
+  border-radius: 2.5px;
   box-shadow: none;
+  display: flex;
+  align-items: center;
+  border-radius: 2.5px;
+  border: none;
+  padding: 0;
+}
+
+.search-bar-2 {
+  background-color: #0f181ee7;
+  color: #c7d5e0;
+  padding: 0.25em;
+  border-radius: 2.5px;
+  border: none;
+}
+
+.mag-glass {
+  cursor: pointer;
+  margin: 0 0.45em;
 }
