@@ -1,16 +1,11 @@
-const express = require('express');
-const bcrypt = require('bcryptjs');
+const express = require("express");
+const bcrypt = require("bcryptjs");
 
-const { check } = require('express-validator');
-const {
-  handleValidationErrors,
-} = require('../../utils/validation');
+const { check } = require("express-validator");
+const { handleValidationErrors } = require("../../utils/validation");
 
-const {
-  setTokenCookie,
-  requireAuth,
-} = require('../../utils/auth');
-const { User } = require('../../db/models');
+const { setTokenCookie, requireAuth } = require("../../utils/auth");
+const { User } = require("../../db/models");
 const {
   Review,
   ProfileComment,
@@ -19,15 +14,15 @@ const {
   Community,
   Game,
   Ownership,
-} = require('../../db/models');
+} = require("../../db/models");
 
 const router = express.Router();
 
 const validateSignup = [
-  check('email')
+  check("email")
     .exists({ checkFalsy: true })
     .isEmail()
-    .withMessage('Please provide a valid email.'),
+    .withMessage("Please provide a valid email."),
   // check('username')
   //   .exists({checkFalsy: true})
   //   .isLength({ min: 2 })
@@ -36,25 +31,23 @@ const validateSignup = [
   //   .exists({checkFalsy: true})
   //   .isLength({ min: 2 })
   //   .withMessage('Please provide a last name with at least 2 characters.'),
-  check('username')
+  check("username")
     .exists({ checkFalsy: true })
     .isLength({ min: 4 })
-    .withMessage(
-      'Please provide a username with at least 4 characters.'
-    ),
+    .withMessage("Please provide a username with at least 4 characters."),
   // check('username')
   //   .not()
   //   .isEmail()
   //   .withMessage('Username cannot be an email.'),
-  check('password')
+  check("password")
     .exists({ checkFalsy: true })
     .isLength({ min: 6 })
-    .withMessage('Password must be 6 characters or more.'),
+    .withMessage("Password must be 6 characters or more."),
   handleValidationErrors,
 ];
 
 // Get relative information by userId
-router.get('/:userId', async (req, res) => {
+router.get("/:userId", async (req, res) => {
   const { userId } = req.params;
   const userInfo = await User.findOne({
     where: {
@@ -66,10 +59,10 @@ router.get('/:userId', async (req, res) => {
         include: [
           {
             model: Game,
-            attributes: ['id', 'title', 'headerImage'],
+            attributes: ["id", "title", "headerImage"],
           },
         ],
-        order: [['createdAt', 'DESC']],
+        order: [["createdAt", "DESC"]],
       },
       {
         model: Post,
@@ -77,24 +70,24 @@ router.get('/:userId', async (req, res) => {
           model: Community,
           include: {
             model: Game,
-            attributes: ['id', 'title'],
+            attributes: ["id", "title"],
           },
         },
       },
       {
         model: ProfileComment,
-        as: 'commentsReceived',
+        as: "commentsReceived",
         include: {
           model: User,
-          as: 'commenter',
+          as: "commenter",
         },
       },
       {
         model: ProfileComment,
-        as: 'commentsMade',
+        as: "commentsMade",
         include: {
           model: User,
-          as: 'profileOwner',
+          as: "profileOwner",
         },
       },
       { model: ReviewComment },
@@ -105,13 +98,13 @@ router.get('/:userId', async (req, res) => {
         },
       },
     ],
-    order: [[{ model: Ownership }, 'createdAt', 'DESC']],
+    order: [[{ model: Ownership }, "createdAt", "DESC"]],
   });
   res.json(userInfo);
 });
 
 // Sign up
-router.post('/', validateSignup, async (req, res) => {
+router.post("/", validateSignup, async (req, res) => {
   const { email, password, username, country } = req.body;
   const hashedPassword = bcrypt.hashSync(password);
   const user = await User.create({
@@ -134,17 +127,10 @@ router.post('/', validateSignup, async (req, res) => {
   });
 });
 
-router.put('/', requireAuth, async (req, res) => {
+router.put("/", requireAuth, async (req, res) => {
   const userId = req.user.id;
 
-  const {
-    username,
-    firstName,
-    lastName,
-    country,
-    bio,
-    profilePic,
-  } = req.body;
+  const { username, firstName, lastName, country, bio, profilePic } = req.body;
   const user = await User.findOne({
     where: {
       id: userId,
@@ -163,7 +149,7 @@ router.put('/', requireAuth, async (req, res) => {
   });
 });
 
-router.delete('/', requireAuth, async (req, res) => {
+router.delete("/", requireAuth, async (req, res) => {
   const userId = req.user.id;
 
   const user = await User.findOne({
@@ -175,7 +161,7 @@ router.delete('/', requireAuth, async (req, res) => {
   await user.destroy();
 
   return res.json({
-    message: 'Account successfully deleted',
+    message: "Account successfully deleted",
   });
 });
 
