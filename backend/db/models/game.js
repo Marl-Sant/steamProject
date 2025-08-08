@@ -1,5 +1,5 @@
-"use strict";
-const { Model } = require("sequelize");
+'use strict';
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Game extends Model {
     /**
@@ -10,13 +10,19 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Game.hasMany(models.Review, {
-        foreignKey: "gameId",
-        onDelete: "CASCADE",
+        foreignKey: 'gameId',
+        onDelete: 'CASCADE',
       });
 
       Game.hasOne(models.Community, {
-        foreignKey: "gameId",
-        onDelete: "CASCADE",
+        foreignKey: 'gameId',
+        onDelete: 'CASCADE',
+      });
+
+      Game.belongsToMany(models.User, {
+        foreignKey: 'gameId',
+        through: models.Ownership,
+        otherKey: 'userId',
       });
     }
   }
@@ -43,7 +49,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Game",
+      modelName: 'Game',
     }
   );
   return Game;

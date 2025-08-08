@@ -31,9 +31,6 @@ module.exports = {
             key: 'id',
           },
       },
-      mostRecent: {
-        type: Sequelize.BOOLEAN
-      },
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE,
