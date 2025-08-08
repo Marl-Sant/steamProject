@@ -1,5 +1,4 @@
 .comment-area-container {
-    width: 850px;
     margin: 1rem auto;
     background-color: #101820;
     box-sizing: border-box;
@@ -8,13 +7,15 @@
   }
   
   .comment-text-area {
-    display: grid;
-    grid-template-columns: 1fr 10fr 0.75fr;
+    display: flex;
+    width: 100%;
+    gap: 1rem;
   }
   
   .comment-area {
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
   
   .comment-text {

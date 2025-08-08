@@ -16,11 +16,13 @@
   max-width: 1440px;
   margin: 0 auto;
   gap: 2rem;
+  
 }
 
 #container {
   flex: 1;
   overflow: hidden;
+  box-shadow: 0 0 7px 0px #000;
 }
 
 .keen-slider {

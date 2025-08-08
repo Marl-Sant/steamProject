@@ -7,6 +7,7 @@ import * as reviewsAction from "../../store/reviews";
 import * as commentsAction from "../../store/comments";
 import * as profileCommentsAction from "../../store/profileComments";
 import * as profileActions from "../../store/currentProfile";
+import { fetchPostsByProfile } from "../../store/posts";
 
 import CommentArea from "../CommentArea/CommentArea";
 import "./ProfilePage.css";
@@ -26,6 +27,7 @@ const ProfilePage = () => {
     (state) => state.profileComments?.allComments
   );
   const currentProfile = useSelector((state) => state.currentProfile);
+  const profilePosts = useSelector((state) => state.posts.profilePosts);
 
   useEffect(() => {
     dispatch(profileActions.fetchCurrentProfile(userId));
@@ -45,6 +47,10 @@ const ProfilePage = () => {
 
   useEffect(() => {
     dispatch(profileCommentsAction.setProfileCommentsState(userId));
+  }, [dispatch, userId]);
+
+  useEffect(() => {
+    dispatch(fetchPostsByProfile(userId));
   }, [dispatch, userId]);
 
   const allComments = profileComments ? Object.values(profileComments) : [];
@@ -145,10 +151,23 @@ const ProfilePage = () => {
                             </h3>
                           </div>
                           <div className="user-review-item-right">
-                            <p className="profile-game-review-data">
-                              Date:{" "}
-                              {new Date(review.createdAt).toLocaleDateString()}
-                            </p>
+                          <div className="comment-created-at">
+                            {(() => {
+                              const date = new Date(review.createdAt);
+                              const day = String(date.getDate()).padStart(2, "0");
+                              const month = date.toLocaleString("en-US", {
+                                month: "short",
+                              });
+                              let hours = date.getHours();
+                              const minutes = String(date.getMinutes()).padStart(
+                                2,
+                                "0"
+                              );
+                              const ampm = hours >= 12 ? "pm" : "am";
+                              hours = hours % 12 || 12;
+                              return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                            })()}
+                          </div>
                             <p className="profile-game-review">
                               {review.review}
                             </p>
@@ -178,26 +197,54 @@ const ProfilePage = () => {
 
             <div className="profile-user-reviews-container">
               <div className="profile-comment-section-header">
-                <div className="profile-user-posts">
-                  <h2 className="profile-comment-reviews-title1">
-                    Recent Posts
-                  </h2>
-                </div>
+                <h2 className="profile-comment-reviews-title1">
+                  Recent Posts
+                </h2>
               </div>
-              {currentProfile?.Posts?.length > 0 ? (
-                currentProfile.Posts.slice(0, 3).map((post) => (
+              <div className="profile-user-posts-container">
+              {profilePosts && Object.keys(profilePosts).length > 0 ? (
+              Object.values(profilePosts)
+                .slice(0, 3)
+                .map((post) => (
                   <div key={post.id} className="user-post-item">
-                    <h3>{post.title}</h3>
-                    <p>{post.post}</p>
-                    <p>Community Game: {post.Community?.Game?.title}</p>
-                    <p>
-                      Posted on {new Date(post.createdAt).toLocaleDateString()}
-                    </p>
+                    <div className="user-post-header">
+                      <div className="user-post-titles">
+                        <h3 className="user-post-title">{post.title}</h3>
+                      </div>
+                    </div>
+
+                    <p className="user-post-body">{post.post}</p>
+
+                  <div className="user-post-footer">
+                    {post.Community?.Game?.headerImage && (
+                      <img
+                        src={post.Community.Game.headerImage}
+                        alt={post.Community.Game.title || "Game Image"}
+                        className="profile-post-game-img"
+                        />
+                    )}
+                    <div className="user-post-date">
+                      {(() => {
+                        const date = new Date(post.createdAt);
+                        const day = String(date.getDate()).padStart(2, "0");
+                        const month = date.toLocaleString("en-US", {
+                          month: "short",
+                        });
+                        let hours = date.getHours();
+                        const minutes = String(date.getMinutes()).padStart(2, "0");
+                        const ampm = hours >= 12 ? "pm" : "am";
+                        hours = hours % 12 || 12;
+                        return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                      })()}
+                    </div>
+
+                  </div>
                   </div>
                 ))
-              ) : (
-                <p>This user hasn’t made any posts yet.</p>
-              )}
+            ) : (
+              <p>This user hasn’t made any posts yet.</p>
+            )}
+              </div>
             </div>
           </div>
         </div>
@@ -220,7 +267,7 @@ const ProfilePage = () => {
                     <FaChevronLeft />
                   </button>
                   <span>
-                    Page {currentCommentPage} of {totalPages}
+                    {currentCommentPage} ... {totalPages}
                   </span>
                   <button
                     disabled={currentCommentPage === totalPages}
@@ -298,7 +345,7 @@ const ProfilePage = () => {
                 <FaChevronLeft />
               </button>
               <span>
-                Page {currentCommentPage} of {totalPages}
+                {currentCommentPage} ... {totalPages}
               </span>
               <button
                 disabled={currentCommentPage === totalPages}
