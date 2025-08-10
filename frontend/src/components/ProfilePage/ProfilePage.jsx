@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import { FaChevronLeft, FaChevronRight }  from "react-icons/fa";
 
 import * as reviewsAction from "../../store/reviews";
 import * as commentsAction from "../../store/comments";
@@ -9,6 +9,7 @@ import * as profileCommentsAction from "../../store/profileComments";
 import * as profileActions from "../../store/currentProfile";
 import { fetchPostsByProfile } from "../../store/posts";
 
+import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import CommentArea from "../CommentArea/CommentArea";
 import "./ProfilePage.css";
 import { csrfFetch } from "../../store/csrf";
@@ -22,6 +23,9 @@ const ProfilePage = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editUsername, setEditUsername] = useState('');
   const [editBio, setEditBio] = useState('');
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedReviewId, setSelectedReviewId] = useState(null);
+  const [selectedGameId, setSelectedGameId] = useState(null);
 
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews);
@@ -117,6 +121,12 @@ const ProfilePage = () => {
     }
   };
 
+  const openReviewModal = (reviewId, gameId) => {
+    setSelectedReviewId(reviewId);
+    setSelectedGameId(gameId);
+    setModalOpen(true);
+  };
+
   return (
     <div className="profile-page-background">
       <div className="profile-page-user-details">
@@ -155,7 +165,7 @@ const ProfilePage = () => {
                   placeholder="About Me"
                   className="profile-edit-textarea"
                 />
-                
+
                 <div className="input-handle-buttons">
                   <button onClick={handleSave} className="profile-save-btn">
                     Save
@@ -206,14 +216,16 @@ const ProfilePage = () => {
                   Object.values(reviews.allReviews)
                     .slice(0, 3)
                     .map((review) => (
-                      <div key={review.id} className="user-review-wrapper">
+                      <div key={review.id} className="user-review-wrapper"
+                      onClick={() => openReviewModal(review.id, review.Game?.id)}
+                      >
                         <div className="user-review-item">
                           <div className="user-review-item-left">
-                            <img
-                              className="profile-game-img"
-                              src={review.Game?.headerImage}
-                              alt={review.Game?.title}
-                            />
+                          <img
+                            src={review.Game?.headerImage}
+                            alt={`${review.User?.username}'s profile`}
+                            className="profile-game-img"
+                          />
                             <h3 className="profile-game-title">
                               {review.Game?.title}
                             </h3>
@@ -358,11 +370,13 @@ const ProfilePage = () => {
             {currentComments.length > 0 ? (
               currentComments.map((comment) => (
                 <div key={comment.id} className="comment-item">
-                  <img
-                    src={comment.commenter?.profilePic}
-                    alt={comment.commenter?.username}
-                    className="commentor-profile-pic"
-                  />
+                  <Link to={`/users/${comment.commenter?.id}`}>
+                    <img
+                      src={comment.commenter?.profilePic}
+                      alt={comment.commenter?.username}
+                      className="commentor-profile-pic"
+                    />
+                  </Link>
                   <div className="comment-details">
                     <div className="comment-header">
                       <div className="comment-author">
@@ -413,6 +427,14 @@ const ProfilePage = () => {
           </div>
         </div>
       </div>
+      {/* Review Comment Modal */}
+      {modalOpen && selectedReviewId && (
+          <ReviewCommentModal
+            onClose={() => setModalOpen(false)}
+            reviewId={selectedReviewId}
+            gameId={selectedGameId}
+          />
+        )}
     </div>
   );
 };

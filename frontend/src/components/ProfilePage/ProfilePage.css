@@ -129,6 +129,7 @@
   margin: 1rem;
   background-color: #101820;
   padding: 1rem;
+  cursor: pointer;
 }
 
 .profile-user-reviews-container{

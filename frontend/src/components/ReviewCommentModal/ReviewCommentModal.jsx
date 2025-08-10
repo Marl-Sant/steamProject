@@ -70,14 +70,16 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
         <div className='modal-header'>
           <button className='close' onClick={onClose}>&times;</button>
   
+          {review?.User && (
           <div className='reviewer-profile-container'>
             <img
               className='reviewer-profile-pic'
-              src={review.User?.profilePic}
-              alt={`${review.User?.username}'s profile`}
+              src={review.User.profilePic || '/default-avatar.png'}
+              alt={`${review.User.username}'s profile`}
             />
-            <div className='review-author'>{review.User?.username}</div>
+            <div className='review-author'>{review.User.username}</div>
           </div>
+          )}  
         </div>
   
         <div className='review-content'>
