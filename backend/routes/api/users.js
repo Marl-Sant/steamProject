@@ -151,12 +151,14 @@ router.put('/', requireAuth, async (req, res) => {
     },
   });
 
-  user.username = username;
-  user.firstName = firstName;
-  user.lastName = lastName;
-  user.country = country;
-  user.bio = bio;
-  user.profilePic = profilePic;
+  user.username = username || user.username;
+  user.firstName = firstName || user.firstName;
+  user.lastName = lastName || user.lastName;
+  user.country = country || user.country;
+  user.bio = bio || user.bio;
+  user.profilePic = profilePic || user.profilePic;
+
+  await user.save();
 
   return res.json({
     user: user,

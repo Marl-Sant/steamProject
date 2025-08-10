@@ -11,6 +11,7 @@ import { fetchPostsByProfile } from "../../store/posts";
 
 import CommentArea from "../CommentArea/CommentArea";
 import "./ProfilePage.css";
+import { csrfFetch } from "../../store/csrf";
 
 const ProfilePage = () => {
   const { userId } = useParams();
@@ -18,7 +19,9 @@ const ProfilePage = () => {
 
   const [currentCommentPage, setCurrentCommentPage] = useState(1);
 
-  // const [showActivities, setShowActivities] = useState(true);
+  const [isEditing, setIsEditing] = useState(false);
+  const [editUsername, setEditUsername] = useState('');
+  const [editBio, setEditBio] = useState('');
 
   const sessionUser = useSelector((state) => state.session.user);
   const reviews = useSelector((state) => state.reviews);
@@ -28,6 +31,11 @@ const ProfilePage = () => {
   );
   const currentProfile = useSelector((state) => state.currentProfile);
   const profilePosts = useSelector((state) => state.posts.profilePosts);
+
+  useEffect(() => {
+    setEditUsername(currentProfile?.username || '');
+    setEditBio(currentProfile?.bio || '');
+  }, [currentProfile]);
 
   useEffect(() => {
     dispatch(profileActions.fetchCurrentProfile(userId));
@@ -89,6 +97,26 @@ const ProfilePage = () => {
     else helpfulSentiment = `${Math.floor(ratio * 100)}% Mixed`;
   }
 
+  const handleSave = async () => {
+    const res = await csrfFetch('/api/users/', {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      credentials: 'include',
+      body: JSON.stringify({
+        username: editUsername,
+        bio: editBio,
+      }),
+    });
+  
+    if (res.ok) {
+      const data = await res.json();
+      dispatch(profileActions.setCurrentProfile(data.user));
+      setIsEditing(false);
+    } else {
+      alert('Failed to update profile.');
+    }
+  };
+
   return (
     <div className="profile-page-background">
       <div className="profile-page-user-details">
@@ -108,19 +136,61 @@ const ProfilePage = () => {
               <span className="sky-blue-text">{helpfulSentiment}</span>
             </h2>
           </div>
+
           <div className="profile-page-user-information">
-            <h1 className="profile-page-username">
-              {currentProfile?.username}
-            </h1>
-            <h2 className="profile-page-user-location">
-              {currentProfile?.country}
-            </h2>
-            <div className="profile-bio">
-              <div className="profile-page-bio-header">
-                <h2 className="profile-page-bio-title">About Me</h2>
-              </div>
-              <p className="profile-page-use-bio">{currentProfile?.bio}</p>
-            </div>
+            {isEditing ? (
+              <>
+                <p className="input-title">Username:</p>
+                <input
+                  type="text"
+                  value={editUsername}
+                  onChange={(e) => setEditUsername(e.target.value)}
+                  placeholder="Username"
+                  className="profile-edit-input"
+                />
+                <p className="input-title">Bio:</p>
+                <textarea
+                  value={editBio}
+                  onChange={(e) => setEditBio(e.target.value)}
+                  placeholder="About Me"
+                  className="profile-edit-textarea"
+                />
+                
+                <div className="input-handle-buttons">
+                  <button onClick={handleSave} className="profile-save-btn">
+                    Save
+                  </button>
+                  <button
+                    onClick={() => {
+                      setIsEditing(false);
+                      setEditUsername(currentProfile?.username || '');
+                      setEditBio(currentProfile?.bio || '');
+                    }}
+                    className="profile-cancel-btn"
+                    >
+                    Cancel
+                  </button>
+                </div>
+              </>
+            ) : (
+              <>
+                <h1 className="profile-page-username">{currentProfile?.username}</h1>
+                <div className="profile-bio">
+                  <h2 className="profile-page-bio-title">About Me</h2>
+                  {sessionUser?.id === parseInt(userId) && (
+                    <button
+                      onClick={() => setIsEditing(true)}
+                      className="profile-page-bio-edit-button"
+                    >
+                      Edit Profile
+                    </button>
+                  )}
+                  <p className="profile-page-use-bio">{currentProfile?.bio}</p>
+                </div>
+
+                
+              </>
+            )}
           </div>
         </div>
 
@@ -128,9 +198,7 @@ const ProfilePage = () => {
           <div className="recent-activities-container">
             <div className="profile-user-reviews-container">
               <div className="profile-comment-section-header">
-                <h2 className="profile-comment-reviews-title1">
-                  Recent Activity
-                </h2>
+                <h2 className="profile-comment-reviews-title1">Recent Activity</h2>
               </div>
               <div className="profile-user-reviews-detail-container">
                 {reviews?.allReviews &&
@@ -151,26 +219,24 @@ const ProfilePage = () => {
                             </h3>
                           </div>
                           <div className="user-review-item-right">
-                          <div className="comment-created-at">
-                            {(() => {
-                              const date = new Date(review.createdAt);
-                              const day = String(date.getDate()).padStart(2, "0");
-                              const month = date.toLocaleString("en-US", {
-                                month: "short",
-                              });
-                              let hours = date.getHours();
-                              const minutes = String(date.getMinutes()).padStart(
-                                2,
-                                "0"
-                              );
-                              const ampm = hours >= 12 ? "pm" : "am";
-                              hours = hours % 12 || 12;
-                              return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                            })()}
-                          </div>
-                            <p className="profile-game-review">
-                              {review.review}
-                            </p>
+                            <div className="comment-created-at">
+                              {(() => {
+                                const date = new Date(review.createdAt);
+                                const day = String(date.getDate()).padStart(2, "0");
+                                const month = date.toLocaleString("en-US", {
+                                  month: "short",
+                                });
+                                let hours = date.getHours();
+                                const minutes = String(date.getMinutes()).padStart(
+                                  2,
+                                  "0"
+                                );
+                                const ampm = hours >= 12 ? "pm" : "am";
+                                hours = hours % 12 || 12;
+                                return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                              })()}
+                            </div>
+                            <p className="profile-game-review">{review.review}</p>
                           </div>
                         </div>
                         <div className="profile-game-review-footer">
@@ -197,53 +263,50 @@ const ProfilePage = () => {
 
             <div className="profile-user-reviews-container">
               <div className="profile-comment-section-header">
-                <h2 className="profile-comment-reviews-title1">
-                  Recent Posts
-                </h2>
+                <h2 className="profile-comment-reviews-title1">Recent Posts</h2>
               </div>
               <div className="profile-user-posts-container">
-              {profilePosts && Object.keys(profilePosts).length > 0 ? (
-              Object.values(profilePosts)
-                .slice(0, 3)
-                .map((post) => (
-                  <div key={post.id} className="user-post-item">
-                    <div className="user-post-header">
-                      <div className="user-post-titles">
-                        <h3 className="user-post-title">{post.title}</h3>
+                {profilePosts && Object.keys(profilePosts).length > 0 ? (
+                  Object.values(profilePosts)
+                    .slice(0, 3)
+                    .map((post) => (
+                      <div key={post.id} className="user-post-item">
+                        <div className="user-post-header">
+                          <div className="user-post-titles">
+                            <h3 className="user-post-title">{post.title}</h3>
+                          </div>
+                        </div>
+
+                        <p className="user-post-body">{post.post}</p>
+
+                        <div className="user-post-footer">
+                          {post.Community?.Game?.headerImage && (
+                            <img
+                              src={post.Community.Game.headerImage}
+                              alt={post.Community.Game.title || "Game Image"}
+                              className="profile-post-game-img"
+                            />
+                          )}
+                          <div className="user-post-date">
+                            {(() => {
+                              const date = new Date(post.createdAt);
+                              const day = String(date.getDate()).padStart(2, "0");
+                              const month = date.toLocaleString("en-US", {
+                                month: "short",
+                              });
+                              let hours = date.getHours();
+                              const minutes = String(date.getMinutes()).padStart(2, "0");
+                              const ampm = hours >= 12 ? "pm" : "am";
+                              hours = hours % 12 || 12;
+                              return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                            })()}
+                          </div>
+                        </div>
                       </div>
-                    </div>
-
-                    <p className="user-post-body">{post.post}</p>
-
-                  <div className="user-post-footer">
-                    {post.Community?.Game?.headerImage && (
-                      <img
-                        src={post.Community.Game.headerImage}
-                        alt={post.Community.Game.title || "Game Image"}
-                        className="profile-post-game-img"
-                        />
-                    )}
-                    <div className="user-post-date">
-                      {(() => {
-                        const date = new Date(post.createdAt);
-                        const day = String(date.getDate()).padStart(2, "0");
-                        const month = date.toLocaleString("en-US", {
-                          month: "short",
-                        });
-                        let hours = date.getHours();
-                        const minutes = String(date.getMinutes()).padStart(2, "0");
-                        const ampm = hours >= 12 ? "pm" : "am";
-                        hours = hours % 12 || 12;
-                        return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                      })()}
-                    </div>
-
-                  </div>
-                  </div>
-                ))
-            ) : (
-              <p>This user hasn’t made any posts yet.</p>
-            )}
+                    ))
+                ) : (
+                  <p>This user hasn’t made any posts yet.</p>
+                )}
               </div>
             </div>
           </div>
@@ -260,9 +323,7 @@ const ProfilePage = () => {
                 <div className="pagination-controls1">
                   <button
                     disabled={currentCommentPage === 1}
-                    onClick={() =>
-                      setCurrentCommentPage(currentCommentPage - 1)
-                    }
+                    onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
                   >
                     <FaChevronLeft />
                   </button>
@@ -271,9 +332,7 @@ const ProfilePage = () => {
                   </span>
                   <button
                     disabled={currentCommentPage === totalPages}
-                    onClick={() =>
-                      setCurrentCommentPage(currentCommentPage + 1)
-                    }
+                    onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
                   >
                     <FaChevronRight />
                   </button>
@@ -317,10 +376,7 @@ const ProfilePage = () => {
                             month: "short",
                           });
                           let hours = date.getHours();
-                          const minutes = String(date.getMinutes()).padStart(
-                            2,
-                            "0"
-                          );
+                          const minutes = String(date.getMinutes()).padStart(2, "0");
                           const ampm = hours >= 12 ? "pm" : "am";
                           hours = hours % 12 || 12;
                           return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
