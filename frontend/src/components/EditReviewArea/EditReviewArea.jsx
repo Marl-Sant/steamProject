@@ -18,7 +18,7 @@ function EditReviewArea(userReview) {
 
   useEffect(() => {
     dispatch(reviewActions.setReviewsState(game?.id));
-  }, [game.id, dispatch]);
+  }, [game?.id, dispatch]);
 
   const handleSubmit = async () => {
     const newReview = await dispatch(

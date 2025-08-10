@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import "./Chat.css";
+import { csrfFetch } from "../../store/csrf";
+import HtmlToText from "../HtmlToText/HtmlToText";
 
 function ChatArea() {
   const [message, setMessage] = useState("");
@@ -8,7 +10,7 @@ function ChatArea() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const aiResponse = await fetch("/api/chat", {
+    const aiResponse = await csrfFetch("/api/chat", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -17,7 +19,8 @@ function ChatArea() {
         message: message,
       }),
     });
-    setReply(aiResponse);
+    const answer = await aiResponse.json()
+    setReply(answer.reply);
 
     return reply;
   };
@@ -32,7 +35,7 @@ function ChatArea() {
         />
         <button type="submit">Ask us!</button>
       </form>
-      <div>{reply}</div>
+      <div className="reply-area"><HtmlToText props={reply}/></div>
     </div>
   );
 }
