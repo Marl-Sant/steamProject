@@ -6,9 +6,8 @@ import reviewsReducer from "./reviews";
 import communitiesReducer from "./communities";
 import commentsReducer from "./comments";
 import userPostReducer from "./posts";
-import profileCommentsReducer from "./profileComments"
-import currentProfileReducer from "./currentProfile"
-
+import profileCommentsReducer from "./profileComments";
+import currentProfileReducer from "./currentProfile";
 
 const rootReducer = combineReducers({
   session: sessionReducer,
