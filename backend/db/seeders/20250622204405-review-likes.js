@@ -1,9 +1,9 @@
-'use strict';
-const { ReviewLike } = require('../models');
-const { Review } = require('../models');
+"use strict";
+const { ReviewLike } = require("../models");
+const { Review } = require("../models");
 
 let options = {};
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;
 }
 
@@ -14,9 +14,9 @@ module.exports = {
 
     const seededReviewLikes = allReviews.map((review, i) => {
       let reviewLike = {};
-      reviewLike['userId'] = i + 1;
-      reviewLike['reviewId'] = review.id;
-      reviewLike['liked'] = true;
+      reviewLike["userId"] = Math.floor(Math.random() * 10) + 1;
+      reviewLike["reviewId"] = review.id;
+      reviewLike["liked"] = true;
       return reviewLike;
     });
     await ReviewLike.bulkCreate(
@@ -48,7 +48,7 @@ module.exports = {
      * Example:
      * await queryInterface.bulkDelete('People', null, {});
      */
-    options.tableName = 'ReviewLikes';
+    options.tableName = "ReviewLikes";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(
       options,
