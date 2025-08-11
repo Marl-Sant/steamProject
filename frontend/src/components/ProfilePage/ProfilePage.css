@@ -259,7 +259,9 @@
 .user-post-item {
   margin: 1rem;
   background-color: #101820;
-  padding: 1rem;
+  padding: 0.5rem;
+  display: flex;
+  flex-direction: column;
 }
 
 .user-post-header {
@@ -292,6 +294,7 @@
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
+
 }
 
 .user-post-body {
