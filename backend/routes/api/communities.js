@@ -25,7 +25,7 @@ const oneWeekAgo = new Date();
 oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
 
 router.get("/recent", async (req, res) => {
-  const allCommunities = await Community.findAll({
+  const allCommunities = await Community.findAll({ 
     include: [
       {
         model: Post,
