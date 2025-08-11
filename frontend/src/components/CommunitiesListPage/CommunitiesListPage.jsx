@@ -25,7 +25,6 @@ function CommunitiesListPage() {
   }
 
   useEffect(() => {
-    console.log("USEEFFECT KICKING IN");
     dispatch(communitiesActions.populateCommunities());
     dispatch(postsActions.populateAllRecentPosts());
     if (user) {
@@ -80,11 +79,13 @@ function CommunitiesListPage() {
                   <div className="search-area">
                     <div className="search-community-div">
                       Search for your community
+                      <p></p>
                       <CommunitySearch />
                     </div>
                     <div className="search-community-div">
                       Search for a user
                       {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                      <p></p>
                       <input></input>
                     </div>
                   </div>
@@ -120,10 +121,12 @@ function CommunitiesListPage() {
                     <div className="search-community-div">
                       Search for your community
                       <CommunitySearch />
+                      <p></p>
                     </div>
                     <div className="search-community-div">
                       Search for a user
                       {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                      <p></p>
                       <input></input>
                     </div>
                   </div>
