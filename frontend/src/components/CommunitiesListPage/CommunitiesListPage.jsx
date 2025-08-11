@@ -25,6 +25,7 @@ function CommunitiesListPage() {
   }
 
   useEffect(() => {
+    console.log("USEEFFECT KICKING IN");
     dispatch(communitiesActions.populateCommunities());
     dispatch(postsActions.populateAllRecentPosts());
     if (user) {
@@ -46,7 +47,7 @@ function CommunitiesListPage() {
             <>
               {user ? (
                 <div className="logged-out-popular-hubs">
-                  <div>
+                  <div className="recent-community-posts">
                     Your recent post history
                     {userRecentPosts ? (
                       userRecentPosts.map((posts) => {
@@ -54,7 +55,7 @@ function CommunitiesListPage() {
                           <div className="user-post-card" key={posts[0]}>
                             <div>{posts[1].post}</div>
                             <div className="user-post-info">
-                              <div className="user-post-title">
+                              <div className="user-community-post-title">
                                 Posted in: {posts[1].Community.Game.title}
                               </div>
                               <div className="user-post-date">
@@ -70,16 +71,22 @@ function CommunitiesListPage() {
                       <></>
                     )}
                   </div>
+
                   <div className="recently-active-communities">
                     Join in on the conversation!
                     <RecentlyActiveCommunities />
                   </div>
+
                   <div className="search-area">
-                    <p></p>
-                    <CommunitySearch />
-                    <p></p>
-                    <p></p>
-                    {/* <UserSearch /> */}
+                    <div className="search-community-div">
+                      Search for your community
+                      <CommunitySearch />
+                    </div>
+                    <div className="search-community-div">
+                      Search for a user
+                      {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                      <input></input>
+                    </div>
                   </div>
                 </div>
               ) : (
@@ -110,14 +117,15 @@ function CommunitiesListPage() {
                     <RecentlyActiveCommunities />
                   </div>
                   <div className="search-area">
-                    Search for your community
-                    <p></p>
-                    <CommunitySearch />
-                    <p></p>
-                    Search for a user
-                    <p></p>
-                    {/*PLACEHOLDER FOR STYLING PURPOSES*/}
-                    <input></input>
+                    <div className="search-community-div">
+                      Search for your community
+                      <CommunitySearch />
+                    </div>
+                    <div className="search-community-div">
+                      Search for a user
+                      {/*PLACEHOLDER FOR STYLING PURPOSES*/}
+                      <input></input>
+                    </div>
                   </div>
                 </div>
               )}

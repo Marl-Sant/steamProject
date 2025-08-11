@@ -17,6 +17,7 @@
   margin: 0.5em 0;
   padding: 0.5em;
   gap: 1em;
+  border-radius: 3px;
 }
 
 .about-link {
@@ -47,7 +48,7 @@
   padding: 0.25em;
 }
 
-.user-post-title {
+.user-community-post-title {
   font-size: smaller;
 }
 
@@ -117,4 +118,29 @@
 
 .post-content {
   margin-top: -1em;
+}
+
+.recent-community-posts {
+  background: #334b67;
+  border-radius: 3px;
+  padding: 0.5em;
+}
+
+.recently-active-communities {
+  background: #334b67;
+  border-radius: 3px;
+  padding: 0.5em;
+}
+
+.search-area {
+  display: grid;
+  grid-template-rows: 1fr 1fr;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+
+.search-community-div {
+  background: #334b67;
+  border-radius: 3px;
+  padding: 0.5em;
 }

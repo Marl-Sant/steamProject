@@ -28,7 +28,6 @@ function CommunitySearch() {
 
   return (
     <div>
-      <label>Search for your community</label>
       <button className="search-button">
         <input
           type="text"
