@@ -13,6 +13,8 @@
 
 .rest-of-page{
   margin-top: -25em;
+  max-width: 1440px;
+  margin: -20rem auto;
 }
 
 .game-container {
@@ -21,20 +23,22 @@
   align-content: center;
   justify-content: center;
   /* width: 940px; */
-  width: 65vw;
-  margin: 0 25%;
   /* padding-top: 3rem; */
   padding: 0em 0em 30em;
   /* justify-content: flex-start; */
   /* height: 545px; */
-  height: 65vh;
   /* position: absolute; */
+  margin-bottom: 3rem;
 }
 
 .long-description {
   display: flex;
   flex-direction: column;
   justify-content: center;
+}
+
+.game-title-container{
+  margin-bottom: 1rem;
 }
 
 .game-title {
@@ -49,6 +53,7 @@
   width: 100%;
   justify-content: flex-start;
   align-items: flex-start;
+  flex-direction: column;
 }
 
 .primary-game-container {
@@ -386,9 +391,9 @@
   background: linear-gradient(to right, #213145, #2a475e);
   padding-left: 1.5em;
   padding-right: 1em;
-  justify-content: space-between;
-  width: 30vw;
-  position: relative;
+  width: 480px; /* fixed width */
+  margin: 0;
+  box-sizing: border-box; /* ensures padding is inside width */
 }
 
 .floating-div {
@@ -397,7 +402,7 @@
   height: fit-content;
   padding: 0.25em 0.15em;
   margin-top: 2.7em;
-  margin-left: 20em;
+  margin-left: 18em;
   position: absolute;
   justify-content: center;
   align-items: center;
@@ -422,13 +427,21 @@
 }
 
 .community-cart-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  margin: -2em auto 5em;
-  max-width: 80vw;
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  margin: 0 auto;
+  width: fit-content;
 }
 
 .community-cart-container a {
   text-decoration: none;
   color: white;
+}
+
+.game-detailed-information-container{
+  display: flex;
+  margin-top: 12.5rem;
+  flex-direction: column;
+  margin-left: -1rem;
 }
