@@ -125,20 +125,20 @@
   background: #334b67;
   border-radius: 3px;
   padding: 0.5em;
-  min-height: 220px;
-  max-height: 220px;
-  min-width: 342px;
-  max-width: 342px;
+  min-height: 93%;
+  max-height: 93%;
+  min-width: 95%;
+  max-width: 95%;
 }
 
 .recently-active-communities {
   background: #334b67;
   border-radius: 3px;
   padding: 0.5em;
-  min-height: 220px;
-  max-height: 220px;
-  min-width: 378px;
-  max-width: 378px;
+  min-height: 93%;
+  max-height: 93%;
+  min-width: 95%;
+  max-width: 95%;
 }
 
 .search-area {
