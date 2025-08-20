@@ -17,8 +17,8 @@ router.get("/", async (req, res) => {
   res.json(searchResults);
 });
 
-const oneWeekAgo = new Date();
-oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+const oneMonthAgo = new Date();
+oneMonthAgo.setDate(oneMonthAgo.getDate() - 30);
 
 router.get("/recent", async (req, res) => {
   const allCommunities = await Community.findAll({
@@ -27,7 +27,7 @@ router.get("/recent", async (req, res) => {
         model: Post,
         where: {
           createdAt: {
-            [Op.gte]: oneWeekAgo,
+            [Op.gte]: oneMonthAgo,
           },
         },
       },

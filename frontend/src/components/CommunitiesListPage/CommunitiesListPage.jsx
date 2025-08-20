@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import CommunitySearch from "../CommunitySearch/CommunitySearch";
+import UserRecentPosts from "../UserRecentPosts/UserRecentPosts";
 // import UserSearch from "../UserSearch/UserSearch";
 import RecentlyActiveCommunities from "../RecentlyActiveCommunities/RecentlyActiveCommunities";
 import * as communitiesActions from "../../store/communities";
@@ -27,9 +28,6 @@ function CommunitiesListPage() {
   useEffect(() => {
     dispatch(communitiesActions.populateCommunities());
     dispatch(postsActions.populateAllRecentPosts());
-    if (user) {
-      dispatch(postsActions.populateRecentUserPosts());
-    }
     setLoaded(true);
   }, [user?.id, dispatch]);
 
@@ -48,27 +46,7 @@ function CommunitiesListPage() {
                 <div className="logged-out-popular-hubs">
                   <div className="recent-community-posts">
                     Your recent post history
-                    {userRecentPosts ? (
-                      userRecentPosts.map((posts) => {
-                        return (
-                          <div className="user-post-card" key={posts[0]}>
-                            <div>{posts[1].post}</div>
-                            <div className="user-post-info">
-                              <div className="user-community-post-title">
-                                Posted in: {posts[1].Community.Game.title}
-                              </div>
-                              <div className="user-post-date">
-                                {new Date(
-                                  posts[1].createdAt
-                                ).toLocaleDateString("en-US")}
-                              </div>
-                            </div>
-                          </div>
-                        );
-                      })
-                    ) : (
-                      <></>
-                    )}
+                    <UserRecentPosts />
                   </div>
 
                   <div className="recently-active-communities">

@@ -29,7 +29,9 @@ function RecentlyActiveCommunities() {
                 <span className="community-title">
                   {community[1].Game.title}
                 </span>
-                {community[1].newPostCount} new posts this week!
+                <span className="recent-post-month">
+                  {community[1].newPostCount} new posts in the past month!
+                </span>
               </div>
             </div>
           </NavLink>
