@@ -29,6 +29,12 @@ function CommunitiesListPage() {
     dispatch(communitiesActions.populateCommunities());
     dispatch(postsActions.populateAllRecentPosts());
     setLoaded(true);
+    const colTwo = document.querySelector(".recently-active-communities");
+    const colOneContent = document.querySelector(".user-recent-post-container");
+    if (colTwo && colOneContent) {
+      const height = colTwo.getBoundingClientRect().height;
+      colOneContent.style.maxHeight = `${height}px`;
+    }
   }, [user?.id, dispatch]);
 
   return (
@@ -46,7 +52,15 @@ function CommunitiesListPage() {
                 <div className="logged-out-popular-hubs">
                   <div className="recent-community-posts">
                     Your recent post history
-                    <UserRecentPosts />
+                    <div className="user-recent-post-container">
+                      <UserRecentPosts />
+                    </div>
+                    <NavLink
+                      to={`/users/${user.id}`}
+                      className={"community-links recent-user-posts"}
+                    >
+                      Click here to see all your posts!
+                    </NavLink>
                   </div>
 
                   <div className="recently-active-communities">

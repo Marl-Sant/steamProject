@@ -61,7 +61,7 @@ router.get("/current", async (req, res) => {
       },
     ],
     order: [["createdAt", "DESC"]],
-    limit: 3,
+    limit: 10,
   });
   return res.json(recentUserPosts);
 });

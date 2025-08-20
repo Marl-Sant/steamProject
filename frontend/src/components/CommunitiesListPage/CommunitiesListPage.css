@@ -18,6 +18,7 @@
   padding: 0.5em;
   gap: 1em;
   border-radius: 3px;
+  align-items: stretch;
 }
 
 .about-link {
@@ -124,12 +125,20 @@
   background: #334b67;
   border-radius: 3px;
   padding: 0.5em;
+  min-height: 220px;
+  max-height: 220px;
+  min-width: 342px;
+  max-width: 342px;
 }
 
 .recently-active-communities {
   background: #334b67;
   border-radius: 3px;
   padding: 0.5em;
+  min-height: 220px;
+  max-height: 220px;
+  min-width: 378px;
+  max-width: 378px;
 }
 
 .search-area {
@@ -151,4 +160,22 @@
 
 .recent-user-posts {
   font-size: small;
+  margin-bottom: 0.15em;
+}
+
+.user-recent-post-container {
+  overflow-y: auto;
+  max-height: 180px;
+  padding-right: 0.5em;
+  padding-top: 0.3em;
+}
+
+.user-recent-post-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+.user-recent-post-container::-webkit-scrollbar-thumb {
+  padding-top: 0.3em;
+  background-color: rgba(29, 27, 27, 0.5);
+  border-radius: 4px;
 }
