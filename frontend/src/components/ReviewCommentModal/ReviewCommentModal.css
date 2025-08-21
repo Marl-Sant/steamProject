@@ -218,3 +218,26 @@
   margin-left: 0.5rem;
   text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
 }
+
+.blur-container {
+  position: relative;
+}
+
+.blurred {
+  filter: blur(4px);
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.7;
+}
+
+.no-user-comment-message {
+  margin-top: 1rem;
+  font-weight: bold;
+  text-align: center;
+  background: rgba(0,0,0,0.6);
+  color: white;
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  position: absol;
+  z-index: 2;
+}

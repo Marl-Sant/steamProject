@@ -4,12 +4,14 @@ import * as commentActions from '../../store/comments';
 import './ReviewCommentModal.css';
 import CommentArea from '../CommentArea/CommentArea.jsx'
 import {FaThumbsUp, FaThumbsDown} from 'react-icons/fa'
+import { NavLink, Link } from 'react-router-dom'; 
 
 function ReviewCommentModal({ onClose, reviewId, gameId }) {
   const dispatch = useDispatch();
   const reviews = useSelector((state) => state.reviews?.allReviews);
   const allReviewsArray = reviews ? Object.entries(reviews) : [];
   const [isHelpful, setIsHelpful] = useState(null);
+  const user = useSelector((state) => state.session.user);
 
   const comments = useSelector((state) => state.comments?.allComments)
   let allCommentsArray
@@ -72,11 +74,13 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
   
           {review?.User && (
           <div className='reviewer-profile-container'>
-            <img
-              className='reviewer-profile-pic'
-              src={review.User.profilePic || '/default-avatar.png'}
-              alt={`${review.User.username}'s profile`}
-            />
+            <Link to={`/users/${review.User.id}`}>
+              <img
+                className='reviewer-profile-pic'
+                src={review.User.profilePic || '/default-avatar.png'}
+                alt={`${review.User.username}'s profile`}
+              />
+            </Link>
             <div className='review-author'>{review.User.username}</div>
           </div>
           )}  
@@ -137,40 +141,73 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
             </div>
           </div>
 
+          {user ? (
           <div className="helpful-row-container">
             <div className="helpful-divider"></div>
 
-          <div className="helpful-row">
-            <p className="helpful-label">Was this review helpful?</p>
-            <div id="comment-button-row-2">
-              <button
-                className={isHelpful === true ? 'comment-review-button selected' : 'comment-review-button'}
-                onClick={() => setIsHelpful(true)}
-              >
-                👍 Yes
-              </button>
-              <button
-                className={isHelpful === false ? 'comment-review-button selected' : 'comment-review-button'}
-                onClick={() => setIsHelpful(false)}
-              >
-                👎 No
-              </button>
+            <div className="helpful-row">
+              <p className="helpful-label">Was this review helpful?</p>
+              <div id="comment-button-row-2">
+                <button
+                  className={isHelpful === true ? 'comment-review-button selected' : 'comment-review-button'}
+                  onClick={() => setIsHelpful(true)}
+                >
+                  👍 Yes
+                </button>
+                <button
+                  className={isHelpful === false ? 'comment-review-button selected' : 'comment-review-button'}
+                  onClick={() => setIsHelpful(false)}
+                >
+                  👎 No
+                </button>
+              </div>
+            </div>
+
+            <div>
+              <CommentArea gameId={gameId} reviewId={reviewId} isHelpful={isHelpful}/>
             </div>
           </div>
-  
-          <div>
-            <CommentArea gameId={gameId} reviewId={reviewId} isHelpful={isHelpful}/>
-          </div>
+        ) : (
+          <>
+            <div className="no-user-comment-message">
+              Join in on the conversation!{" "}
+              <NavLink to="/login" className="login-review-area">
+                Login
+              </NavLink>{" "}
+              to vote on helpfulness and leave a comment!
+            </div>
+            
+            <div className="blur-container">
+              <div className="helpful-row-container">
+                <div className="helpful-divider"></div>
+        
+                <div className="helpful-row blurred">
+                  <p className="helpful-label">Was this review helpful?</p>
+                  <div id="comment-button-row-2">
+                    <button className="comment-review-button">👍 Yes</button>
+                    <button className="comment-review-button">👎 No</button>
+                  </div>
+                </div>
+        
+                <div className="blurred">
+                  <CommentArea gameId={gameId} reviewId={reviewId} isHelpful={isHelpful}/>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
 
           <div className='comment-container'>
             {allCommentsArray && allCommentsArray.length > 0 ? (
               [...reviewComments].reverse().map((comment) => (
                 <div key={comment[1].id} className='comment-item'>
+                  <Link to={`/users/${comment[1].User?.id}`}>
                   <img 
                     src={`${comment[1].User?.profilePic}`}
                     alt={`${comment[1].User?.username}'s profile`}
                     className="commentor-profile-pic"
                   />
+                  </Link>
                   <div className='comment-details'>
                     <div className="comment-header">
                       <div className="comment-author">{comment[1].User?.username}</div>
@@ -197,7 +234,6 @@ function ReviewCommentModal({ onClose, reviewId, gameId }) {
           </div>
         </div>
       </div>
-    </div>
     </div>
   );
 }

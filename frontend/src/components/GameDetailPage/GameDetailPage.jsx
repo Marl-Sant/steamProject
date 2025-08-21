@@ -271,7 +271,7 @@ function GameDetailPage() {
               Join in on the conversation!&nbsp;{" "}
               <NavLink to="/login" className="login-review-area">
                 Login
-              </NavLink>
+              </NavLink>{" "}
               &nbsp;to leave a review and let others know what you think!
             </div>
             <div className="blur-container">

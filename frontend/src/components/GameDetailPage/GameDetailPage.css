@@ -297,20 +297,24 @@
 
 #no-user-message {
   position: absolute;
-  height: 17em;
-  width: 100%;
+  margin-left: 21rem;
+  margin-top: 10rem;
+  padding: 0.75rem 1rem;
 
   display: flex;
   align-items: center;
   justify-content: center;
+  border-radius: 8px;
 
   color: white;
   font-size: 20px;
   z-index: 10;
+
+  background-color: black;
 }
 
 .login-review-area {
-  color: white;
+  color: #0096FF;
 }
 
 .game-detailed-description {
