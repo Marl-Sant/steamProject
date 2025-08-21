@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, NavLink, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { FaChevronLeft, FaChevronRight }  from "react-icons/fa";
 
@@ -35,6 +35,7 @@ const ProfilePage = () => {
   );
   const currentProfile = useSelector((state) => state.currentProfile);
   const profilePosts = useSelector((state) => state.posts.profilePosts);
+  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     setEditUsername(currentProfile?.username || '');
@@ -127,6 +128,7 @@ const ProfilePage = () => {
     setModalOpen(true);
   };
 
+
   return (
     <div className="profile-page-background">
       <div className="profile-page-user-details">
@@ -203,238 +205,325 @@ const ProfilePage = () => {
             )}
           </div>
         </div>
-
-        <div className="all-activities-container">
-          <div className="recent-activities-container">
-            <div className="profile-user-reviews-container">
-              <div className="profile-comment-section-header">
-                <h2 className="profile-comment-reviews-title1">Recent Activity</h2>
-              </div>
-              <div className="profile-user-reviews-detail-container">
-                {reviews?.allReviews &&
-                Object.keys(reviews.allReviews).length > 0 ? (
-                  Object.values(reviews.allReviews)
-                    .slice(0, 3)
-                    .map((review) => (
-                      <div key={review.id} className="user-review-wrapper"
-                      onClick={() => openReviewModal(review.id, review.Game?.id)}
-                      >
-                        <div className="user-review-item">
-                          <div className="user-review-item-left">
-                          <img
-                            src={review.Game?.headerImage}
-                            alt={`${review.User?.username}'s profile`}
-                            className="profile-game-img"
-                          />
-                            <h3 className="profile-game-title">
-                              {review.Game?.title}
-                            </h3>
+        
+        {!sessionUser ? (
+          <div className="activities-blur-wrapper">
+            <div className="all-activities-container blurred">
+              <div className="recent-activities-container">
+                <div className="profile-user-reviews-container">
+                  <div className="profile-comment-section-header">
+                    <h2 className="profile-comment-reviews-title1">Recent Activity</h2>
+                  </div>
+                  <div className="profile-user-reviews-detail-container">
+                    {reviews?.allReviews &&
+                    Object.keys(reviews.allReviews).length > 0 ? (
+                      Object.values(reviews.allReviews)
+                      .slice(0, 3)
+                      .map((review) => (
+                        <div key={review.id} className="user-review-wrapper">
+                            <div className="user-review-item">
+                              <div className="user-review-item-left">
+                                <img
+                                  src={review.Game?.headerImage}
+                                  alt={`${review.User?.username}'s profile`}
+                                  className="profile-game-img"
+                                  />
+                                <h3 className="profile-game-title">{review.Game?.title}</h3>
+                              </div>
+                              <div className="user-review-item-right">
+                                <div className="comment-created-at">
+                                  {(() => {
+                                    const date = new Date(review.createdAt);
+                                    const day = String(date.getDate()).padStart(2, "0");
+                                    const month = date.toLocaleString("en-US", { month: "short" });
+                                    let hours = date.getHours();
+                                    const minutes = String(date.getMinutes()).padStart(2, "0");
+                                    const ampm = hours >= 12 ? "pm" : "am";
+                                    hours = hours % 12 || 12;
+                                    return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                                  })()}
+                                </div>
+                                <p className="profile-game-review">{review.review}</p>
+                              </div>
+                            </div>
+                            <div className="profile-game-review-footer">
+                              <p className="profile-game-recommendation">
+                                Recommended: {review.isRecommended ? "Yes" : "No"}
+                              </p>
+                              <p className="profile-game-review-comments">
+                                {comments
+                                  ? `${
+                                    Object.values(comments).filter(
+                                      (comment) => comment.reviewId === review.id
+                                      ).length
+                                    } comment(s)`
+                                    : "0 comment(s)"}
+                              </p>
+                            </div>
                           </div>
-                          <div className="user-review-item-right">
+                        ))
+                        ) : (
+                          <p>This user has not left any reviews yet.</p>
+                          )}
+                  </div>
+                </div>
+
+                <div className="profile-user-reviews-container">
+                  <div className="profile-comment-section-header">
+                    <h2 className="profile-comment-reviews-title1">Recent Posts</h2>
+                  </div>
+                  <div className="profile-user-posts-container">
+                    {profilePosts && Object.keys(profilePosts).length > 0 ? (
+                      Object.values(profilePosts)
+                      .slice(0, 3)
+                      .map((post) => (
+                        <div key={post.id} className="user-post-item">
+                            <div className="user-post-header">
+                              <div className="user-post-titles">
+                                <h3 className="user-post-title">{post.title}</h3>
+                              </div>
+                            </div>
+                            <p className="user-post-body">{post.post}</p>
+                          </div>
+                        ))
+                        ) : (
+                          <p>This user hasn’t made any posts yet.</p>
+                          )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="no-user-comment-message-3">
+              Join in on the conversation!{" "}
+              <NavLink to="/login" className="login-review-area">
+                Login
+              </NavLink>{" "}
+              to view user profiles!
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="all-activities-container">
+              <div className="recent-activities-container">
+                <div className="profile-user-reviews-container">
+                  <div className="profile-comment-section-header">
+                    <h2 className="profile-comment-reviews-title1">Recent Activity</h2>
+                  </div>
+                  <div className="profile-user-reviews-detail-container">
+                    {reviews?.allReviews &&
+                    Object.keys(reviews.allReviews).length > 0 ? (
+                      Object.values(reviews.allReviews)
+                      .slice(0, 3)
+                      .map((review) => (
+                        <div
+                        key={review.id}
+                        className="user-review-wrapper"
+                        onClick={() => openReviewModal(review.id, review.Game?.id)}
+                          >
+                            <div className="user-review-item">
+                              <div className="user-review-item-left">
+                                <img
+                                  src={review.Game?.headerImage}
+                                  alt={`${review.User?.username}'s profile`}
+                                  className="profile-game-img"
+                                />
+                                <h3 className="profile-game-title">{review.Game?.title}</h3>
+                              </div>
+                              <div className="user-review-item-right">
+                                <div className="comment-created-at">
+                                  {(() => {
+                                    const date = new Date(review.createdAt);
+                                    const day = String(date.getDate()).padStart(2, "0");
+                                    const month = date.toLocaleString("en-US", { month: "short" });
+                                    let hours = date.getHours();
+                                    const minutes = String(date.getMinutes()).padStart(2, "0");
+                                    const ampm = hours >= 12 ? "pm" : "am";
+                                    hours = hours % 12 || 12;
+                                    return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                                  })()}
+                                </div>
+                                <p className="profile-game-review">{review.review}</p>
+                              </div>
+                            </div>
+                            <div className="profile-game-review-footer">
+                              <p className="profile-game-recommendation">
+                                Recommended: {review.isRecommended ? "Yes" : "No"}
+                              </p>
+                              <p className="profile-game-review-comments">
+                                {comments
+                                  ? `${
+                                      Object.values(comments).filter(
+                                        (comment) => comment.reviewId === review.id
+                                      ).length
+                                    } comment(s)`
+                                  : "0 comment(s)"}
+                              </p>
+                            </div>
+                          </div>
+                        ))
+                    ) : (
+                      <p>This user has not left any reviews yet.</p>
+                    )}
+                  </div>
+                </div>
+
+                <div className="profile-user-reviews-container">
+                  <div className="profile-comment-section-header">
+                    <h2 className="profile-comment-reviews-title1">Recent Posts</h2>
+                  </div>
+                  <div className="profile-user-posts-container">
+                    {profilePosts && Object.keys(profilePosts).length > 0 ? (
+                      Object.values(profilePosts)
+                        .slice(0, 3)
+                        .map((post) => (
+                          <div key={post.id} className="user-post-item">
+                            <div className="user-post-header">
+                              <div className="user-post-titles">
+                                <h3 className="user-post-title">{post.title}</h3>
+                              </div>
+                            </div>
+                            <p className="user-post-body">{post.post}</p>
+
+                            <div className="user-post-footer">
+                              {post.Community?.Game?.headerImage && (
+                                <img
+                                  src={post.Community.Game.headerImage}
+                                  alt={post.Community.Game.title || "Game Image"}
+                                  className="profile-post-game-img"
+                                />
+                              )}
+                              <div className="user-post-date">
+                                {(() => {
+                                  const date = new Date(post.createdAt);
+                                  const day = String(date.getDate()).padStart(2, "0");
+                                  const month = date.toLocaleString("en-US", { month: "short" });
+                                  let hours = date.getHours();
+                                  const minutes = String(date.getMinutes()).padStart(2, "0");
+                                  const ampm = hours >= 12 ? "pm" : "am";
+                                  hours = hours % 12 || 12;
+                                  return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                                })()}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                    ) : (
+                      <p>This user hasn’t made any posts yet.</p>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="profile-comment-wrapper">
+              <div className="profile-comment-section">
+                <div className="profile-comment-section-header">
+                  <p className="profile-comment-header-title1">Comments</p>
+                  <div className="profile-comment-header-group">
+                    <div className="profile-comment-header-title2">
+                      View all {allComments.length} comments
+                    </div>
+                    <div className="pagination-controls1">
+                      <button
+                        disabled={currentCommentPage === 1}
+                        onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
+                      >
+                        <FaChevronLeft />
+                      </button>
+                      <span>
+                        {currentCommentPage} ... {totalPages}
+                      </span>
+                      <button
+                        disabled={currentCommentPage === totalPages}
+                        onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
+                      >
+                        <FaChevronRight />
+                      </button>
+                    </div>
+                  </div>
+                </div>
+
+                <CommentArea
+                  className="profile-comment-area"
+                  onSubmitOverride={(commentText) =>
+                    dispatch(
+                      profileCommentsAction.addProfileCommentState({
+                        userId: sessionUser.id,
+                        profileUserId: userId,
+                        comment: commentText,
+                      })
+                    )
+                  }
+                />
+
+                <div className="comment-container">
+                  {currentComments.length > 0 ? (
+                    currentComments.map((comment) => (
+                      <div key={comment.id} className="comment-item">
+                        <Link to={`/users/${comment.commenter?.id}`}>
+                          <img
+                            src={comment.commenter?.profilePic}
+                            alt={comment.commenter?.username}
+                            className="commentor-profile-pic"
+                          />
+                        </Link>
+                        <div className="comment-details">
+                          <div className="comment-header">
+                            <div className="comment-author">{comment.commenter?.username}</div>
                             <div className="comment-created-at">
                               {(() => {
-                                const date = new Date(review.createdAt);
+                                const date = new Date(comment.createdAt);
                                 const day = String(date.getDate()).padStart(2, "0");
-                                const month = date.toLocaleString("en-US", {
-                                  month: "short",
-                                });
+                                const month = date.toLocaleString("en-US", { month: "short" });
                                 let hours = date.getHours();
-                                const minutes = String(date.getMinutes()).padStart(
-                                  2,
-                                  "0"
-                                );
+                                const minutes = String(date.getMinutes()).padStart(2, "0");
                                 const ampm = hours >= 12 ? "pm" : "am";
                                 hours = hours % 12 || 12;
                                 return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
                               })()}
                             </div>
-                            <p className="profile-game-review">{review.review}</p>
                           </div>
-                        </div>
-                        <div className="profile-game-review-footer">
-                          <p className="profile-game-recommendation">
-                            Recommended: {review.isRecommended ? "Yes" : "No"}
-                          </p>
-                          <p className="profile-game-review-comments">
-                            {comments
-                              ? `${
-                                  Object.values(comments).filter(
-                                    (comment) => comment.reviewId === review.id
-                                  ).length
-                                } comment(s)`
-                              : "0 comment(s)"}
-                          </p>
+                          <div className="commentor-comment">{comment.comment}</div>
                         </div>
                       </div>
                     ))
-                ) : (
-                  <p>This user has not left any reviews yet.</p>
-                )}
-              </div>
-            </div>
-
-            <div className="profile-user-reviews-container">
-              <div className="profile-comment-section-header">
-                <h2 className="profile-comment-reviews-title1">Recent Posts</h2>
-              </div>
-              <div className="profile-user-posts-container">
-                {profilePosts && Object.keys(profilePosts).length > 0 ? (
-                  Object.values(profilePosts)
-                    .slice(0, 3)
-                    .map((post) => (
-                      <div key={post.id} className="user-post-item">
-                        <div className="user-post-header">
-                          <div className="user-post-titles">
-                            <h3 className="user-post-title">{post.title}</h3>
-                          </div>
-                        </div>
-
-                        <p className="user-post-body">{post.post}</p>
-
-                        <div className="user-post-footer">
-                          {post.Community?.Game?.headerImage && (
-                            <img
-                              src={post.Community.Game.headerImage}
-                              alt={post.Community.Game.title || "Game Image"}
-                              className="profile-post-game-img"
-                            />
-                          )}
-                          <div className="user-post-date">
-                            {(() => {
-                              const date = new Date(post.createdAt);
-                              const day = String(date.getDate()).padStart(2, "0");
-                              const month = date.toLocaleString("en-US", {
-                                month: "short",
-                              });
-                              let hours = date.getHours();
-                              const minutes = String(date.getMinutes()).padStart(2, "0");
-                              const ampm = hours >= 12 ? "pm" : "am";
-                              hours = hours % 12 || 12;
-                              return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                            })()}
-                          </div>
-                        </div>
-                      </div>
-                    ))
-                ) : (
-                  <p>This user hasn’t made any posts yet.</p>
-                )}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className="profile-comment-wrapper">
-          <div className="profile-comment-section">
-            <div className="profile-comment-section-header">
-              <p className="profile-comment-header-title1">Comments</p>
-              <div className="profile-comment-header-group">
-                <div className="profile-comment-header-title2">
-                  View all {allComments.length} comments
+                  ) : (
+                    <div>No comments yet.</div>
+                  )}
                 </div>
-                <div className="pagination-controls1">
-                  <button
-                    disabled={currentCommentPage === 1}
-                    onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
-                  >
-                    <FaChevronLeft />
-                  </button>
-                  <span>
-                    {currentCommentPage} ... {totalPages}
-                  </span>
-                  <button
-                    disabled={currentCommentPage === totalPages}
-                    onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
-                  >
-                    <FaChevronRight />
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <CommentArea
-            className="profile-comment-area"
-            onSubmitOverride={(commentText) =>
-              dispatch(
-                profileCommentsAction.addProfileCommentState({
-                  userId: sessionUser.id,
-                  profileUserId: userId,
-                  comment: commentText,
-                })
-              )
-            }
-          />
-
-          <div className="comment-container">
-            {currentComments.length > 0 ? (
-              currentComments.map((comment) => (
-                <div key={comment.id} className="comment-item">
-                  <Link to={`/users/${comment.commenter?.id}`}>
-                    <img
-                      src={comment.commenter?.profilePic}
-                      alt={comment.commenter?.username}
-                      className="commentor-profile-pic"
-                    />
-                  </Link>
-                  <div className="comment-details">
-                    <div className="comment-header">
-                      <div className="comment-author">
-                        {comment.commenter?.username}
-                      </div>
-                      <div className="comment-created-at">
-                        {(() => {
-                          const date = new Date(comment.createdAt);
-                          const day = String(date.getDate()).padStart(2, "0");
-                          const month = date.toLocaleString("en-US", {
-                            month: "short",
-                          });
-                          let hours = date.getHours();
-                          const minutes = String(date.getMinutes()).padStart(2, "0");
-                          const ampm = hours >= 12 ? "pm" : "am";
-                          hours = hours % 12 || 12;
-                          return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                        })()}
-                      </div>
-                    </div>
-                    <div className="commentor-comment">{comment.comment}</div>
+                <div className="profile-comment-footer">
+                  <div className="pagination-controls2">
+                    <button
+                      disabled={currentCommentPage === 1}
+                      onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
+                    >
+                      <FaChevronLeft />
+                    </button>
+                    <span>
+                      {currentCommentPage} ... {totalPages}
+                    </span>
+                    <button
+                      disabled={currentCommentPage === totalPages}
+                      onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
+                    >
+                      <FaChevronRight />
+                    </button>
                   </div>
                 </div>
-              ))
-            ) : (
-              <div>No comments yet.</div>
-            )}
-          </div>
-
-          <div className="profile-comment-footer">
-            <div className="pagination-controls2">
-              <button
-                disabled={currentCommentPage === 1}
-                onClick={() => setCurrentCommentPage(currentCommentPage - 1)}
-              >
-                <FaChevronLeft />
-              </button>
-              <span>
-                {currentCommentPage} ... {totalPages}
-              </span>
-              <button
-                disabled={currentCommentPage === totalPages}
-                onClick={() => setCurrentCommentPage(currentCommentPage + 1)}
-              >
-                <FaChevronRight />
-              </button>
+              </div>
             </div>
-          </div>
-        </div>
-      </div>
-      {/* Review Comment Modal */}
-      {modalOpen && selectedReviewId && (
+          </>
+        )}
+
+        {modalOpen && selectedReviewId && (
           <ReviewCommentModal
             onClose={() => setModalOpen(false)}
             reviewId={selectedReviewId}
             gameId={selectedGameId}
           />
         )}
+      </div>
     </div>
   );
 };

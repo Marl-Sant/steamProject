@@ -295,22 +295,30 @@
   filter: blur(7px);
 }
 
-#no-user-message {
+.comment-area-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 940px;
+  margin: 2rem auto;
+}
+
+.no-user-comment-message-1 {
   position: absolute;
-  margin-left: 21rem;
-  margin-top: 10rem;
-  padding: 0.75rem 1rem;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 8px;
-
+  top: 7rem;
+  left: 0;
+  width: 95%;
+  padding: 1rem 1.5rem;
+  background-color: rgba(0,0,0,0.85);
   color: white;
-  font-size: 20px;
+  border-radius: 8px;
+  font-size: 1.1rem;
   z-index: 10;
+  text-align: center;
+}
 
-  background-color: black;
+.blur-container {
+  filter: blur(7px);
+  pointer-events: none; /* prevents interacting with the blurred textarea */
 }
 
 .login-review-area {
