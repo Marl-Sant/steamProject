@@ -10,6 +10,9 @@ import {
   faChevronLeft,
   faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
+import Decoder from "../ChatArea/Decoder.jsx";
+import Chat from "../ChatArea/Chat.jsx"
+
 
 const CarouselComponent = () => {
   const allGames = useSelector((state) => state.games?.allGames);
@@ -87,11 +90,19 @@ function StorePage() {
 
   return (
     <>
+
+      {/* Game carousel */}
       {isLoaded ? (
         <div className="store-page">
           <div className="featured-games-menu">
             <CarouselComponent />
+            <Decoder 
+              message="Hi and welcome to Gleam! I am here to assist you with any questions you may have!" 
+              speed={22} 
+            />
+            <Chat />
           </div>
+          
         </div>
       ) : (
         <div>Loading...</div>

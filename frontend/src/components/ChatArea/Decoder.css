@@ -1,0 +1,10 @@
+.decoding-style {
+  font-family: monospace;
+  white-space: pre-wrap;
+  color: white;
+  font-size: 30px;
+  text-shadow: 
+    0 0 5px teal,
+    0 0 10px teal,
+    0 0 15px teal;
+}

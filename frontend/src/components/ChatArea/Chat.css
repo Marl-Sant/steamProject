@@ -1,0 +1,49 @@
+
+.ai-input-container {
+  width: 100%;
+  max-width: 93%;
+  display: flex;
+  flex-direction: column;
+}
+
+form {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.ai-input-field {
+  flex: 1;
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  border: 1px solid teal;
+  color: white;
+  font-family: monospace;
+  font-size: 1rem;
+  outline: none;
+}
+
+.ai-input-field::placeholder {
+  color: #0f0;
+  opacity: 0.6;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  background-color: #000;
+  border: 1px solid teal;
+  color: white;
+  font-family: monospace;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+button:hover {
+  background-color: teal;
+  color: #000;
+}
+
+.reply-area{
+  display: flex;
+  flex-direction: row;
+  max-width: 93%;
+}

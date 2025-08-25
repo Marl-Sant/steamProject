@@ -27,11 +27,9 @@
   border: 0.1rem solid rgb(112, 111, 111);
 }
 
-#profile-pic-container {
-  margin: 0 2rem;
-}
 
 #text-area {
+  margin-left: 1rem;
   display: grid;
   grid-template-rows: 3fr 1fr;
   padding: 0 2rem 0 0;
@@ -105,3 +103,4 @@
   display: inline-flex;
   align-items: center;
 }
+

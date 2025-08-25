@@ -26,16 +26,19 @@ function ChatArea() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
-        />
-        <button type="submit">Ask us!</button>
-      </form>
-      <div className="reply-area"><HtmlToText props={reply}/></div>
+    <div className="page-wrapper">
+      <div className="ai-input-container">
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            className="ai-input-field"
+            />
+          <button type="submit">Ask us!</button>
+        </form>
+        <div className="reply-area"><HtmlToText props={reply}/></div>
+      </div>
     </div>
   );
 }
