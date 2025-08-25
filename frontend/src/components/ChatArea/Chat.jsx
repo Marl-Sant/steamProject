@@ -35,7 +35,7 @@ function ChatArea() {
             onChange={(e) => setMessage(e.target.value)}
             className="ai-input-field"
             />
-          <button type="submit">Ask us!</button>
+          <button type="submit">Ask Me!</button>
         </form>
         <div className="reply-area"><HtmlToText props={reply}/></div>
       </div>

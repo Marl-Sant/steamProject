@@ -97,7 +97,7 @@ function StorePage() {
           <div className="featured-games-menu">
             <CarouselComponent />
             <Decoder 
-              message="Hi and welcome to Gleam! I am here to assist you with any questions you may have!" 
+              message="Hello and welcome to Gleam! I am here to assist you with anything Gleam related!" 
               speed={22} 
             />
             <Chat />
