@@ -10,6 +10,7 @@ import CommunitiesListPage from "./components/CommunitiesListPage/CommunitiesLis
 import ProfilePage from "./components/ProfilePage/ProfilePage.jsx";
 import WrongTurn from "./components/WrongTurn/WrongTurn.jsx";
 import CommunityDetail from "./components/CommunityDetail/CommunityDetail.jsx";
+import ChatArea from "./components/ChatArea/Chat.jsx";
 import * as sessionActions from "./store/session";
 
 function Layout() {
@@ -61,6 +62,10 @@ const router = createBrowserRouter([
       {
         path: "users/:userId",
         element: <ProfilePage />,
+      },
+      {
+        path: "chat",
+        element: <ChatArea />,
       },
       {
         path: "*",

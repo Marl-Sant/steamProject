@@ -1,11 +1,10 @@
-'use strict';
+"use strict";
 
-const { ReviewComment } = require('../models');
-const { Review } = require('../models');
-
+const { ReviewComment } = require("../models");
+const { Review } = require("../models");
 
 let options = {};
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;
 }
 
@@ -16,16 +15,16 @@ module.exports = {
     const seededReviews = allReviews.map((review, i) => {
       if (review.id % 2) {
         return {
-          userId: i + 1,
+          userId: Math.floor(Math.random() * 10) + 1,
           reviewId: review.id,
-          comment: 'I couldnt agree more! Its great!',
+          comment: "I couldnt agree more! Its great!",
           isHelpful: true,
         };
       } else {
         return {
-          userId: i + 1,
+          userId: Math.floor(Math.random() * 10) + 1,
           reviewId: review.id,
-          comment: 'Just all around bad',
+          comment: "Just all around bad",
           isHelpful: false,
         };
       }
@@ -57,7 +56,7 @@ module.exports = {
   },
 
   async down(queryInterface, Sequelize) {
-    options.tableName = 'ReviewComments';
+    options.tableName = "ReviewComments";
     const Op = Sequelize.Op;
     return queryInterface.bulkDelete(options, {
       userId: {
