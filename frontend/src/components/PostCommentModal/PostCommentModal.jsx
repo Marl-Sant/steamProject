@@ -1,17 +1,17 @@
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
-import * as commentActions from "../../store/comments";
-import "./ReviewCommentModal.css";
+import * as postActions from "../../store/posts.js";
+import "../ReviewCommentModal/ReviewCommentModal.css";
 import CommentArea from "../CommentArea/CommentArea.jsx";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
-function PostCommentModal({ onClose, reviewId, gameId }) {
+function PostCommentModal({ onClose, postId, gameId }) {
   const dispatch = useDispatch();
-  const reviews = useSelector((state) => state.reviews?.allReviews);
-  const allReviewsArray = reviews ? Object.entries(reviews) : [];
+  const post = useSelector((state) => state.posts?.allRecentPosts[postId]);
+  // const allPostsArray = post ? Object.entries(post) : [];
   const [isHelpful, setIsHelpful] = useState(null);
 
-  const comments = useSelector((state) => state.comments?.allComments);
+  const comments = useSelector((state) => state.posts.allRecentPosts[postId].PostComments);
   let allCommentsArray;
   if (comments) {
     allCommentsArray = Object.entries(comments);
@@ -20,44 +20,44 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
   }
 
   useEffect(() => {
-    if (reviewId) {
-      dispatch(commentActions.setCommentsState(reviewId));
+    if (postId) {
+      dispatch(postActions.populateCurrentPost(postId));
     }
-  }, [gameId, reviewId, dispatch]);
+  }, [postId, gameId, dispatch]);
 
-  const reviewComments = allCommentsArray.filter(
-    (comment) => comment[1].reviewId === reviewId
-  );
-  const selectedReview = allReviewsArray.find(
-    (review) => review[1].id === reviewId
-  );
+  // const reviewComments = allCommentsArray.filter(
+  //   (comment) => comment[1].reviewId === reviewId
+  // );
+  // const post = posts.find(
+  //   (post) => post[0] === postId
+  // );
 
-  const review = selectedReview ? selectedReview[1] : null;
+  // const review = selectedReview ? selectedReview[1] : null;
 
-  let isHelpfulCount = 0;
-  let isNotHelpfulCount = 0;
+  // let isHelpfulCount = 0;
+  // let isNotHelpfulCount = 0;
 
-  if (allCommentsArray) {
-    allCommentsArray.forEach((entry) => {
-      const comment = entry[1];
-      if (comment.isHelpful === true) isHelpfulCount++;
-      else if (comment.isHelpful === false) isNotHelpfulCount++;
-    });
-  }
+  // if (allCommentsArray) {
+  //   allCommentsArray.forEach((entry) => {
+  //     const comment = entry[1];
+  //     if (comment.isHelpful === true) isHelpfulCount++;
+  //     else if (comment.isHelpful === false) isNotHelpfulCount++;
+  //   });
+  // }
 
-  let sentiment = "No Ratings";
-  const total = isHelpfulCount + isNotHelpfulCount;
+  // let sentiment = "No Ratings";
+  // const total = isHelpfulCount + isNotHelpfulCount;
 
-  if (total === 1) {
-    sentiment = isHelpfulCount === 1 ? "Mostly Helpful" : "Mostly Not Helpful";
-  } else if (total > 1) {
-    const ratio = isHelpfulCount / total;
+  // if (total === 1) {
+  //   sentiment = isHelpfulCount === 1 ? "Mostly Helpful" : "Mostly Not Helpful";
+  // } else if (total > 1) {
+  //   const ratio = isHelpfulCount / total;
 
-    if (ratio > 0.65) sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
-    else if (ratio < 0.35)
-      sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
-    else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
-  }
+  //   if (ratio > 0.65) sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
+  //   else if (ratio < 0.35)
+  //     sentiment = `${Math.floor(ratio * 100)}% Mostly Helpful`;
+  //   else sentiment = `${Math.floor(ratio * 100)}% Mixed`;
+  // }
 
   return (
     <div className="modal" onClick={onClose}>
@@ -67,14 +67,14 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
             &times;
           </button>
 
-          {review?.User && (
+          {post?.User && (
             <div className="reviewer-profile-container">
               <img
                 className="reviewer-profile-pic"
-                src={review.User.profilePic || "/default-avatar.png"}
-                alt={`${review.User.username}'s profile`}
+                src={post.User.profilePic || "/default-avatar.png"}
+                alt={`${post.User.username}'s profile`}
               />
-              <div className="review-author">{review.User.username}</div>
+              <div className="review-author">{post.User.username}</div>
             </div>
           )}
         </div>
@@ -82,14 +82,14 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
         <div className="review-content">
           <div className="recommended-container">
             <div className="is-recommended">
-              {review.isRecommended ? (
+              {post.isRecommended ? (
                 <div className="recommendation">
                   <FaThumbsUp className="yes-helpful" />
                   <div className="recommended-text-container">
                     <span className="recommended-text">Recommended</span>
                     <div className="review-sentiment">
                       <span className="game-description-value">
-                        {sentiment}
+                        {/* {sentiment} */}
                       </span>
                     </div>
                   </div>
@@ -103,7 +103,7 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
                     </span>
                     <div className="review-sentiment">
                       <span className="helpful-description-value">
-                        {sentiment}
+                        {/* {sentiment} */}
                       </span>
                     </div>
                   </div>
@@ -117,7 +117,7 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
               <div className="review-created">
                 Posted:{" "}
                 {(() => {
-                  const date = new Date(review.createdAt);
+                  const date = new Date(post.createdAt);
                   const day = String(date.getDate()).padStart(2, "0");
                   const month = date.toLocaleString("en-US", {
                     month: "short",
@@ -132,15 +132,15 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
             </div>
 
             <div className="updated-at-container">
-              {review.updatedAt && review.updatedAt !== review.createdAt && (
+              {post.updatedAt && post.updatedAt !== post.createdAt && (
                 <div className="review-updated">
-                  Updated: {review.updatedAt}
+                  Updated: {post.updatedAt}
                 </div>
               )}
             </div>
 
             <div className="user-review-container">
-              <div className="user-review">{review.review}</div>
+              <div className="user-review">{post.post}</div>
             </div>
           </div>
 
@@ -150,7 +150,7 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
             <div className="helpful-row">
               <p className="helpful-label">Was this review helpful?</p>
               <div id="comment-button-row-2">
-                <button
+                {/* <button
                   className={
                     isHelpful === true
                       ? "comment-review-button selected"
@@ -169,21 +169,21 @@ function PostCommentModal({ onClose, reviewId, gameId }) {
                   onClick={() => setIsHelpful(false)}
                 >
                   👎 No
-                </button>
+                </button> */}
               </div>
             </div>
 
             <div>
-              <CommentArea
+              {/* <CommentArea
                 gameId={gameId}
                 reviewId={reviewId}
                 isHelpful={isHelpful}
-              />
+              /> */}
             </div>
 
             <div className="comment-container">
               {allCommentsArray && allCommentsArray.length > 0 ? (
-                [...reviewComments].reverse().map((comment) => (
+                [...allCommentsArray].reverse().map((comment) => (
                   <div key={comment[1].id} className="comment-item">
                     <img
                       src={`${comment[1].User?.profilePic}`}

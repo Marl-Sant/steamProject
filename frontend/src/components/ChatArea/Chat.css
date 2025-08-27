@@ -17,7 +17,7 @@ form {
   background-color: #000;
   border: 1px solid teal;
   color: white;
-  font-family: monospace;
+  font-family: Arial;
   font-size: 1rem;
   outline: none;
 }
@@ -32,7 +32,7 @@ button {
   background-color: #000;
   border: 1px solid teal;
   color: white;
-  font-family: monospace;
+  font-family: Arial;
   cursor: pointer;
   transition: 0.2s;
 }
