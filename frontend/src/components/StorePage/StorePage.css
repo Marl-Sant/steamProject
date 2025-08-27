@@ -2,11 +2,17 @@
   padding: 2rem 1.5rem;
 }
 
-.store-page {
+.store-background {
+  position: relative;
   min-height: 100vh;
-  background: linear-gradient(to bottom right, #1b2838, #2a475e);
-  color: #c7d5e0;
   width: 100%;
+  background-image: 
+    linear-gradient(to bottom right, rgba(27,40,56,0.85), rgba(42,71,94,0.85)),
+    url('../backgroundHomePage.jpg');
+  background-repeat: no-repeat;
+  background-position: center top;
+  background-size: cover;
+  background-attachment: fixed;
 }
 
 .page-wrapper {
