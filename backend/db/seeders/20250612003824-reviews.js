@@ -48,7 +48,7 @@ module.exports = {
       },
       {
         review:
-          "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+          "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
         userId: 2,
         gameId: 1,
         isRecommended: false,
