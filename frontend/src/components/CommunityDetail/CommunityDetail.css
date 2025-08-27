@@ -1,14 +1,15 @@
+.community-detail-page {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #1b2838, #2a475e);
+  color: #c7d5e0;
+  padding-top: 90px;
+}
+
 .community-container {
   margin: 0 25%;
   background: #101820;
   color: #a9a9a9;
   padding: 1em;
-}
-
-.community-detail-page {
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #1b2838, #2a475e);
-  color: #c7d5e0;
 }
 
 .title-and-store-page {
@@ -39,4 +40,71 @@
   display: flex;
   justify-content: space-around;
   margin-top: 1em;
+}
+
+.community-posts-wrapper {
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 1rem;
+}
+
+.community-posts {
+  display: flex;
+  margin-left: -1rem;
+  width: auto;
+}
+
+.community-post-column {
+  padding-left: 1rem;
+  background-clip: padding-box;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.community-post {
+  background-color: #101820;
+  padding: 1rem;
+  border-radius: 6px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+  color: #c7d5e0;
+}
+
+.community-post .post-title p {
+  margin: 0;
+}
+
+.community-post .post-content p {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.poster-details {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 0.5rem;
+}
+
+.poster-profile-pic {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+  border: 1px solid lightblue;
+}
+
+.poster-information {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-username {
+  font-weight: 600;
+  font-size: 14px;
+}
+
+.post-date {
+  font-size: 12px;
+  color: #888;
 }

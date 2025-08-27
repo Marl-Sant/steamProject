@@ -40,7 +40,7 @@ const CarouselComponent = () => {
   );
 
   return (
-    <div className="page-wrapper">
+    <div className="page-wrapper" style={{marginTop: "120px"}}>
       <button className="left-slide-button" onClick={() => slider.current.prev()}>
         <FontAwesomeIcon icon={faChevronLeft} size="4x" />
       </button>
@@ -97,7 +97,7 @@ function StorePage() {
           <div className="featured-games-menu">
             <CarouselComponent />
             <Decoder 
-              message="Hello and welcome to Gleam! I am here to assist you with anything Gleam related!" 
+              message="HELLO AND WELCOME TO GLEAM! I AM HERE TO ASSIST YOU WITH ANYTHING GLEAM!" 
               speed={22} 
             />
             <Chat />

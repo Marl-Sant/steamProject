@@ -1,8 +1,11 @@
 .decoding-style {
-  font-family: monospace;
   white-space: pre-wrap;
   color: white;
+  text-decoration: none;
   font-size: 30px;
+  font-weight: 700;
+  color: white;
+  font-variant: small-caps;
   text-shadow: 
     0 0 5px teal,
     0 0 10px teal,

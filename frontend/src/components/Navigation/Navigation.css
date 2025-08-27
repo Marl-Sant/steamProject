@@ -1,9 +1,14 @@
 .nav-bar {
   background: #131c27;
-  height: 123px;
+  height: 90px;
   width: 100%;
   display: flex;
   align-items: center;
+
+  position: fixed;   /* 👈 makes it stay in place */
+  top: 0;            /* 👈 sticks to top */
+  left: 0;
+  z-index: 1000;     /* 👈 keeps it above page content */
 }
 
 .nav-wrapper {
@@ -32,7 +37,6 @@
 
 .nav-title {
   text-decoration: none;
-  font-family: var(--body-font);
   font-size: 30px;
   font-weight: 700;
   color: white;
