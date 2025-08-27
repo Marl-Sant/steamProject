@@ -1,16 +1,17 @@
-const express = require("express");
+const express = require('express');
 
-const { Post } = require("../../db/models");
-const { Community } = require("../../db/models");
-const { Game } = require("../../db/models");
-const { User } = require("../../db/models");
+const { Post } = require('../../db/models');
+const { Community } = require('../../db/models');
+const { Game } = require('../../db/models');
+const { User } = require('../../db/models');
+const { PostComment } = require('../../db/models');
 
-const Sequelize = require("sequelize");
+const Sequelize = require('sequelize');
 
 const router = express.Router();
 const Op = Sequelize.Op;
 
-router.get("/", async (req, res) => {
+router.get('/', async (req, res) => {
   let excludeUserId;
   if (req.user) {
     excludeUserId = req.user.id;
@@ -30,20 +31,24 @@ router.get("/", async (req, res) => {
         include: [
           {
             model: Game,
-            attributes: ["title"],
+            attributes: ['title'],
           },
         ],
       },
       { model: User },
+      {
+        model: PostComment,
+        include: [{ model: User }],
+      },
     ],
-    order: [["createdAt", "DESC"]],
+    order: [['createdAt', 'DESC']],
     limit: 10,
   });
 
   return res.json(recentPosts);
 });
 
-router.get("/current", async (req, res) => {
+router.get('/current', async (req, res) => {
   const userId = req.user.id;
   const recentUserPosts = await Post.findAll({
     where: {
@@ -55,15 +60,37 @@ router.get("/current", async (req, res) => {
         include: [
           {
             model: Game,
-            attributes: ["title"],
+            attributes: ['title'],
           },
         ],
       },
     ],
-    order: [["createdAt", "DESC"]],
+    order: [['createdAt', 'DESC']],
     limit: 10,
   });
   return res.json(recentUserPosts);
+});
+
+router.get('/:postId', async (req, res) => {
+  const postId = req.params.postId;
+  const currentPost = await Post.findOne({
+    where: {
+      id: postId,
+    },
+    include: [
+      {
+        model: Community,
+        include: [
+          {
+            model: Game,
+            attributes: ['title'],
+          },
+        ],
+      },
+    ],
+  });
+
+  return res.json(currentPost);
 });
 
 module.exports = router;

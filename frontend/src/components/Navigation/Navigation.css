@@ -32,7 +32,6 @@
 
 .nav-title {
   text-decoration: none;
-  font-family: var(--body-font);
   font-size: 30px;
   font-weight: 700;
   color: white;
@@ -53,7 +52,6 @@
 .nav-links li a {
   color: white;
   text-decoration: none;
-  font-family: var(--body-font);
   font-size: 15px;
   font-weight: 500;
   letter-spacing: 0.6px;

@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { SlSpeech } from "react-icons/sl";
 import CommunitySearch from "../CommunitySearch/CommunitySearch";
 import UserRecentPosts from "../UserRecentPosts/UserRecentPosts";
 // import UserSearch from "../UserSearch/UserSearch";
@@ -8,6 +9,7 @@ import RecentlyActiveCommunities from "../RecentlyActiveCommunities/RecentlyActi
 import * as communitiesActions from "../../store/communities";
 import * as postsActions from "../../store/posts";
 import "./CommunitiesListPage.css";
+import PostCommentModal from "../PostCommentModal/PostCommentModal";
 
 function CommunitiesListPage() {
   const dispatch = useDispatch();
@@ -15,6 +17,8 @@ function CommunitiesListPage() {
   const user = useSelector((state) => state.session?.user);
   const userPosts = useSelector((state) => state.posts?.userRecentPosts);
   const allPosts = useSelector((state) => state.posts?.allRecentPosts);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentPostId, setCurrentPostId] = useState(null)
 
   let userRecentPosts;
   if (user && userPosts) {
@@ -141,7 +145,16 @@ function CommunitiesListPage() {
                       </NavLink>
                     </div>
                     <div className="post-and-post-info">
-                      <span className="post-title">{post[1].title}</span>
+                      <span className="post-title">{post[1].title}{post[0]}
+                         <SlSpeech onClick={() => {
+                          setModalOpen(true);
+                          setCurrentPostId(post[0])
+                          }}/>
+                      </span>
+                     
+                      {modalOpen && 
+                      <PostCommentModal onClose={() => setModalOpen(false)} postId={currentPostId} gameId={post[1].Community.Game.id} />
+                      }
                       {post[1].post.length < 50 ? (
                         <div className="post-content">{post[1].post}</div>
                       ) : (

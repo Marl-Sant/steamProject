@@ -95,12 +95,12 @@ function StorePage() {
       {isLoaded ? (
         <div className="store-page">
           <div className="featured-games-menu">
-            <CarouselComponent />
             <Decoder 
               message="Hello and welcome to Gleam! I am here to assist you with anything Gleam related!" 
               speed={22} 
             />
             <Chat />
+            <CarouselComponent />
           </div>
           
         </div>
