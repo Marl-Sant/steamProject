@@ -10,6 +10,7 @@ import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import HtmlToText from "../HtmlToText/HtmlToText";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 import { SlSpeech } from "react-icons/sl";
+import Masonry from "react-masonry-css";
 
 function GameDetailPage() {
   const { gameId } = useParams();
@@ -32,6 +33,12 @@ function GameDetailPage() {
   useEffect(() => {
     setDisplayMainPicture(game?.movies[0]);
   }, [game]);
+
+  const breakpointColumnsObj = {
+    default: 3,
+    1100: 2,
+    700: 1
+  };
 
   let allReviewsArray;
   let userReview;
@@ -305,87 +312,76 @@ function GameDetailPage() {
 
           <div className="reviews-container">
             {allReviewsArray && allReviewsArray.length > 0 ? (
-              gameReviews.map((review) => (
-                <div
-                  key={review[1].id}
-                  className="review-item"
-                  onClick={() => {
-                    if (openModal) return;
-                    setSelectedReviewId(review[1].id);
-                    setOpenModal(true);
-                  }}
-                >
-                  <div className="review-header-row">
-                    {review[1].isRecommended ? (
-                      <>
-                        <FaThumbsUp className="yes-helpful" />
-                        <span className="review-recommended-text">
-                          Recommended
-                        </span>
-                      </>
-                    ) : (
-                      <>
-                        <FaThumbsDown className="not-helpful" />
-                        <span className="review-not-recommended-text">
-                          Not Recommended
-                        </span>
-                      </>
-                    )}
-                  </div>
+              <Masonry
+                breakpointCols={breakpointColumnsObj}
+                className="community-posts"
+                columnClassName="community-post-column"
+              >
+                {gameReviews.map((review) => (
+                  <div
+                    key={review[1].id}
+                    className="community-post"
+                    onClick={() => {
+                      if (openModal) return;
+                      setSelectedReviewId(review[1].id);
+                      setOpenModal(true);
+                    }}
+                  >
+                    <div className="post-title">
+                      {review[1].isRecommended ? (
+                        <>
+                          <FaThumbsUp className="yes-helpful" />
+                          <span className="review-recommended-text">Recommended</span>
+                        </>
+                      ) : (
+                        <>
+                          <FaThumbsDown className="not-helpful" />
+                          <span className="review-not-recommended-text">Not Recommended</span>
+                        </>
+                      )}
+                    </div>
 
-                  <div className="review-date">
-                    Post:{" "}
-                    {(() => {
-                      const date = new Date(review[1].createdAt);
-                      const day = String(date.getDate()).padStart(2, "0");
-                      const month = date.toLocaleString("en-US", {
-                        month: "short",
-                      });
-                      let hours = date.getHours();
-                      const minutes = String(date.getMinutes()).padStart(2, "0");
-                      const ampm = hours >= 12 ? "pm" : "am";
-                      hours = hours % 12 || 12;
-                      return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
-                    })()}
-                  </div>
+                    <div className="post-content">
+                      <p>{review[1].review}</p>
+                    </div>
 
-                  <div className="review-comment">{review[1].review}</div>
-
-                  <hr className="line-break" />
-
-                  <div className="review-profile-pic-container">
-                    <img
-                      src={`${review[1].User?.profilePic}`}
-                      alt={`${review[1].User?.username}'s profile`}
-                      className="review-profile-pic"
-                    />
-                    <div>
-                      <div className="reviewer-username">
-                        {review[1].User?.username}
-                      </div>
-
-                      <div className="comment-icon-wrapper">
-                        <SlSpeech className="speech-bubble" />
-                        <span className="total-comments">
-                          {review[1].ReviewComments.length}
-                        </span>
+                    <div className="poster-details">
+                      <img
+                        src={`${review[1].User?.profilePic}`}
+                        alt={`${review[1].User?.username}'s profile`}
+                        className="poster-profile-pic"
+                      />
+                      <div className="poster-information">
+                        <div className="user-username">{review[1].User?.username}</div>
+                        <div className="post-date">
+                          {(() => {
+                            const date = new Date(review[1].createdAt);
+                            const day = String(date.getDate()).padStart(2, "0");
+                            const month = date.toLocaleString("en-US", { month: "short" });
+                            let hours = date.getHours();
+                            const minutes = String(date.getMinutes()).padStart(2, "0");
+                            const ampm = hours >= 12 ? "pm" : "am";
+                            hours = hours % 12 || 12;
+                            return `${day} ${month} @ ${hours}:${minutes}${ampm}`;
+                          })()}
+                        </div>
                       </div>
                     </div>
-                  </div>
 
-                  <div className="view-comments">
-                    {openModal && selectedReviewId && (
-                      <ReviewCommentModal
-                        onClose={() => {
-                          setOpenModal(false);
-                          setSelectedReviewId(null);
-                        }}
-                        reviewId={selectedReviewId}
-                      />
-                    )}
+                    <div className="view-comments">
+                      {openModal && selectedReviewId && (
+                        <ReviewCommentModal
+                          onClose={() => {
+                            setOpenModal(false);
+                            setSelectedReviewId(null);
+                          }}
+                          reviewId={selectedReviewId}
+                        />
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))
+                ))}
+              </Masonry>
             ) : (
               <p>No Reviews</p>
             )}

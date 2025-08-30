@@ -14,6 +14,7 @@
   margin-top: -25em;
   max-width: 1440px;
   margin: -20rem auto;
+  padding-bottom: 1rem;
 }
 
 .game-container {
@@ -456,4 +457,9 @@
   margin-top: 12.5rem;
   flex-direction: column;
   margin-left: -1rem;
+}
+
+
+.community-post:hover {
+  border: 2px solid #90d5ff;
 }
