@@ -18,12 +18,15 @@ const CarouselComponent = () => {
   const allGames = useSelector((state) => state.games?.allGames);
   const navigate = useNavigate();
 
-  const allGamesArray = allGames ? Object.entries(allGames) : [];
+  const allGamesArray = useMemo(
+    () => (allGames ? Object.entries(allGames) : []),
+    [allGames]
+  );
   const isReady = allGamesArray.length > 0;
 
   const sliderKey = useMemo(
     () => (isReady ? `slider-${allGamesArray.length}` : null),
-    [allGamesArray, isReady]
+    [allGamesArray.length, isReady]
   );
 
   const [sliderRef, slider] = useKeenSlider(

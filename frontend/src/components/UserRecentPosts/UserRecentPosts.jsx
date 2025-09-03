@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { NavLink } from "react-router-dom";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import * as postsActions from "../../store/posts";
 
 function UserRecentPosts() {
   const dispatch = useDispatch();
-  const [loaded, setLoaded] = useState(false);
   const user = useSelector((state) => state.session.user);
   const userPosts = useSelector((state) => state.posts?.userRecentPosts);
 

@@ -9,7 +9,6 @@ import EditReviewArea from "../EditReviewArea/EditReviewArea";
 import ReviewCommentModal from "../ReviewCommentModal/ReviewCommentModal";
 import HtmlToText from "../HtmlToText/HtmlToText";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
-import { SlSpeech } from "react-icons/sl";
 import Masonry from "react-masonry-css";
 
 function GameDetailPage() {

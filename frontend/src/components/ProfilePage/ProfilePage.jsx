@@ -35,7 +35,6 @@ const ProfilePage = () => {
   );
   const currentProfile = useSelector((state) => state.currentProfile);
   const profilePosts = useSelector((state) => state.posts.profilePosts);
-  const user = useSelector((state) => state.session.user);
 
   useEffect(() => {
     setEditUsername(currentProfile?.username || '');

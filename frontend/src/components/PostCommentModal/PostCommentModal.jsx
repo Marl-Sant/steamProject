@@ -1,15 +1,12 @@
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import * as postActions from "../../store/posts.js";
 import "../ReviewCommentModal/ReviewCommentModal.css";
-import CommentArea from "../CommentArea/CommentArea.jsx";
 import { FaThumbsUp, FaThumbsDown } from "react-icons/fa";
 
 function PostCommentModal({ onClose, postId, gameId }) {
   const dispatch = useDispatch();
   const post = useSelector((state) => state.posts?.allRecentPosts[postId]);
-  // const allPostsArray = post ? Object.entries(post) : [];
-  const [isHelpful, setIsHelpful] = useState(null);
 
   const comments = useSelector((state) => state.posts.allRecentPosts[postId].PostComments);
   let allCommentsArray;

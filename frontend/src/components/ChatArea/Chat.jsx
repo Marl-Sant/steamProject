@@ -1,5 +1,4 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import "./Chat.css";
 import { csrfFetch } from "../../store/csrf";
 import HtmlToText from "../HtmlToText/HtmlToText";
