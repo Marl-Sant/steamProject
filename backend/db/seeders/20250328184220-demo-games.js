@@ -6,6 +6,7 @@ let options = {};
 if (process.env.NODE_ENV === "production") {
   options.schema = process.env.SCHEMA;
 }
+let deleteTitle = [];
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
@@ -23,6 +24,7 @@ module.exports = {
         const jsonResponse = await response.json();
         const base = jsonResponse[`${id}`]["data"];
         let seedGame = {};
+        deleteTitle.push(base["name"]);
         seedGame["title"] = base["name"];
         seedGame["shortDescription"] = base["short_description"];
         seedGame["detailedDescription"] = base["detailed_description"];
@@ -107,7 +109,7 @@ module.exports = {
       options,
       {
         title: {
-          [Op.in]: ["Final Fantasy XI", "Halo", "The Sims"],
+          [Op.in]: deleteTitle,
         },
       },
       {}

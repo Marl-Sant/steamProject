@@ -133,7 +133,18 @@ module.exports = {
       options,
       {
         username: {
-          [Op.in]: ["Demo-lition", "FakeUser1", "FakeUser2"],
+          [Op.in]: [
+            "Demo-lition",
+            "FakeUser1",
+            "FakeUser2",
+            "TeefahLockehart",
+            "ShortStomp",
+            "TallStomp",
+            "GamingGranny",
+            "Iwillberefunding",
+            "PotatoChip",
+            "LegSweepLarry",
+          ],
         },
       },
       {}
