@@ -56,6 +56,7 @@ router.get("/:userId", async (req, res) => {
     include: [
       {
         model: Review,
+        seperate: true,
         include: [
           {
             model: Game,
@@ -66,6 +67,7 @@ router.get("/:userId", async (req, res) => {
       },
       {
         model: Post,
+        seperate: true,
         include: {
           model: Community,
           include: {
@@ -76,6 +78,7 @@ router.get("/:userId", async (req, res) => {
       },
       {
         model: ProfileComment,
+        seperate: true,
         as: "commentsReceived",
         include: {
           model: User,
@@ -84,15 +87,20 @@ router.get("/:userId", async (req, res) => {
       },
       {
         model: ProfileComment,
+        seperate: true,
         as: "commentsMade",
         include: {
           model: User,
           as: "profileOwner",
         },
       },
-      { model: ReviewComment },
+      {
+        model: ReviewComment,
+        seperate: true,
+      },
       {
         model: Ownership,
+        seperate: true,
         include: {
           model: Game,
         },
