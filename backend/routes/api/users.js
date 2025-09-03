@@ -60,6 +60,7 @@ router.get("/:userId", async (req, res) => {
         include: [
           {
             model: Game,
+            seperate: true,
             attributes: ["id", "title", "headerImage"],
           },
         ],
@@ -72,6 +73,7 @@ router.get("/:userId", async (req, res) => {
           model: Community,
           include: {
             model: Game,
+            seperate: true,
             attributes: ["id", "title"],
           },
         },
@@ -82,6 +84,7 @@ router.get("/:userId", async (req, res) => {
         as: "commentsReceived",
         include: {
           model: User,
+          seperate: true,
           as: "commenter",
         },
       },
@@ -91,6 +94,7 @@ router.get("/:userId", async (req, res) => {
         as: "commentsMade",
         include: {
           model: User,
+          seperate: true,
           as: "profileOwner",
         },
       },
@@ -103,6 +107,7 @@ router.get("/:userId", async (req, res) => {
         seperate: true,
         include: {
           model: Game,
+          seperate: true,
         },
       },
     ],
