@@ -15,15 +15,15 @@ function CommunitiesListPage() {
   const dispatch = useDispatch();
   const [loaded, setLoaded] = useState(false);
   const user = useSelector((state) => state.session?.user);
-  const userPosts = useSelector((state) => state.posts?.userRecentPosts);
+  // const userPosts = useSelector((state) => state.posts?.userRecentPosts);
   const allPosts = useSelector((state) => state.posts?.allRecentPosts);
   const [modalOpen, setModalOpen] = useState(false);
-  const [currentPostId, setCurrentPostId] = useState(null)
+  const [currentPostId, setCurrentPostId] = useState(null);
 
-  let userRecentPosts;
-  if (user && userPosts) {
-    userRecentPosts = Object.entries(userPosts);
-  }
+  // let userRecentPosts;
+  // if (user && userPosts) {
+  //   userRecentPosts = Object.entries(userPosts);
+  // }
   let allRecentPostsArray;
   if (allPosts) {
     allRecentPostsArray = Object.entries(allPosts);
@@ -145,16 +145,24 @@ function CommunitiesListPage() {
                       </NavLink>
                     </div>
                     <div className="post-and-post-info">
-                      <span className="post-title">{post[1].title}{post[0]}
-                         <SlSpeech onClick={() => {
-                          setModalOpen(true);
-                          setCurrentPostId(post[0])
-                          }}/>
+                      <span className="post-title">
+                        {post[1].title}
+                        {post[0]}
+                        <SlSpeech
+                          onClick={() => {
+                            setModalOpen(true);
+                            setCurrentPostId(post[0]);
+                          }}
+                        />
                       </span>
-                     
-                      {modalOpen && 
-                      <PostCommentModal onClose={() => setModalOpen(false)} postId={currentPostId} gameId={post[1].Community.Game.id} />
-                      }
+
+                      {modalOpen && (
+                        <PostCommentModal
+                          onClose={() => setModalOpen(false)}
+                          postId={currentPostId}
+                          gameId={post[1].Community.Game.id}
+                        />
+                      )}
                       {post[1].post.length < 50 ? (
                         <div className="post-content">{post[1].post}</div>
                       ) : (
