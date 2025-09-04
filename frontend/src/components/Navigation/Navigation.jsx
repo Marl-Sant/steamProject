@@ -8,11 +8,6 @@ import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(sessionActions.restoreUser());
-  }, [sessionUser.username]);
 
   const sessionLinks = sessionUser ? (
     <ProfileButton user={sessionUser} />
